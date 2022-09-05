@@ -2,7 +2,7 @@
 const pages : Array<Object> = [
   {
     name: 'Posts',
-    path: '/',
+    path: '/posts',
   },
   {
     name: 'Projects',
