@@ -49,14 +49,4 @@ const sidebar = useState<boolean>('sidebar', () => false)
 .bt-shadow {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
-
-.slide-enter-active,
-.slide-leave-active {
-	transition: opacity 0.5s ease;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-	opacity: 0;
-}
 </style>

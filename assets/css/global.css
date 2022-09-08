@@ -4,3 +4,14 @@
   src: url('./assets/fonts/Alexander.otf');
   font-display: swap;
 }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.25s cubic-bezier(1, 0.8, 0.8, 1);
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-75px);
+}
