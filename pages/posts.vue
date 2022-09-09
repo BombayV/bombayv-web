@@ -1,20 +1,4 @@
 <script setup lang="ts">
-const pages : Array<Object> = [
-  {
-    name: 'Home',
-    path: '/',
-  },
-  {
-    name: 'Gallery',
-    path: '/gallery',
-  },
-  {
-    name: 'Projects',
-    path: '/projects',
-  }
-];
-
-
 const posts = ref([]);
 
 onMounted(async () => {
@@ -24,7 +8,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <Navbar :pages="pages"/>
     <h1 class="text-5xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-96 duration-150">Latest Posts</h1>
     <div class="flex flex-col items-center py-6 bg-zinc-200 dark:bg-zinc-900 gap-y-6">
       <div v-for="test in 1" class="w-4/6 bg-zinc-300 dark:bg-zinc-800 rounded-lg shadow-lg flex flex-col items-center font-mont px-6 py-5">
@@ -34,7 +17,7 @@ onMounted(async () => {
           <p class="text-sm text-zinc-600 self-start">August 9, 2022</p>
         </div>
         <p class="text-zinc-900 dark:text-zinc-200 text-left text-sm break-all">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
-        <NuxtLink to="/posts/test" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
+        <NuxtLink to="/posts/" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
       </div>
     </div>
   </div>
