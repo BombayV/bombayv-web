@@ -3,27 +3,12 @@ type Theme = 'light' | 'dark';
 const setColorTheme = (newTheme: Theme) => {
   useColorMode().preference = newTheme;
 }
-
-const pages : Array<Object> = [
-	{
-		name: 'Posts',
-		path: '/posts',
-	},
-	{
-		name: 'Projects',
-		path: '/projects',
-	},
-	{
-		name: 'Gallery',
-		path: '/gallery',
-	},
-];
 </script>
 
 <template>
   <div class="h-screen relative bg-zinc-200 dark:bg-zinc-900 transition duration-150">
     <NuxtLoadingIndicator :height="4" color="rgb(99, 102, 241)"/>
-		<Navbar :pages="pages"/>
+		<Navbar/>
     <NuxtPage/>
     <button
         class="fixed bottom-0 mb-2.5 ml-2.5 grid place-items-center text-zinc-200 hover:text-white bg-zinc-700 hover:bg-zinc-800 dark:text-zinc-800 dark:bg-zinc-300 dark:hover:bg-zinc-100 dark:hover:text-black dark:bg-zinc-200 h-9 w-9 duration-200 shadow text-white p-2 rounded"

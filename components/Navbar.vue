@@ -1,10 +1,36 @@
 <script setup lang="ts">
 const route = useRoute()
-defineProps({
-  pages: {
-    type: Array,
-    required: true,
-  },
+
+const pages = computed(() => {
+  const paths = [
+    {
+      name: 'Home',
+      path: '/',
+    },
+    {
+      name: 'Posts',
+      path: '/posts',
+    },
+    {
+      name: 'Projects',
+      path: '/projects',
+    },
+    {
+      name: 'Gallery',
+      path: '/gallery',
+    },
+  ]
+  const currentPath = route.path
+  // Remove the current path from the array
+  return paths.filter((path) => path.path !== currentPath)
+})
+
+const formattedPath = computed(() =>{
+  const name = route.name.toString();
+  if (name === 'index') return 'Home'
+  if (name === 'posts-post') return 'Blog Post'
+
+  return name.charAt(0).toUpperCase() + name.slice(1)
 })
 
 const sidebar = useState<boolean>('sidebar', () => false)
@@ -28,18 +54,18 @@ const sidebar = useState<boolean>('sidebar', () => false)
   </div>
 	<Transition name="slide">
 		<div v-if="sidebar" class="fixed z-50 w-full px-2 flex flex-col">
-			<div class="w-full flex justify-between mt-4 items-center font-semibold text-lg pr-full bg-zinc-300 py-2 rounded-t-lg pl-4">
-				<span class="font-bold underline font-mont pl-1">{{ `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}` }}</span>
-				<button @click="sidebar = false" class="mr-4 p-1.5 bg-zinc-400 hover:bg-zinc-500 focus:ring-[3px] focus:ring-indigo-400 outline-none rounded duration-200">
+			<div class="w-full flex justify-between mt-4 items-center font-semibold text-lg pr-full bg-zinc-300 dark:bg-zinc-800 py-2 rounded-t-lg pl-4 shadow">
+				<span class="font-bold underline font-mont pl-1 dark:text-white">{{ formattedPath }}</span>
+				<button @click="sidebar = false" class="mr-4 p-1.5 bg-zinc-400 dark:bg-zinc-700 dark:text-white dark:hover:bg-zinc-900 hover:bg-zinc-500 focus:ring-[3px] focus:ring-indigo-400 outline-none rounded duration-200">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 					</svg>
 				</button>
 			</div>
-			<div class="flex flex-col font-mont font-semibold w-full bg-zinc-300 pb-4 rounded-b-lg">
-				<NuxtLink class="mx-3 py-1.5 px-2.5 rounded hover:bg-zinc-400 duration-150" v-for="page in pages" :to="page.path">{{ page.name }}</NuxtLink>
-				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 duration-150">Log in</NuxtLink>
-				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 duration-150">Register</NuxtLink>
+			<div class="flex flex-col font-mont font-semibold w-full bg-zinc-300 pb-4 rounded-b-lg dark:bg-zinc-800 dark:text-zinc-50">
+				<NuxtLink @click="sidebar = false" class="mx-3 py-1.5 px-2.5 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150" v-for="page in pages" :to="page.path">{{ page.name }}</NuxtLink>
+				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150">Log in</NuxtLink>
+				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150">Register</NuxtLink>
 			</div>
 		</div>
 	</Transition>
