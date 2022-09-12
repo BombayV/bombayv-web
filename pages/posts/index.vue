@@ -2,12 +2,11 @@
 const posts = ref<Array<Object>>([]);
 
 onMounted(async () => {
-  const resp = await fetch('https://ubcdby3t.directus.app/items/posts');
+  const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts');
   const respData = await resp.json();
   for (const post of respData.data) {
-    const linkTo = post.title.replace(/\s+/g, '_').toLowerCase();
+    const linkTo = post.title.replace(/\s+/g, '_');
     posts.value.push({
-      id: post.id,
       title: post.title,
       description: post.description,
       link: linkTo,
@@ -35,7 +34,7 @@ definePageMeta({
           </div>
           <div class="w-full flex flex-col h-full justify-between">
             <p class="text-zinc-900 dark:text-zinc-200 self-start text-left text-sm break-words">{{ post.description }}</p>
-            <NuxtLink :to="`/posts/${post.id}`" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
+            <NuxtLink :to="`/posts/${post.link}`" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
           </div>
         </div>
       </div>

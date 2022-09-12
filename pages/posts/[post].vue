@@ -1,9 +1,8 @@
 <script setup lang="ts">
 interface Post {
-  id: number;
   title: string;
   description: string;
-  text_data: string;
+  content: string;
   preview: string;
   date_created: string;
   date_updated: string;
@@ -19,13 +18,11 @@ interface User {
 }
 
 const route = useRoute();
-const title = ref<string>('');
 const data = useState<Post>(() => {
   return {
-    id: 0,
     title: '',
     description: '',
-    text_data: '',
+    content: '',
     preview: '',
     date_created: '',
     date_updated: '',
@@ -43,14 +40,14 @@ const user = useState<User>(() => {
 });
 
 onMounted(async () => {
-  const resp = await fetch('https://ubcdby3t.directus.app/items/posts/' + route.params.post);
+	const link = route.params.post as string;
+	const formattedLink = link.replace(/_/g, ' ');
+  const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts/' + formattedLink);
   const respData = await resp.json();
-  title.value = respData.data.title;
   data.value = {
-    id: respData.data.id,
     title: respData.data.title,
     description: respData.data.description,
-    text_data: respData.data.text_data,
+    content: respData.data.content,
     preview: `https://ubcdby3t.directus.app/assets/${respData.data.preview}?&quality=75`,
     date_created: respData.data.date_created,
     date_updated: respData.data.date_updated,
@@ -73,7 +70,7 @@ onMounted(async () => {
 <template>
   <div class="w-full h-auto bg-zinc-200 dark:bg-zinc-900 duration-150 relative flex flex-col items-center">
 		<div class="w-5/6 px-4 lg:w-2/5 flex flex-col items-center w-full mt-16 pt-10 pb-6 font-mont">
-			<NuxtLink to="/posts" class="self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
+			<NuxtLink to="/posts" class="mb-2 self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 dark:stroke-zinc-50 duration-150">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
 				</svg>
@@ -85,7 +82,7 @@ onMounted(async () => {
       <h1 class="text-2xl lg:text-3xl self-start dark:text-zinc-200 font-bold mt-4">{{ data.title }}</h1>
         <p class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Created:</strong> {{ new Date(data.date_created).toLocaleString() }}</p>
         <p v-if="data.date_updated" class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Updated:</strong> {{ new Date(data.date_updated).toLocaleString() }}</p>
-      <p class="text-md lg:text-lg self-start dark:text-zinc-200 mt-2 leading-relaxed">{{ data.text_data }}</p>
+      <p class="text-md lg:text-lg self-start dark:text-zinc-200 mt-2 leading-relaxed">{{ data.content }}</p>
       <hr class="w-full mt-5 border-zinc-400 dark:border-zinc-600">
       <div class="flex items-center self-start mt-5 gap-x-4">
         <img v-if="user.avatar" class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" :src="user.avatar" alt="User avatar">
