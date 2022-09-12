@@ -25,6 +25,10 @@ onMounted(async () => {
     }
   }
 });
+
+useHead({
+  title: 'Gallery'
+})
 </script>
 
 <template>

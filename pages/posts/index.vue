@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const posts = ref([]);
+const posts = ref<Array<Object>>([]);
 
 onMounted(async () => {
   const resp = await fetch('https://ubcdby3t.directus.app/items/posts');
@@ -15,6 +15,10 @@ onMounted(async () => {
       date: post.date_created
     });
   }
+})
+
+useHead({
+  title: 'Posts'
 })
 </script>
 

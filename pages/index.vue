@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+useHead({
+  title: 'Portfolio'
+})
 </script>
 
 <template>
-	<div>
+	<div class="w-full h-full">
 		
 	</div>
 </template>
