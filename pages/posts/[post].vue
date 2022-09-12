@@ -82,7 +82,7 @@ onMounted(async () => {
       <h1 class="text-2xl lg:text-3xl self-start dark:text-zinc-200 font-bold mt-4">{{ data.title }}</h1>
         <p class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Created:</strong> {{ new Date(data.date_created).toLocaleString() }}</p>
         <p v-if="data.date_updated" class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Updated:</strong> {{ new Date(data.date_updated).toLocaleString() }}</p>
-      <p class="text-md lg:text-lg self-start dark:text-zinc-200 mt-2 leading-relaxed">{{ data.content }}</p>
+      <p class="text-md whitespace-pre-wrap lg:text-lg self-start dark:text-zinc-200 mt-2 leading-relaxed">{{ data.content }}</p>
       <hr class="w-full mt-5 border-zinc-400 dark:border-zinc-600">
       <div class="flex items-center self-start mt-5 gap-x-4">
         <img v-if="user.avatar" class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" :src="user.avatar" alt="User avatar">
