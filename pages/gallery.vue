@@ -1,9 +1,14 @@
 <script setup lang="ts">
-const pics = ref<Array<Object>>([]);
-const activeData = useState('activeData', () => {
+interface Picture {
+  title: string;
+  url: string;
+}
+
+const pics = useState<Array<Picture>>('pics', () => []);
+const activeData = useState<Picture>('activeData', () => {
   return {
     title: '',
-    src: ''
+    url: ''
   }
 });
 
@@ -24,10 +29,10 @@ onMounted(async () => {
 
 <template>
   <div class="h-auto bg-zinc-200 dark:bg-zinc-900 duration-150">
-		<CoverImg @close="activeData.src = ''" v-if="activeData.src !== ''" :title="activeData.title" :imgUrl="activeData.src"/>
-    <h1 class="text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-96">Gallery</h1>
-    <div v-if="pics.length !== 0" class="px-14 py-6 columns-sm gap-6">
-      <img v-for="image in pics" @click="activeData = { title: image.title, src: image.url }" class="cursor-pointer hover:scale-105 rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" alt="Loading image...">
+		<CoverImg @close="activeData.url = ''" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
+    <h1 class="text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-96" :class="activeData.url !== '' && 'blur'">Gallery</h1>
+    <div v-if="pics.length !== 0" class="px-14 py-6 columns-sm gap-6" :class="activeData.url !== '' && 'blur'">
+      <img v-for="image in pics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:scale-105 rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" alt="Loading image...">
     </div>
   </div>
 </template>
