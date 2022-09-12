@@ -85,7 +85,8 @@ useHead({
       <p class="text-md lg:text-lg self-start dark:text-zinc-200 mt-2 leading-relaxed">{{ data.text_data }}</p>
       <hr class="w-full mt-5 border-zinc-400 dark:border-zinc-600">
       <div class="flex items-center self-start mt-5 gap-x-4">
-        <img class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" :src="user.avatar" alt="User avatar">
+        <img v-if="user.avatar" class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" :src="user.avatar" alt="User avatar">
+        <img v-else class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" src="/assets/images/avatar.png" alt="User avatar empty">
         <p class="dark:text-zinc-200 font-medium">This post was written by
           <strong>
           <span v-if="user.first_name">{{ user.first_name }}</span>
