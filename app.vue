@@ -7,17 +7,6 @@ const setColorTheme = (newTheme: Theme) => {
 
 <template>
   <div class="h-screen relative bg-zinc-200 dark:bg-zinc-900 transition duration-150">
-    <Head>
-      <Title>Blog</Title>
-      <Meta content="Bombay's Blog" property="og:title"/>
-      <Meta content="My personal website/blog including portfolio, projects, and photography." property="og:description"/>
-      <Meta content="https://imbombay.tech/" property="og:url"/>
-      <Meta content="#6366f1" data-react-helmet="true" name="theme-color"/>
-      <Meta property="og:image" content="https://i.imgur.com/cjlvzoP.png" />
-      <Meta property="og:image:type" content="image/png" />
-      <Meta property="og:image:width" content="128" />
-      <Meta property="og:image:height" content="128" />
-    </Head>
     <NuxtLoadingIndicator :height="4" color="rgb(99, 102, 241)"/>
 		<Navbar/>
     <NuxtPage/>
