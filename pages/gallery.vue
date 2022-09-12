@@ -35,8 +35,8 @@ definePageMeta({
   <div class="h-auto bg-zinc-200 dark:bg-zinc-900 duration-150">
 		<CoverImg @close="activeData.url = ''" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
     <h1 class="text-5xl md:text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-96" :class="activeData.url !== '' && 'blur'">Gallery</h1>
-    <div v-if="pics.length !== 0" class="px-14 py-6 columns-xs gap-6" :class="activeData.url !== '' && 'blur'">
-      <img v-for="image in pics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:scale-105 rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" alt="Loading image...">
+    <div v-if="pics.length !== 0" class="px-16 py-6 columns-xs gap-6" :class="activeData.url !== '' && 'blur'">
+      <img v-for="image in pics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:opacity-90 rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" alt="Loading image...">
     </div>
   </div>
 </template>
