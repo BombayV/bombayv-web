@@ -1,29 +1,25 @@
 <script setup lang="ts">
-const route = useRoute()
+interface Path {
+  name: string;
+  path: string;
+}
 
+const route = useRoute();
 const pages = computed(() => {
-  const paths = [
-    {
-      name: 'Home',
-      path: '/',
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
-    },
-    {
-      name: 'Projects',
-      path: '/projects',
-    },
-    {
-      name: 'Gallery',
-      path: '/gallery',
-    },
+  const paths :Array<Path> = [
+    { path: '/', name: 'Home' },
+    { path: '/posts', name: 'Posts' },
+    { path: '/projects', name: 'Projects' },
+    { path: '/gallery', name: 'Gallery' },
   ]
-  const currentPath = route.path
-  // Remove the current path from the array
-  return paths.filter((path) => path.path !== currentPath)
-})
+  // Add active property to each path
+  return paths.map((path) => {
+    return {
+      ...path,
+      active: route.path === path.path,
+    }
+  })
+});
 
 const formattedPath = computed(() =>{
   const name = route.name.toString();
@@ -40,7 +36,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
   <div class="z-30 fixed w-full flex items-center justify-between py-3 bg-zinc-200 transition duration-150 dark:bg-zinc-900 bt-shadow">
     <NuxtLink to="/" class="text-4xl font-semibold italic dark:text-white font-alex ml-4">Bombay</NuxtLink>
     <div class="hidden md:flex font-medium gap-4 text-lg dark:text-zinc-50">
-      <NuxtLink v-for="page in pages" :to="page.path">{{ page.name }}</NuxtLink>
+      <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-400 dark:text-indigo-500'">{{ page.name }}</NuxtLink>
     </div>
     <div class="hidden md:flex items-center mr-4">
       <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 font-semibold py-2 px-4 transparent">Log In</NuxtLink>
@@ -53,7 +49,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
 		</button>
   </div>
 	<Transition name="slide">
-		<div v-if="sidebar" class="fixed z-30 w-full px-2 flex flex-col">
+		<div v-if="sidebar" class="fixed z-30 w-full px-2 flex flex-col md:hidden">
 			<div class="w-full flex justify-between mt-4 items-center font-semibold text-lg pr-full bg-zinc-300 dark:bg-zinc-800 py-2 rounded-t-lg pl-4 shadow">
 				<span class="font-bold underline font-mont pl-1 dark:text-white">{{ formattedPath }}</span>
 				<button @click="sidebar = false" class="mr-4 p-1.5 bg-zinc-400 dark:bg-zinc-700 dark:text-white dark:hover:bg-zinc-900 hover:bg-zinc-500 focus:ring-[3px] focus:ring-indigo-400 outline-none rounded duration-200">
