@@ -6,7 +6,7 @@ const setColorTheme = (newTheme: Theme) => {
 
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} | Bombay` : 'Bombay Blog';
+    return titleChunk ? `${titleChunk} | Bombay` : "Bombay's Blog";
   }
 })
 </script>
