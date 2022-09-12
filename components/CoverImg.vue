@@ -13,7 +13,7 @@ defineProps({
 
 <template>
 	<div @click="$emit('close')" class="fixed w-full h-screen flex items-center justify-center bg-black bg-opacity-80 z-50">
-		<div class="flex flex-col w-5/6 md:h-5/6 items-center justify-center pt-5">
+		<div class="flex flex-col h-4/6 md:h-5/6 items-center justify-center pt-5">
 			<img class="h-full rounded-xl shadow-lg" :src="imgUrl" alt="Big Image">
 			<p class="text-xl font-mont font-semibold text-white mt-2 self-start">{{ title }}</p>
 		</div>
