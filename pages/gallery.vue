@@ -26,8 +26,8 @@ onMounted(async () => {
   }
 });
 
-useHead({
-  title: 'Gallery | Bombay'
+definePageMeta({
+  title: 'Gallery'
 })
 </script>
 

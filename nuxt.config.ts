@@ -5,8 +5,6 @@ export default defineNuxtConfig({
   mode: 'universal',
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   head: {
-    title: "Bombay's Blog",
-    titleTemplate: '%s | Bombay',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

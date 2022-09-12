@@ -68,9 +68,6 @@ onMounted(async () => {
     location: respData2.data.location
   };
 })
-useHead({
-  title: title
-})
 </script>
 
 <template>

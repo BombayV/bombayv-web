@@ -3,6 +3,12 @@ type Theme = 'light' | 'dark';
 const setColorTheme = (newTheme: Theme) => {
   useColorMode().preference = newTheme;
 }
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} | Bombay` : 'Bombay Blog';
+  }
+})
 </script>
 
 <template>

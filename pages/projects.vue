@@ -1,6 +1,6 @@
 <script setup lang="ts">
-useHead({
-  title: 'Projects | Bombay'
+definePageMeta({
+  title: 'Projects'
 })
 </script>
 
