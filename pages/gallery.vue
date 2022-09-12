@@ -36,6 +36,9 @@ definePageMeta({
 
 <template>
   <div class="h-auto bg-zinc-200 pb-8 dark:bg-zinc-900 duration-150">
+		<Head>
+			<Title>{{ $route.meta.title }}</Title>
+		</Head>
 		<CoverImg @close="activeData.url = ''" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
     <h1 class="text-5xl md:text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-72" :class="activeData.url !== '' && 'blur'">Gallery</h1>
     <div v-if="pics.length !== 0" class="px-16 pt-6 pb-2 columns-xs gap-6" :class="activeData.url !== '' && 'blur'">

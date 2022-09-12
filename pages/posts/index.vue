@@ -23,6 +23,9 @@ definePageMeta({
 
 <template>
   <div class="h-auto bg-zinc-200 dark:bg-zinc-900 duration-150">
+		<Head>
+			<Title>{{ $route.meta.title }}</Title>
+		</Head>
     <h1 class="text-5xl md:text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-96">Latest Posts</h1>
     <div class="gap-x-6 xl:gap-x-28 pb-2 mx-14 xl:mx-28 mt-8 grid md:grid-cols-3 xl:grid-cols-2">
       <div v-for="post in posts" class="bg-zinc-300 dark:bg-zinc-800 rounded-lg shadow-lg flex flex-col xl:flex-row items-center xl:items-center font-mont px-6 py-4 mb-6 xl:h-48">
