@@ -27,7 +27,7 @@ onMounted(async () => {
 });
 
 useHead({
-  title: 'Gallery'
+  title: 'Gallery | Bombay'
 })
 </script>
 

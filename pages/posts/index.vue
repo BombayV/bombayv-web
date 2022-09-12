@@ -18,7 +18,7 @@ onMounted(async () => {
 })
 
 useHead({
-  title: 'Posts'
+  title: 'Posts | Bombay'
 })
 </script>
 
