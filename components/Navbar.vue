@@ -59,7 +59,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
 				</button>
 			</div>
 			<div class="flex flex-col font-mont font-semibold w-full bg-zinc-300 pb-4 rounded-b-lg dark:bg-zinc-800 dark:text-zinc-50">
-				<NuxtLink @click="sidebar = false" class="mx-3 py-1.5 px-2.5 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150" v-for="page in pages" :to="page.path">{{ page.name }}</NuxtLink>
+				<NuxtLink @click="sidebar = false" class="mx-3 py-1.5 px-2.5 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150" v-for="page in pages" v-show="!page.active" :to="page.path">{{ page.name }}</NuxtLink>
 				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150">Log in</NuxtLink>
 				<NuxtLink class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-zinc-400 dark:hover:bg-zinc-900 duration-150">Register</NuxtLink>
 			</div>
