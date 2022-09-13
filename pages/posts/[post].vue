@@ -17,6 +17,7 @@ interface User {
   location: string;
 }
 
+const activeUrl = ref<string>('');
 const route = useRoute();
 const data = useState<Post>(() => {
   return {
@@ -61,7 +62,7 @@ onMounted(async () => {
     first_name: respData2.data.first_name,
     last_name: respData2.data.last_name,
     email: respData2.data.email,
-    avatar: `https://ubcdby3t.directus.app/assets/${respData2.data.avatar}?&quality=40`,
+    avatar: `https://ubcdby3t.directus.app/assets/${respData2.data.avatar}?&quality=20`,
     location: respData2.data.location
   };
 })
@@ -69,6 +70,7 @@ onMounted(async () => {
 
 <template>
   <div class="w-full h-auto bg-zinc-200 dark:bg-zinc-900 duration-150 relative flex flex-col items-center">
+		<CoverImg @close="activeUrl = ''" v-if="activeUrl !== ''" :imgUrl="activeUrl"/>
 		<div class="w-5/6 px-4 lg:w-2/5 flex flex-col items-center w-full mt-16 pt-10 pb-6 font-mont">
 			<NuxtLink to="/posts" class="mb-2 self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 dark:stroke-zinc-50 duration-150">
@@ -77,7 +79,7 @@ onMounted(async () => {
 				Go Back
 			</NuxtLink>
       <div class="relative flex items-center justify-center w-full">
-        <img class="rounded-xl object-cover shadow-md w-full" :src="data.preview" alt="Post image">
+        <img @click="activeUrl = data.preview" class="cursor-pointer rounded-xl object-cover shadow-md w-full" :src="data.preview" alt="Post image">
       </div>
       <h1 class="text-2xl lg:text-3xl self-start dark:text-zinc-200 font-bold mt-4">{{ data.title }}</h1>
         <p class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Created:</strong> {{ new Date(data.date_created).toLocaleString() }}</p>
