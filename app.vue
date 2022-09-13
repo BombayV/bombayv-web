@@ -7,12 +7,30 @@ const setColorTheme = (newTheme: Theme) => {
 useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} | Bombay` : "Bombay's Blog";
-  }
+  },
+	meta: [
+		{ hid: 'og:title', property: 'og:title', content: 'Bombay Blog' },
+		{ hid: 'og:og:description', property: 'og:description', content: 'My personal website/blog including portfolio, projects, and photography.' },
+		{ hid: "theme-color", property: 'theme-color', name: "theme-color", content: '#6366f1' },
+		{ hid: 'og:url', property: 'og:url', content: 'https://imbombay.tech' },
+		{ hid: 'og:image', property: 'og:image', content: 'https://i.imgur.com/cjlvzoP.png' },
+		{ hid: 'og:image:type', property: 'og:image:type', content: 'image/png' },
+		{ hid: 'og:image:width', property: 'og:image:width', content: '128' },
+		{ hid: 'og:image:height', property: 'og:image:height', content: '128' },
+	]
 })
 </script>
 
 <template>
   <div class="h-screen relative bg-zinc-200 dark:bg-zinc-900 transition duration-150">
+		<Meta content="Bombay's Blog" property="og:title"/>
+		<Meta content="My personal website/blog including portfolio, projects, and photography." property="og:description"/>
+		<Meta content="https://imbombay.tech/" property="og:url"/>
+		<Meta content="#6366f1" data-react-helmet="true" name="theme-color"/>
+		<Meta property="og:image" content="https://i.imgur.com/cjlvzoP.png" />
+		<Meta property="og:image:type" content="image/png" />
+		<Meta property="og:image:width" content="128" />
+		<Meta property="og:image:height" content="128" />
     <NuxtLoadingIndicator :height="4" color="rgb(99, 102, 241)"/>
 		<Navbar/>
     <NuxtPage/>
