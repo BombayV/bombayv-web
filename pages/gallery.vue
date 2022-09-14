@@ -30,7 +30,7 @@ onMounted(async () => {
 });
 
 definePageMeta({
-  title: 'Gallery'
+  title: 'Gallery',
 })
 </script>
 
