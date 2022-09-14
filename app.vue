@@ -5,8 +5,10 @@ const setColorTheme = (newTheme: Theme) => {
 }
 
 useHead({
-  titleTemplate: (titleChunk: string) => titleChunk ? `${titleChunk} | Bombay` : "Bombay's Blog",
-	meta: [
+  titleTemplate: (titleChunk) => {
+		return titleChunk ? `${titleChunk} | Bombay` : "Bombay's Blog";
+	},
+	meta : [
 		{ hid: 'og:title', property: 'og:title', content: 'Bombay Blog' },
 		{ hid: 'og:og:description', property: 'og:description', content: 'My personal website/blog including portfolio, projects, and photography.' },
 		{ hid: "theme-color", property: 'theme-color', name: "theme-color", content: '#6366f1' },
