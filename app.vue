@@ -9,6 +9,7 @@ useHead({
 		return titleChunk ? `${titleChunk} | Bombay` : "Bombay's Blog";
 	},
 	meta : [
+		{ hid: 'description', name: 'description', content: 'My personal website maintaining my portfolio, photography, blog, and other random projects I have created' },
 		{ hid: 'og:title', property: 'og:title', content: 'Bombay Blog' },
 		{ hid: 'og:og:description', property: 'og:description', content: 'My personal website/blog including portfolio, projects, and photography.' },
 		{ hid: "theme-color", property: 'theme-color', name: "theme-color", content: '#6366f1' },

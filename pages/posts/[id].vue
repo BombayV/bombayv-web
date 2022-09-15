@@ -41,7 +41,7 @@ const user = useState<User>(() => {
 });
 
 onMounted(async () => {
-	const link = route.params.post as string;
+	const link = route.params.id as string;
 	const formattedLink = link.replace(/_/g, ' ');
   const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts/' + formattedLink);
   const respData = await resp.json();
