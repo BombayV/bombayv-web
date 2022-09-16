@@ -5,6 +5,14 @@
   font-display: swap;
 }
 
+html {
+  background: #e4e4e7;
+}
+
+.dark {
+  background: #18181b;
+}
+
 .slide-enter-active,
 .slide-leave-active {
   transition: all 0.25s cubic-bezier(1, 0.8, 0.8, 1);
@@ -17,13 +25,31 @@
 }
 
 .grad-sm {
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .grad-lg {
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(113, 113, 122, 0.3);
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 122, 0.6);
 }

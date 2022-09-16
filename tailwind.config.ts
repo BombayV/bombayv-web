@@ -12,6 +12,8 @@ export default <Config> {
       backgroundImage: {
         'small-pt': "url('../images/small.svg')",
         'big-pt': "url('../images/big.svg')",
+        'small-wt': "url('../images/small_white.svg')",
+        'big-wt': "url('../images/big_white.svg')",
       }
     }
   },

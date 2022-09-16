@@ -70,6 +70,11 @@ const sidebar = useState<boolean>('sidebar', () => false)
 
 <style scoped>
 .bt-shadow {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .bt-shadow {
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+
 }
 </style>
