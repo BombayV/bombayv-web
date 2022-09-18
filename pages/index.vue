@@ -9,10 +9,10 @@ definePageMeta({
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
-		<div class="h-screen w-full px-4 grad-sm lg:grad-lg dark:bg-small-pt lg:dark:bg-big-pt bg-small-wt lg:bg-big-wt flex items-center justify-center flex-col">
-			<h1 class="text-5xl text-center font-bold dark:text-zinc-200">Welcome, I'm <span class=" font-s text-grad">Mauricio</span></h1>
-			<h2 class="text-lg font-medium dark:text-neutral-500 text-neutral-600 pt-2">A teenager who trying to become a developer.</h2>
-		</div>
+		<main class="h-screen w-full px-4 grad-sm lg:grad-lg dark:bg-small-pt lg:dark:bg-big-pt bg-small-wt lg:bg-big-wt flex items-center justify-center flex-col">
+			<h1 class="text-5xl text-center font-bold md:text-7xl lg:text-8xl dark:text-zinc-200 px-6">Welcome, I'm <span class="text-grad">Mauricio</span></h1>
+			<p class="text-lg font-medium dark:text-neutral-500 text-neutral-600 pt-2 md:text-xl lg:text-2xl">A teenager who trying to become a developer.</p>
+		</main>
 	</div>
 </template>
 
