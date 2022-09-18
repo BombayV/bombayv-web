@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-	<div class="w-full font-mont h-full">
+	<div class="w-full font-mont h-screen">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
@@ -13,6 +13,12 @@ definePageMeta({
 			<h1 class="text-5xl text-center font-bold md:text-7xl lg:text-8xl dark:text-zinc-200 px-6">Welcome, I'm <span class="text-grad">Mauricio</span></h1>
 			<p class="text-lg font-medium dark:text-neutral-500 text-neutral-600 pt-2 md:text-xl lg:text-2xl text-left">A teenager who trying to become a developer.</p>
 		</main>
+<!--    <div class="h-5/6 flex flex-col pt-8 px-4">-->
+<!--      <h2 class="font-bold text-4xl px-2">About Me</h2>-->
+<!--    </div>-->
+<!--    <footer class="h-1/6 bg-green-500">-->
+
+<!--    </footer>-->
 	</div>
 </template>
 
