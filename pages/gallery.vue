@@ -30,7 +30,11 @@ onMounted(async () => {
 });
 
 definePageMeta({
-  title: 'Gallery'
+  title: 'Gallery',
+  meta : [
+    { hid: 'og:title', property: 'og:title', content: 'Gallery' },
+    { hid: 'og:og:description', property: 'og:description', content: 'All my personal photos that I have taken in my life as a photographer.' },
+  ]
 })
 </script>
 
