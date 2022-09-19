@@ -72,7 +72,7 @@ onMounted(async () => {
   <div class="w-full h-auto bg-zinc-200 dark:bg-zinc-900 duration-150 relative flex flex-col items-center">
 		<CoverImg @close="activeUrl = ''" v-if="activeUrl !== ''" :imgUrl="activeUrl"/>
 		<div class="w-5/6 px-4 lg:w-2/5 flex flex-col items-center w-full mt-16 pt-10 pb-6 font-mont">
-			<NuxtLink to="/posts" class="mb-2 self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
+			<NuxtLink to="/blog" class="mb-2 self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 dark:stroke-zinc-50 duration-150">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
 				</svg>

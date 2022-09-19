@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'My personal website/blog including portfolio, projects, and photography.' },
+      { hid: 'description', name: 'description', content: 'My personal website including portfolio, projects, blog and photography.' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

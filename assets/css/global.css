@@ -24,6 +24,28 @@ html {
   transform: translateY(-75px);
 }
 
+.title-enter-active,
+.title-leave-active {
+  transition: all 0.8s ease-in-out;
+}
+
+.title-enter-from,
+.title-leave-to {
+  opacity: 0;
+  transform: translateY(25px) scale(0.9);
+}
+
+.desc-enter-active,
+.desc-leave-active {
+  transition: all 0.85s ease-in-out;
+}
+
+.desc-enter-from,
+.desc-leave-to {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+}
+
 .grad-sm {
   background-repeat: no-repeat;
   background-size: cover;

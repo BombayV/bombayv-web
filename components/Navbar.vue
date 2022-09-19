@@ -8,7 +8,7 @@ const route = useRoute();
 const pages = computed(() => {
   const paths :Array<Path> = [
     { path: '/', name: 'Home' },
-    { path: '/posts', name: 'Posts' },
+    { path: '/blog', name: 'Blog' },
     { path: '/projects', name: 'Projects' },
     { path: '/gallery', name: 'Gallery' },
   ]
@@ -24,7 +24,7 @@ const pages = computed(() => {
 const formattedPath = computed(() =>{
   const name = route.name.toString();
   if (name === 'index') return 'Home'
-  if (name === 'posts-post') return 'Blog Post'
+  if (name === 'blog-id') return 'Blog Post'
 
   return name.charAt(0).toUpperCase() + name.slice(1)
 })
@@ -34,9 +34,9 @@ const sidebar = useState<boolean>('sidebar', () => false)
 
 <template>
   <div class="z-30 absolute w-full flex items-center justify-between py-4 transition duration-150">
-    <NuxtLink to="/" class="text-3xl italic dark:text-white font-alex text-zinc-200 ml-4">Bombay</NuxtLink>
+    <NuxtLink to="/" class="text-3xl italic font-alex ml-4" :class="route.name === 'index' ? 'text-zinc-200 dark:text-white' : 'text-zinc-900 dark:text-zinc-200'">Bombay</NuxtLink>
     <div class="hidden md:flex font-medium gap-4 text-lg dark:text-zinc-50">
-      <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-400 dark:text-indigo-500'">{{ page.name }}</NuxtLink>
+      <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-600 dark:text-indigo-400'">{{ page.name }}</NuxtLink>
     </div>
     <div class="hidden md:flex items-center mr-4">
       <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 font-semibold py-2 px-4 transparent">Log In</NuxtLink>

@@ -37,7 +37,7 @@ definePageMeta({
           </div>
           <div class="w-full flex flex-col h-full justify-between">
             <p class="text-zinc-900 dark:text-zinc-200 self-start text-left text-sm break-words">{{ post.description }}</p>
-            <NuxtLink :to="`/posts/${post.link}`" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
+            <NuxtLink :to="`/blog/${post.link}`" class="font-bold w-full text-center text-zinc-100 bg-indigo-400 border-b-[2px] border-r-[3px] border-indigo-500 hover:border-indigo-600 rounded mt-3 py-1.5 hover:bg-indigo-500 duration-200">Read More</NuxtLink>
           </div>
         </div>
       </div>
