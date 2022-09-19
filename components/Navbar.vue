@@ -16,7 +16,7 @@ const pages = computed(() => {
   return paths.map((path) => {
     return {
       ...path,
-      active: route.path === path.path,
+      active: route.path === path.path || path.path.includes('/blog') && route.path.includes('/blog')
     }
   })
 });
@@ -35,11 +35,11 @@ const sidebar = useState<boolean>('sidebar', () => false)
 <template>
   <div class="z-30 absolute w-full flex items-center justify-between py-4 transition duration-150">
     <NuxtLink to="/" class="text-3xl italic font-alex ml-4" :class="route.name === 'index' ? 'text-zinc-200 dark:text-white' : 'text-zinc-900 dark:text-zinc-200'">Bombay</NuxtLink>
-    <div class="hidden md:flex font-medium gap-4 text-lg dark:text-zinc-50">
-      <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-600 dark:text-indigo-400'">{{ page.name }}</NuxtLink>
+    <div class="hidden md:flex font-semibold gap-4 text-lg dark:text-zinc-50 font-mont">
+      <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-600 dark:text-indigo-500'">{{ page.name }}</NuxtLink>
     </div>
-    <div class="hidden md:flex items-center mr-4">
-      <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 font-semibold py-2 px-4 transparent">Log In</NuxtLink>
+    <div class="hidden md:flex items-center mr-4 font-mont font-semibold">
+      <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 py-2 px-4 transparent">Log In</NuxtLink>
       <NuxtLink to="/register" class="bg-indigo-400 dark:bg-indigo-500 hover:bg-indigo-500 dark:hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg duration-150">Sign Up</NuxtLink>
     </div>
 		<button @click="sidebar = true" class="md:hidden block mr-4 hover:bg-zinc-700 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">

@@ -1,11 +1,43 @@
 <script setup lang="ts">
+const loaded = ref(false)
+const els = ref([])
+
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.5
+}
+
+const addToRef = (el) => {
+  if (el) {
+    els.value.push(el)
+  }
+}
+
+const setupScroll = (target) => {
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target
+        target.classList.add('fade-in')
+        observer.disconnect()
+      }
+    })
+  }, options)
+
+  observer.observe(target)
+}
+
+
 definePageMeta({
   title: 'Home',
 })
 
-const loaded = ref(false)
 onMounted(() => {
   loaded.value = true
+  for (const el of els.value) {
+    setupScroll(el)
+  }
 })
 </script>
 
@@ -29,8 +61,8 @@ onMounted(() => {
         </div>
       </Transition>
 		</main>
-    <div class="min-h-[83.3%] flex flex-col py-8 px-14 md:px-20 lg:px-28 xl:px-36 mx-auto">
-      <div>
+    <div class="min-h-[83.3%] flex flex-col py-14 px-14 md:px-20 lg:px-28 xl:px-36 mx-auto">
+      <div :ref="addToRef" class="toLoad opacity-0">
         <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">About Me</h2>
         <p class="text-md lg:text-xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-10 xl:pr-64 2xl:pr-96">
           Hello! My name is <span class="text-grad font-semibold">Mauricio Rivera</span>. I am a 17 year old teenager currently residing in <span class="text-grad font-semibold">New York, United States.</span>
@@ -39,7 +71,7 @@ onMounted(() => {
           and grow.
         </p>
       </div>
-      <div class="mt-4 md:mt-8">
+      <div :ref="addToRef" class="mt-4 md:mt-8 toLoad opacity-0">
         <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">Github Statistics</h2>
         <p class="text-md lg:text-xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-10 xl:pr-64 2xl:pr-96">
           I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community.
@@ -58,5 +90,20 @@ onMounted(() => {
 
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
