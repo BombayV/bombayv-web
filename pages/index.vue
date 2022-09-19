@@ -1,24 +1,24 @@
 <script setup lang="ts">
-const loaded = ref(false)
-const els = ref([])
+const loaded = ref<boolean>(false)
+const els = ref<Array<Element>>([])
 
-const options = {
+const options : Object = {
   root: null,
   rootMargin: '0px',
   threshold: 0.5
 }
 
-const addToRef = (el) => {
+const addToRef = (el: Element) => {
   if (el) {
     els.value.push(el)
   }
 }
 
-const setupScroll = (target) => {
+const setupScroll = (target: Element) => {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const target = entry.target
+        const target : Element = entry.target
         target.classList.add('fade-in')
         observer.disconnect()
       }
