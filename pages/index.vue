@@ -30,7 +30,7 @@ const setupScroll = (target: Element) => {
 
 
 definePageMeta({
-  title: 'Home',
+  title: 'Home'
 })
 
 onMounted(async () => {
@@ -39,7 +39,7 @@ onMounted(async () => {
     setupScroll(el)
   }
 
-	const rawData = await fetch('https://api.github.com/users/BombayV/events/public?per_page=100',
+	const rawData = await fetch('https://api.github.com/users/BombayV/events?per_page=100',
 	{
 		method: 'GET',
 		headers: {
@@ -49,13 +49,15 @@ onMounted(async () => {
 	})
 	const data = await rawData.json()
 	console.log(data)
-})
+
+	GitHubCalendar(".calendar", "BombayV", { responsive: true });})
 </script>
 
 <template>
 	<div class="w-full font-mont h-screen">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
+
 		</Head>
 		<main class="h-screen w-full px-4 grad-sm lg:grad-lg dark:bg-small-pt lg:dark:bg-big-pt bg-small-wt lg:bg-big-wt flex items-center justify-center flex-col">
       <Transition name="title">
@@ -88,7 +90,10 @@ onMounted(async () => {
           I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community.
           Here are some statistics about my Github account.
         </p>
-				<img class="w-full mt-4" src="https://ghchart.rshah.org/BombayV" alt="Github stats" />
+				<div class="calendar">
+					<!-- Loading stuff -->
+					Loading the data just for you.
+				</div>
 			</div>
     </div>
     <Footer />
