@@ -1,14 +1,34 @@
 <script setup>
-
+defineProps({
+	title: {
+		type: String,
+		required: true
+	},
+	description: {
+		type: String,
+		required: true
+	},
+	date: {
+		type: String,
+		required: true
+	},
+	link: {
+		type: String,
+		default: ''
+	}
+})
 </script>
 
 <template>
   <div class="mb-5 w-full md:odd:pr-[55%] md:even:pl-[55%] font-mont font-semibold">
     <span class="absolute inline-block w-5 h-5 bg-indigo-400 rounded-full time-dot md:time-dot-md"></span>
-    <span class="font-black dark:text-zinc-300 text-lg ml-2">{{ new Date().toDateString() }}</span>
+    <span class="font-black dark:text-zinc-300 text-lg ml-2">{{ new Date(date).toDateString() }}</span>
     <div class="glass shadow rounded py-2 px-4 break-words">
-      <h3 class="text-xl font-bold dark:text-neutral-100">Project 1</h3>
-      <p class="text-sm dark:text-neutral-300 text-neutral-800 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
+      <h3 class="text-xl font-bold dark:text-neutral-100">{{ title }}</h3>
+      <p class="text-sm dark:text-neutral-300 text-neutral-800 font-medium">{{ description }}</p>
+			<button v-if="link !== ''" class="relative bg-indigo-500 rounded grid place-items-center w-full mt-3 py-4 text-white border-r-2 border-b-2 border-indigo-600 hover:bg-indigo-400 duration-150">
+				<NuxtLink class="absolute w-full" :to="link" target="_blank" rel="noopener">Learn more</NuxtLink>
+			</button>
     </div>
   </div>
 </template>

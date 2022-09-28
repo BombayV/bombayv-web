@@ -2,16 +2,31 @@
 definePageMeta({
   title: 'Projects'
 })
+
+type Project = {
+	title: string
+	description: string
+	date: string
+	url: string
+}
+
+const projects = ref<Project[]>()
+
+onMounted(async () => {
+	const rawData = await fetch('https://ubcdby3t.directus.app/items/projects')
+	const data = await rawData.json()
+	projects.value = data.data
+})
 </script>
 
 <template>
-	<div class="relative pt-24 grad-sm lg:grad-lg bg-back-wt pb-8">
+	<div class="relative pt-24 grad-sm lg:grad-lg bg-back-wt min-h-screen pb-8">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
     <!-- Vertical timeline of events -->
     <div class="relative flex flex-wrap mx-auto w-3/4 xl:w-4/6 px-4 md:px-0 before:content-[''] before:absolute before:w-1 before:h-full before:bg-zinc-400 md:before:left-1/2 before:left-0 before:rounded-xl">
-      <TimelineItem v-for="i in 10" :key="i" />
+      <TimelineItem v-for="project in projects" :key="project.id" :title="project.title" :description="project.description" :link="project.url" :date="project.date"/>
     </div>
 	</div>
 </template>
