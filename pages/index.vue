@@ -34,11 +34,11 @@ definePageMeta({
 })
 
 onMounted(async () => {
-  loaded.value = true
-  for (const el of els.value) {
-    setupScroll(el)
-  }
-
+	loaded.value = true
+	for (const el of els.value) {
+		setupScroll(el)
+	}
+	/*
 	const rawData = await fetch('https://api.github.com/users/BombayV/events?per_page=100',
 	{
 		method: 'GET',
@@ -48,9 +48,8 @@ onMounted(async () => {
 		}
 	})
 	const data = await rawData.json()
-	console.log(data)
-
-	GitHubCalendar(".calendar", "BombayV", { responsive: true });})
+	console.log(data)*/
+})
 </script>
 
 <template>
@@ -90,10 +89,6 @@ onMounted(async () => {
           I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community.
           Here are some statistics about my Github account.
         </p>
-				<div class="calendar">
-					<!-- Loading stuff -->
-					Loading the data just for you.
-				</div>
 			</div>
     </div>
     <Footer />

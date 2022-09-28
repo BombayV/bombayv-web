@@ -21,12 +21,6 @@ useHead({
 		{ hid: 'og:image:type', property: 'og:image:type', content: 'image/png' },
 		{ hid: 'og:image:width', property: 'og:image:width', content: '128' },
 		{ hid: 'og:image:height', property: 'og:image:height', content: '128' },
-	],
-	script: [
-		{
-			src: 'https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js',
-			body: true
-		}
 	]
 })
 </script>
