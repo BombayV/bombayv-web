@@ -33,11 +33,22 @@ definePageMeta({
   title: 'Home',
 })
 
-onMounted(() => {
+onMounted(async () => {
   loaded.value = true
   for (const el of els.value) {
     setupScroll(el)
   }
+
+	const rawData = await fetch('https://api.github.com/users/BombayV/events/public?per_page=100',
+	{
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/vnd.github.v3+json'
+		}
+	})
+	const data = await rawData.json()
+	console.log(data)
 })
 </script>
 
@@ -75,9 +86,10 @@ onMounted(() => {
         <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">Github Statistics</h2>
         <p class="text-md lg:text-xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-10 xl:pr-64 2xl:pr-96">
           I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community.
-          Here are some statistics about my Github account displayed in a cool way.
+          Here are some statistics about my Github account.
         </p>
-      </div>
+				<img class="w-full mt-4" src="https://ghchart.rshah.org/BombayV" alt="Github stats" />
+			</div>
     </div>
     <Footer />
 	</div>
