@@ -99,10 +99,9 @@ onMounted(async () => {
         <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">About Me</h2>
         <p class="text-md lg:text-xl xl:text-2xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-loose lg:mb-5">
           Hello! My name is <span class="text-grad font-semibold">Mauricio Rivera</span>. I am a 17 year old teenager currently residing in <span class="text-grad font-semibold">New York, United States.</span>
-          I am a <span class="text-grad font-semibold">WIP developer</span>, working both with backend and frontend technologies. Additionally, I do photography and UX design
-          as a hobby. I am currently working on a few projects, and I am always looking for new opportunities to learn
-          and grow.
-        </p>
+					I am a <span class="text-grad font-semibold">WIP developer</span>, working both with backend and frontend technologies. Additionally, I do <span class="text-grad font-semibold">photography</span> and <span class="text-grad font-semibold">UX design</span>
+          as a hobby. I am currently working on a few projects, including this website which I am using to learn more about frontend development.
+				</p>
       </div>
 			<div class="lg:pr-36 mt-5 lg:mt-16 lg:mb-12">
 				<h2 :ref="addToRef" class="opacity-0 font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">OSS Community</h2>

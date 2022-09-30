@@ -64,12 +64,12 @@ onMounted(() => {
 
 <template>
 	<div class="relative md:w-full h-20 px-2 bg-zinc-300 rounded-lg flex items-center shadow-md">
-		<div class="h-1/2 sm:w-18 md:w-auto px-4 grid place-items-center border-r-2 border-zinc-400">
+		<div class="sm:w-18 sm:h-18 h-1/2  md:w-auto px-4 grid place-items-center border-r-2 border-zinc-400">
 			<slot></slot>
 		</div>
 		<div class="w-5/6 flex items-center justify-between">
-			<p class="font-bold text-zinc-900 text-lg md:text-xl pl-4">{{ title }}</p>
-			<p :ref="addToRef" class="text-xl md:text-2xl text-zinc-700 font-bold pr-4">0</p>
+			<p class="font-bold text-zinc-900 text-lg lg:text-xl pl-4">{{ title }}</p>
+			<p :ref="addToRef" class="text-xl lg:text-2xl text-zinc-700 font-bold pr-4">0</p>
 		</div>
 	</div>
 </template>
