@@ -26,17 +26,13 @@ const addToRef = (el: Element) => {
 	}
 }
 
-const increasingNumber = (target: Element) => {
-	// Create an increasing number effect
-	let startNum: number = Number(target.textContent)
-	const endNum: number = props.number
-	const counter = setInterval(() => {
-		startNum += 1;
-		target.textContent = startNum.toString()
-		if (startNum === endNum) {
-			clearInterval(counter)
-		}
-	}, Math.floor(duration / endNum))
+const recursiveInc = (i, target) => {
+	if (i <= props.number) {
+		target.textContent = i
+		setTimeout(() => {
+			recursiveInc(i + 1, target)
+		}, Math.floor(duration / props.number))
+	}
 }
 
 const setupScroll = (target: Element) => {
@@ -45,8 +41,8 @@ const setupScroll = (target: Element) => {
 			if (entry.isIntersecting) {
 				const target : Element = entry.target
 				setTimeout(() => {
-					increasingNumber(target)
-				}, 1000)
+					recursiveInc(0, target)
+				}, 500)
 				observer.disconnect()
 			}
 		})
