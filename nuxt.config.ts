@@ -35,5 +35,8 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/global.css',
     '@/assets/css/tailwind.css',
-  ]
+  ],
+  build: {
+    transpile: ['gsap'],
+  }
 })

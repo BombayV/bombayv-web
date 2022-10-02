@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $gsap } = useNuxtApp()
 const props = defineProps({
 	title: {
 		type: String,
@@ -40,9 +41,20 @@ const setupScroll = (target: Element) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
 				const target : Element = entry.target
-				setTimeout(() => {
-					recursiveInc(0, target)
-				}, 500)
+        $gsap.from(target, {
+          textContent: 0,
+          duration: 4,
+          ease: 'power1.out',
+          snap: {
+            textContent: 1
+          },
+          stagger: {
+            each: 0.8,
+            onUpdate: function () {
+              target.textContent = Math.floor(target.textContent).toLocaleString()
+            }
+          }
+        })
 				observer.disconnect()
 			}
 		})
@@ -63,7 +75,7 @@ onMounted(() => {
 		</div>
 		<div class="w-5/6 flex items-center justify-between">
 			<p class="font-bold text-zinc-900 dark:text-zinc-300 text-lg lg:text-xl pl-4 pr-2">{{ title }}</p>
-			<p :ref="addToRef" class="text-xl lg:text-2xl text-zinc-700 dark:text-zinc-50 font-bold pr-4">0</p>
+			<p :ref="addToRef" class="text-xl lg:text-2xl text-zinc-700 dark:text-zinc-50 font-bold pr-4">{{ number }}</p>
 		</div>
 	</div>
 </template>

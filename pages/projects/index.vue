@@ -13,7 +13,12 @@ type Project = {
 const projects = ref<Project[]>()
 
 onMounted(async () => {
-	const rawData = await fetch('https://ubcdby3t.directus.app/items/projects')
+	const rawData = await fetch('https://ubcdby3t.directus.app/items/projects', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
 	const data = await rawData.json()
 	projects.value = data.data
 })
