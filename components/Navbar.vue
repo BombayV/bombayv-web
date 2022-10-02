@@ -42,7 +42,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
       <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 py-2 px-4 transparent">Log In</NuxtLink>
       <NuxtLink to="/register" class="bg-indigo-600 hover:bg-indigo-500 text-zinc-50 font-bold py-2 shadow-md px-4 rounded-lg duration-150">Sign Up</NuxtLink>
     </div>
-		<button @click="sidebar = true" class="md:hidden block mr-4 hover:bg-zinc-700 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">
+		<button @click="sidebar = true" aria-label="Sidebar" class="md:hidden block mr-4 hover:bg-zinc-700 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-black dark:stroke-zinc-50">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 			</svg>
