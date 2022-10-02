@@ -52,15 +52,13 @@ const setupScroll = (target: Element) => {
 }
 
 onMounted(() => {
-	for (const el of els.value) {
-		setupScroll(el)
-	}
+  setupScroll(els.value[0])
 })
 </script>
 
 <template>
 	<div class="relative md:w-full h-20 px-2 bg-zinc-300 dark:bg-zinc-800 rounded-lg flex items-center shadow-md">
-		<div class="sm:w-18 sm:h-18 h-1/2  md:w-auto px-4 grid place-items-center border-r-2 border-zinc-400 dark:border-zinc-600">
+		<div class="relative h-1/2 w-18 py-0.5 px-4 grid place-items-center border-r-2 border-zinc-400 dark:border-zinc-600">
 			<slot></slot>
 		</div>
 		<div class="w-5/6 flex items-center justify-between">
