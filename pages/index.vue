@@ -94,25 +94,27 @@ onMounted(async () => {
         </div>
       </Transition>
 		</main>
-    <div class="min-h-[83.3%] lg:columns-2 py-14 px-14 md:px-20 lg:px-28 xl:px-36 mx-auto">
-      <div :ref="addToRef" class="opacity-0 lg:pr-36">
-        <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">About Me</h2>
-        <p class="text-md lg:text-xl xl:text-2xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-loose lg:mb-5">
-          Hello! My name is <span class="text-grad font-semibold">Mauricio Rivera</span>. I am a 17 year old teenager currently residing in <span class="text-grad font-semibold">New York, United States.</span>
-					I am a <span class="text-grad font-semibold">WIP developer</span>, working both with backend and frontend technologies. Additionally, I do <span class="text-grad font-semibold">photography</span> and <span class="text-grad font-semibold">UX design</span>
-          as a hobby. I am currently working on a few projects, including this website which I am using to learn more about frontend development.
-				</p>
+    <div class="min-h-[83.3%] grid lg:grid-cols-2 py-14 px-14 md:px-20 lg:px-28 xl:px-36 mx-auto">
+      <div class="lg:pr-8 xl:pr-16 2xl:pr-24">
+        <div :ref="addToRef" class="opacity-0">
+          <h2 class="font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">About Me</h2>
+          <p class="text-md lg:text-xl xl:text-2xl font-medium text-zinc-700 pt-2 dark:text-zinc-300 leading-loose lg:mb-5">
+            Hello! My name is <span class="text-grad font-semibold">Mauricio Rivera</span>. I am a 17 year old teenager currently residing in <span class="text-grad font-semibold">New York, United States.</span>
+            I am a <span class="text-grad font-semibold">WIP developer</span>, working both with backend and frontend technologies. Additionally, I do <span class="text-grad font-semibold">photography</span> and <span class="text-grad font-semibold">UX design</span>
+            as a hobby. I am currently working on a few projects, including this website which I am using to learn more about frontend development.
+          </p>
+        </div>
+        <div class="mt-5 xl:mt-8 2xl:mt-12">
+          <h2 :ref="addToRef" class="opacity-0 font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">OSS Community</h2>
+          <p :ref="addToRef" class="opacity-0 text-md lg:text-xl font-medium text-zinc-700 xl:text-2xl pt-2 dark:text-zinc-300 leading-loose mb-4">
+            I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community in any way I can.
+            <span class="hidden lg:inline-block">To the right </span>
+            <span class="inline-block lg:hidden">Below </span>
+            you will find some of my latest contributions to the community or my own projects done through with
+            my Github account.
+          </p>
+        </div>
       </div>
-			<div class="lg:pr-36 mt-5 lg:mt-16 lg:mb-12">
-				<h2 :ref="addToRef" class="opacity-0 font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">OSS Community</h2>
-				<p :ref="addToRef" class="opacity-0 text-md lg:text-xl font-medium text-zinc-700 xl:text-2xl pt-2 dark:text-zinc-300 leading-loose mb-4">
-					I am a firm believer in the <span class="text-grad font-semibold">open-source software community</span>, and I am always looking to contribute to said community in any way I can.
-					<span class="hidden lg:inline-block">To the right </span>
-					<span class="inline-block lg:hidden">Below </span>
-					you will find some of my latest contributions to the community or my own projects done through with
-					my Github account.
-				</p>
-			</div>
 			<div>
 				<h2 :ref="addToRef" class="opacity-0 font-bold text-4xl md:text-5xl lg:text-6xl lg:pb-2 dark:text-zinc-50">Statistics</h2>
 				<div :ref="addToRef" class="opacity-0 mt-2">
