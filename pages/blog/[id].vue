@@ -39,6 +39,7 @@ const user = useState<User>(() => {
     location: ''
   }
 });
+const loading = ref<boolean>(true);
 
 onMounted(async () => {
 	const link = route.params.id as string;
@@ -65,13 +66,16 @@ onMounted(async () => {
     avatar: `https://ubcdby3t.directus.app/assets/${respData2.data.avatar}?&quality=20`,
     location: respData2.data.location
   };
+	setTimeout(() => {
+		loading.value = false;
+	}, 250);
 })
 </script>
 
 <template>
-  <div class="w-full h-auto bg-zinc-200 dark:bg-zinc-900 duration-150 relative flex flex-col items-center">
+  <div :class="loading && 'justify-center h-full' || 'h-auto'" class="w-full bg-zinc-200 dark:bg-zinc-900 duration-150 relative flex flex-col items-center">
 		<CoverImg @close="activeUrl = ''" v-if="activeUrl !== ''" :imgUrl="activeUrl"/>
-		<div class="w-5/6 px-4 lg:w-2/5 flex flex-col items-center w-full mt-16 pt-10 pb-6 font-mont">
+		<div v-if="!loading" class="w-5/6 px-4 lg:w-2/5 flex flex-col items-center w-full mt-16 pt-10 pb-6 font-mont">
 			<NuxtLink to="/blog" class="mb-2 self-start flex items-start md:text-xl font-medium gap-x-3 dark:text-zinc-50 hover:underline dark:hover:text-zinc-400 duration-150">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 dark:stroke-zinc-50 duration-150">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
@@ -99,5 +103,36 @@ onMounted(async () => {
         </p>
       </div>
     </div>
+		<p v-else class="font-mont text-4xl lg:text-5xl font-bold">Loading
+			<span class="anim-bounce-s inline-block">.</span>
+			<span class="anim-bounce-m inline-block">.</span>
+			<span class="anim-bounce-l inline-block">.</span>
+		</p>
   </div>
 </template>
+
+<style>
+.anim-bounce-s {
+	animation: bounce 3s infinite ease-in-out;
+	animation-delay: 0.5s;
+}
+
+.anim-bounce-m {
+	animation: bounce 3s infinite ease-in-out;
+	animation-delay: 1s;
+}
+
+.anim-bounce-l {
+	animation: bounce 3s infinite ease-in-out;
+	animation-delay: 1.5s;
+}
+
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(-10px);
+	}
+	50% {
+		transform: translateY(0);
+	}
+}
+</style>
