@@ -53,7 +53,7 @@ definePageMeta({
     <div v-if="pics.length !== 0" class="px-16 pt-6 pb-2 columns-xs gap-6" :class="activeData.url !== '' && 'blur'">
       <img v-for="image in activePics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:opacity-90 duration-150 transition-opacity rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" loading="lazy" alt="Loading image...">
     </div>
-		<button v-if="max < pics.length" @click="max += 7" class="mx-auto relative grid mt-6 place-items-center font-mont font-semibold dark:text-zinc-50 bg-indigo-400 text-zinc-50 dark:bg-indigo-500 hover:bg-indigo-500 dark:hover:bg-indigo-600 px-4 rounded py-1.5 duration-200">Load More</button>
+		<button type="button" v-if="max < pics.length" @click="max += 7" class="mx-auto relative grid mt-6 place-items-center font-mont font-semibold dark:text-zinc-50 bg-indigo-400 text-zinc-50 dark:bg-indigo-500 hover:bg-indigo-500 dark:hover:bg-indigo-600 px-4 rounded py-1.5 duration-200">Load More</button>
   </div>
 	<Loading v-else :loadText="error"/>
 </template>

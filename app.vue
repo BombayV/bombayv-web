@@ -39,6 +39,7 @@ useHead({
 		<Navbar/>
     <NuxtPage/>
     <button
+				type="button"
         aria-label="Dark mode toggle"
         class="fixed bottom-0 mb-2.5 ml-2.5 grid place-items-center text-zinc-200 hover:text-white bg-zinc-700 hover:bg-zinc-800 dark:text-zinc-800 dark:bg-zinc-300 dark:hover:bg-zinc-100 dark:hover:text-black dark:bg-zinc-200 h-9 w-9 duration-200 shadow text-white p-2 rounded"
         @click="setColorTheme($colorMode.preference === 'dark' ? 'light' : 'dark')"

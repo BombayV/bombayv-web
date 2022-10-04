@@ -42,7 +42,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
       <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 py-2 px-4 transparent">Log In</NuxtLink>
       <NuxtLink to="/register" class="bg-indigo-600 hover:bg-indigo-500 text-zinc-50 font-bold py-2 shadow-md px-4 rounded-lg duration-150">Sign Up</NuxtLink>
     </div>
-		<button @click="sidebar = true" aria-label="Sidebar" class="md:hidden block mr-4 hover:bg-zinc-700 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">
+		<button type="button" @click="sidebar = true" aria-label="Sidebar" class="md:hidden block mr-4 hover:bg-zinc-700 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-black dark:stroke-zinc-50">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 			</svg>
@@ -52,7 +52,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
 		<div v-if="sidebar" class="fixed z-30 w-full px-2 flex flex-col md:hidden">
 			<div class="w-full flex justify-between mt-4 items-center font-semibold text-lg pr-full bg-zinc-300 dark:bg-zinc-800 py-2 rounded-t-lg pl-4 shadow">
 				<span class="font-bold underline font-mont pl-1 dark:text-white">{{ formattedPath }}</span>
-				<button @click="sidebar = false" aria-label="Sidebar" class="mr-4 p-1.5 bg-zinc-400 dark:bg-zinc-700 dark:text-white dark:hover:bg-zinc-900 hover:bg-zinc-500 focus:ring-[3px] focus:ring-indigo-400 outline-none rounded duration-200">
+				<button type="button" @click="sidebar = false" aria-label="Sidebar" class="mr-4 p-1.5 bg-zinc-400 dark:bg-zinc-700 dark:text-white dark:hover:bg-zinc-900 hover:bg-zinc-500 focus:ring-[3px] focus:ring-indigo-400 outline-none rounded duration-200">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 					</svg>
