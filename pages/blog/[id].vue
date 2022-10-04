@@ -40,35 +40,46 @@ const user = useState<User>(() => {
   }
 });
 const loading = ref<boolean>(true);
+const error = ref<string>('');
 
 onMounted(async () => {
 	const link = route.params.id as string;
 	const formattedLink = link.replace(/_/g, ' ');
   const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts/' + formattedLink);
   const respData = await resp.json();
-  data.value = {
-    title: respData.data.title,
-    description: respData.data.description,
-    content: respData.data.content,
-    preview: `https://ubcdby3t.directus.app/assets/${respData.data.preview}?&quality=75`,
-    date_created: respData.data.date_created,
-    date_updated: respData.data.date_updated,
-    user_created: respData.data.user_created
-  };
+	if (respData.data) {
+		data.value = {
+			title: respData.data.title,
+			description: respData.data.description,
+			content: respData.data.content,
+			preview: `https://ubcdby3t.directus.app/assets/${respData.data.preview}?&quality=75`,
+			date_created: respData.data.date_created,
+			date_updated: respData.data.date_updated,
+			user_created: respData.data.user_created
+		};
+	}
 
   // Fetch user data
-  const resp2 = await fetch('https://ubcdby3t.directus.app/users/' + data.value.user_created);
-  const respData2 = await resp2.json();
-  user.value = {
-    first_name: respData2.data.first_name,
-    last_name: respData2.data.last_name,
-    email: respData2.data.email,
-    avatar: `https://ubcdby3t.directus.app/assets/${respData2.data.avatar}?&quality=20`,
-    location: respData2.data.location
-  };
+	if (data.value.user_created) {
+		const resp2 = await fetch('https://ubcdby3t.directus.app/users/' + data.value.user_created);
+		const respData2 = await resp2.json();
+		if (respData2.data) {
+			user.value = {
+				first_name: respData2.data.first_name,
+				last_name: respData2.data.last_name,
+				email: respData2.data.email,
+				avatar: `https://ubcdby3t.directus.app/assets/${respData2.data.avatar}?&quality=20`,
+				location: respData2.data.location
+			};
+		}
+	}
 	setTimeout(() => {
-		loading.value = false;
-	}, 250);
+		if (data.value.title === '' || data.value.description === '' || data.value.content === '') {
+			error.value = 'Post not found :(';
+		} else {
+			loading.value = false;
+		}
+	}, 100);
 })
 </script>
 
@@ -82,8 +93,8 @@ onMounted(async () => {
 				</svg>
 				Go Back
 			</NuxtLink>
-      <div class="relative flex items-center justify-center w-full">
-        <img @click="activeUrl = data.preview" class="cursor-pointer rounded-xl object-cover shadow-md w-full" :src="data.preview" alt="Post image">
+      <div v-if="data.preview" class="relative flex items-center justify-center w-full h-[28rem] overflow-hidden rounded-xl">
+        <img @click="activeUrl = data.preview" class="cursor-pointer hover:opacity-90 duration-150 transition-opacity rounded-xl object-cover shadow-md w-full" :src="data.preview" alt="Post image">
       </div>
       <h1 class="text-2xl lg:text-3xl self-start dark:text-zinc-200 font-bold mt-4">{{ data.title }}</h1>
         <p class="text-xs lg:text-sm self-start dark:text-zinc-200 mt-2"><strong>Created:</strong> {{ new Date(data.date_created).toLocaleString() }}</p>
@@ -93,7 +104,7 @@ onMounted(async () => {
       <div class="flex items-center self-start mt-5 gap-x-4">
         <img v-if="user.avatar" class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" :src="user.avatar" alt="User avatar">
         <img v-else class="rounded-full h-12 bg-zinc-300 dark:bg-zinc-600 shadow-md duration-150" src="/assets/images/avatar.png" alt="User avatar empty">
-        <p class="dark:text-zinc-200 font-medium">This post was written by
+        <p v-if="user.first_name || user.last_name" class="dark:text-zinc-200 font-medium">This post was written by
           <strong>
           <span v-if="user.first_name">{{ user.first_name }}</span>
           <span v-if="user.last_name">&nbsp;{{ user.last_name }}</span>
@@ -103,12 +114,9 @@ onMounted(async () => {
         </p>
       </div>
     </div>
-		<p v-else class="font-mont text-4xl lg:text-5xl font-bold">Loading
-			<span class="anim-bounce-s inline-block">.</span>
-			<span class="anim-bounce-m inline-block">.</span>
-			<span class="anim-bounce-l inline-block">.</span>
-		</p>
-  </div>
+		<Loading v-else :loadText="error" path="/blog"/>
+
+	</div>
 </template>
 
 <style>

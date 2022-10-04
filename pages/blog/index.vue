@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const posts = ref<Array<Object>>([]);
+const loading = ref<boolean>(true);
+const error = ref<string>('');
 
 onMounted(async () => {
   const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts');
@@ -14,6 +16,16 @@ onMounted(async () => {
       date: post.date_created
     });
   }
+	setTimeout(() => {
+		if (posts.value.length > 0) {
+			loading.value = false;
+		} else {
+			setTimeout(() => {
+				error.value = 'Could not load posts';
+				loading.value = false;
+			}, 1000);
+		}
+	}, 100)
 })
 
 definePageMeta({
@@ -22,7 +34,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="h-auto bg-zinc-200 dark:bg-zinc-900 duration-150">
+  <div v-if="!loading" class="h-auto bg-zinc-200 dark:bg-zinc-900 duration-150">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
@@ -43,6 +55,7 @@ definePageMeta({
       </div>
     </div>
   </div>
+	<Loading v-else :loadText="error"/>
 </template>
 
 <style scoped>

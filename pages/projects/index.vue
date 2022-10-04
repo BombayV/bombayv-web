@@ -10,6 +10,8 @@ type Project = {
 	url: string
 }
 
+const loading = ref<boolean>(true);
+const error = ref<string>('');
 const projects = ref<Project[]>()
 
 onMounted(async () => {
@@ -21,11 +23,18 @@ onMounted(async () => {
   })
 	const data = await rawData.json()
 	projects.value = data.data
+	setTimeout(() => {
+		if (projects.value) {
+			loading.value = false
+		} else {
+			error.value = 'Could not load projects'
+		}
+	}, 100)
 })
 </script>
 
 <template>
-	<div class="relative pt-24 grad-sm lg:grad-lg bg-back-wt min-h-screen pb-8">
+	<div v-if="!loading" class="relative pt-24 grad-sm lg:grad-lg bg-back-wt min-h-screen pb-8">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
@@ -34,6 +43,7 @@ onMounted(async () => {
       <TimelineItem v-for="project in projects" :key="project.id" :title="project.title" :description="project.description" :link="project.url" :date="project.date"/>
     </div>
 	</div>
+	<Loading v-else :loadText="error"/>
 </template>
 
 <style scoped>
