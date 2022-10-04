@@ -15,6 +15,7 @@ export default <Config> {
         'small-wt': "url('../images/small_white.svg')",
         'big-wt': "url('../images/big_white.svg')",
         'back-wt': "url('../images/projects.svg')",
+        'back-404': "url('../images/404.svg')",
       }
     }
   },
