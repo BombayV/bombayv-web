@@ -105,11 +105,15 @@ export class Wordle {
         currentWord += this.guesses[i].letter;
       }
       if (currentWord.toUpperCase() === this.word) {
-        alert("You won!");
+        setTimeout(() => {
+          alert("You win!");
+        }, 300 * this.maxLetters);
       } else {
         this.currentTries++;
         if (this.currentTries - 1 === this.maxTries) {
-          alert("You lost!");
+          setTimeout(() => {
+            alert("You lose!");
+          }, 300 * this.maxLetters);
         }
       }
     }

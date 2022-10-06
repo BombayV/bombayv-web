@@ -71,7 +71,7 @@ onMounted(async () => {
             class="grid font-black text-zinc-900 dark:text-zinc-300 text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-24 xl:h-24 lg:w-20 lg:h-20 md:w-16 md:h-16 w-14 h-14"
             :class="data.letter !== '' && 'pop border-zinc-500 dark:border-zinc-700 border-2'"
             :style="{
-              backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'wrong' && '#c7b82b',
+              backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
               animation: data.state !== '' && 'flip 0.3s ease-in-out',
             }"
         >
@@ -86,7 +86,8 @@ onMounted(async () => {
 
 <style>
 .pop {
-  animation: pop 0.1s ease-in-out;
+  animation: pop 0.1s ease-in-out infinite;
+	-moz-animation: pop 0.1s ease-in-out infinite;
 }
 
 @keyframes pop {
@@ -94,7 +95,7 @@ onMounted(async () => {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);
