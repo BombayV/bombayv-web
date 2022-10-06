@@ -5,6 +5,7 @@ interface WordleData {
   tries: number
   letters: number
   total: number
+	lang: string
   guesses: string[]
 }
 
@@ -13,6 +14,7 @@ const maxData = ref<WordleData>({
   tries: 6,
   letters: 5,
   total: 20,
+	lang: 'en',
   guesses: []
 });
 
@@ -35,8 +37,12 @@ const keyListener = (e: KeyboardEvent) => {
 };
 
 onMounted(async () => {
-  wordleGame.value = new Wordle("Hello");
+	const rawWords = await fetch('../data/en5.json')
+	const words = await rawWords.json()
+
+	wordleGame.value = new Wordle(words);
   maxData.value = {
+		lang: 'en',
     tries: wordleGame.value.getMaxTries(),
     letters: wordleGame.value.getMaxLetters(),
     total: wordleGame.value.getSquaresLength(),
@@ -73,6 +79,7 @@ onMounted(async () => {
             :style="{
               backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
               animation: data.state !== '' && 'flip 0.3s ease-in-out',
+              animationDelay: data.delay !== '' && `${data.delay}ms`,
             }"
         >
           <span>{{ data.letter.toUpperCase() }}</span>

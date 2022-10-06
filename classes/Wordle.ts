@@ -3,6 +3,7 @@ type letterState = 'correct' | 'incorrect' | 'wrong' | ''
 interface Letter {
   letter: string
   state: letterState
+  delay: number
 }
 
 export class Wordle {
@@ -12,12 +13,13 @@ export class Wordle {
   private currentTries: number = 1;
   private currentLetter: number = 0;
   private guesses = new Array<Letter>();
+  private words: string[] = [];
 
-  constructor(word: string) {
+  constructor(words: string[]) {
     console.log("Wordle constructor");
-    if (!word) throw new Error("Word is required");
-    if (word.length > this.maxLetters) throw new Error("Word is too long");
-    this.word = word.toUpperCase();
+    if (!words) throw new Error("Word is required");
+    this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
+    this.words = words;
   }
 
   // Getters
@@ -27,10 +29,11 @@ export class Wordle {
 
   public getGuesses() {
    // Return an array with arrays up to maxTries * maxLetters
-    return Array.from(Array(this.getSquaresLength()), (_, i) => {
+    return Array.from(Array(this.getSquaresLength()), () => {
       return <Letter> {
         letter: '',
-        state: ''
+        state: '',
+        delay: 0,
       }
     });
   }
@@ -47,17 +50,12 @@ export class Wordle {
     return this.maxLetters * this.maxTries;
   }
 
-  // Setters
-  public setWord(word: string): void {
-    this.word = word;
-  }
-
   public addLetter(letter: string, reference): void {
     if (this.currentLetter < this.maxLetters * this.currentTries) {
       reference[this.currentLetter].letter = letter.toUpperCase();
       this.guesses[this.currentLetter] = <Letter> {
         letter: letter.toUpperCase(),
-        state: ''
+        state: '',
       }
       this.currentLetter++;
     }
@@ -75,53 +73,49 @@ export class Wordle {
   public checkWord(reference): void {
     // Check if the row is full
     if (this.currentLetter === this.maxLetters * this.currentTries) {
-      let currentWord: string = '';
-      // Check if the word in the row is correct
-      for (let i = this.maxLetters * (this.currentTries - 1); i < this.maxLetters * this.currentTries; i++) {
-        // Check if the letter is correct
-        if (this.guesses[i].letter === this.word[i - this.maxLetters * (this.currentTries - 1)]) {
-          console.log("Correct letter");
-          setTimeout(() => {
-            reference[i].state = 'correct';
-          }, 300 * (i - this.maxLetters * (this.currentTries - 1)));
-          this.guesses[i].state = 'correct';
-        } else if (this.word[i] !== this.guesses[i].letter && this.word.includes(this.guesses[i].letter)) {
-          console.log("Incorrect letter");
-          setTimeout(() => {
-            reference[i].state = 'incorrect';
-          }, 300 * (i - this.maxLetters * (this.currentTries - 1)));
-          this.guesses[i].state = 'wrong';
-        } else {
-          console.log("Wrong letter");
-          setTimeout(() => {
-            reference[i].state = 'wrong';
-          }, 300 * (i - this.maxLetters * (this.currentTries - 1)));
-          this.guesses[i].state = 'incorrect';
-        }
-
-        // console.table(this.guesses);
-        // console.table(reference);
-
-        currentWord += this.guesses[i].letter;
+      // Check if the word of the row exists in the words array
+      const currentWord = this.guesses.slice(this.maxLetters * (this.currentTries - 1), this.maxLetters * this.currentTries).map((letter) => letter.letter).join('');
+      const capitalizedWord = `${currentWord.charAt(0).toUpperCase()}${currentWord.slice(1).toLowerCase()}`;
+      if (!this.words.includes(capitalizedWord)) {
+        console.log("Word not found");
+        return null
       }
-      if (currentWord.toUpperCase() === this.word) {
+
+      for (let i = 0; i < currentWord.length; i++) {
+        const index = i + this.maxLetters * (this.currentTries - 1)
+        if (currentWord[i] === this.word[i]) {
+          reference[index].state = 'correct';
+          reference[index].delay = i * 100;
+          this.guesses[index].state = 'correct';
+        } else if (currentWord.includes(this.word[i])) {
+          reference[index].state = 'incorrect';
+          reference[index].delay = i * 100;
+          this.guesses[index].state = 'incorrect';
+        } else {
+          reference[index].state = 'wrong';
+          reference[index].delay = i * 100;
+          this.guesses[index].state = 'wrong';
+        }
+      }
+
+      if (currentWord === this.word) {
         setTimeout(() => {
           alert("You win!");
-        }, 300 * this.maxLetters);
+        }, 500);
       } else {
         this.currentTries++;
         if (this.currentTries - 1 === this.maxTries) {
           setTimeout(() => {
             alert("You lose!");
-          }, 300 * this.maxLetters);
+          }, 500);
         }
       }
     }
   }
 
-  public restartGame(newWord: string, newTries: number, newLetters: number): void {
+  public restartGame(words: string[], newTries: number, newLetters: number): void {
     console.log("restartGame");
-    this.word = newWord.toUpperCase();
+    this.words = words;
     this.maxTries = newTries;
     this.maxLetters = newLetters;
     this.currentTries = 1;
