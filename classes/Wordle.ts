@@ -14,12 +14,14 @@ export class Wordle {
   private currentLetter: number = 0;
   private guesses = new Array<Letter>();
   private words: string[] = [];
+  private gameEnded: boolean;
 
   constructor(words: string[]) {
     console.log("Wordle constructor");
     if (!words) throw new Error("Word is required");
     this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
     this.words = words;
+    this.gameEnded = false;
   }
 
   // Getters
@@ -51,6 +53,7 @@ export class Wordle {
   }
 
   public addLetter(letter: string, reference): void {
+    if (this.gameEnded) return;
     if (this.currentLetter < this.maxLetters * this.currentTries) {
       reference[this.currentLetter].letter = letter.toUpperCase();
       this.guesses[this.currentLetter] = <Letter> {
@@ -62,6 +65,7 @@ export class Wordle {
   }
 
   public removeLetter(reference): void {
+    if (this.gameEnded) return;
     if (this.currentLetter > 0 && this.currentLetter <= this.maxLetters * this.currentTries && this.currentLetter > this.maxLetters * (this.currentTries - 1)) {
       this.guesses[this.currentLetter - 1].letter = '';
       reference[this.currentLetter - 1].letter = '';
@@ -71,6 +75,7 @@ export class Wordle {
 
   // Methods
   public checkWord(reference): void {
+    if (this.gameEnded) return;
     // Check if the row is full
     if (this.currentLetter === this.maxLetters * this.currentTries) {
       // Check if the word of the row exists in the words array
@@ -78,7 +83,7 @@ export class Wordle {
       const capitalizedWord = `${currentWord.charAt(0).toUpperCase()}${currentWord.slice(1).toLowerCase()}`;
       if (!this.words.includes(capitalizedWord)) {
         console.log("Word not found");
-        return null
+        return;
       }
 
       for (let i = 0; i < currentWord.length; i++) {
@@ -101,12 +106,14 @@ export class Wordle {
       if (currentWord === this.word) {
         setTimeout(() => {
           alert("You win!");
+          this.gameEnded = true;
         }, 500);
       } else {
         this.currentTries++;
         if (this.currentTries - 1 === this.maxTries) {
           setTimeout(() => {
             alert("You lose!");
+            this.gameEnded = true;
           }, 500);
         }
       }
@@ -116,9 +123,12 @@ export class Wordle {
   public restartGame(words: string[], newTries: number, newLetters: number): void {
     console.log("restartGame");
     this.words = words;
+    this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
     this.maxTries = newTries;
     this.maxLetters = newLetters;
     this.currentTries = 1;
     this.currentLetter = 0;
+    this.guesses = new Array<Letter>();
+    this.gameEnded = false;
   }
 }

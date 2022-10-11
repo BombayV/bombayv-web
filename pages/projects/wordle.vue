@@ -10,6 +10,11 @@ interface WordleData {
 }
 
 const wordleGame = ref(null);
+const keyboard = ref([
+  [],
+  [],
+  []
+])
 const maxData = ref<WordleData>({
   tries: 6,
   letters: 5,
@@ -59,7 +64,7 @@ onMounted(async () => {
 
 <template>
 	<div v-if="!loading" class="w-full h-full font-mont relative flex flex-col items-center justify-center relative">
-    <div>
+    <div class="relative">
       <div class="flex items-center justify-between">
         <h1 class="mb-4 text-4xl xl:text-4xl text-zinc-900 dark:text-zinc-200 font-bold border-b">Wordle</h1>
         <button type="button" aria-label="Wordle settings">
@@ -74,16 +79,29 @@ onMounted(async () => {
 		}">
         <div
             v-for="data in maxData.guesses"
-            class="grid font-black text-zinc-900 dark:text-zinc-300 text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-24 xl:h-24 lg:w-20 lg:h-20 md:w-16 md:h-16 w-14 h-14"
-            :class="data.letter !== '' && 'pop border-zinc-500 dark:border-zinc-700 border-2'"
+            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-24 xl:h-24 lg:w-20 lg:h-20 md:w-16 md:h-16 w-14 h-14"
+            :class="data.letter !== '' && 'border-zinc-500 dark:border-zinc-700 border-2'"
             :style="{
               backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
-              animation: data.state !== '' && 'flip 0.3s ease-in-out',
-              animationDelay: data.delay !== '' && `${data.delay}ms`,
+              animation: data.state !== '' && 'flip 0.5s ease-in-out' || data.letter !== '' && 'pop 0.3s ease-in-out',
+              animationDelay: data.delay !== '' && data.state !== '' && `${data.delay}ms` || data.letter !== '' && '0ms',
             }"
         >
           <span>{{ data.letter.toUpperCase() }}</span>
         </div>
+      </div>
+      <div class="flex flex-col">
+        <div>
+          <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
+            {{ data.letter }}
+          </button>
+        </div>
+        <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
+          {{ data.letter }}
+        </button>
+        <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
+          {{ data.letter }}
+        </button>
       </div>
       <p class="font-light dark:text-zinc-400 mt-4 text-sm md:text-md lg:text-lg text-center">All credits to the New York Times.</p>
     </div>
