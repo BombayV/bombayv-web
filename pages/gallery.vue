@@ -19,7 +19,12 @@ const activePics = computed(() => pics.value.slice(0, max.value));
 
 onMounted(async () => {
   // Fetch the data from the API and get the images
-  const resp = await fetch('https://ubcdby3t.directus.app/items/gallery');
+  const resp = await fetch('https://ubcdby3t.directus.app/items/gallery', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
   const respData = await resp.json();
   for (const pic of respData.data) {
     if (pic.photo) {

@@ -22,7 +22,10 @@ onMounted(async () => {
     }
   })
 	const data = await rawData.json()
-	projects.value = data.data
+  // Organize by date oldest to newest
+	projects.value = data.data.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
 	setTimeout(() => {
 		if (projects.value) {
 			loading.value = false
