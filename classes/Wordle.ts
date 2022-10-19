@@ -1,3 +1,5 @@
+import { Notification } from "~/classes/Notification";
+
 type letterState = 'correct' | 'incorrect' | 'wrong' | ''
 
 interface Letter {
@@ -17,7 +19,6 @@ export class Wordle {
   private gameEnded: boolean;
 
   constructor(words: string[]) {
-    console.log("Wordle constructor");
     if (!words) throw new Error("Word is required");
     this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
     this.words = words;
@@ -74,7 +75,7 @@ export class Wordle {
   }
 
   // Methods
-  public checkWord(reference): void {
+  public checkWord(reference, newKeyboard): void {
     if (this.gameEnded) return;
     // Check if the row is full
     if (this.currentLetter === this.maxLetters * this.currentTries) {
@@ -82,21 +83,26 @@ export class Wordle {
       const currentWord = this.guesses.slice(this.maxLetters * (this.currentTries - 1), this.maxLetters * this.currentTries).map((letter) => letter.letter).join('');
       const capitalizedWord = `${currentWord.charAt(0).toUpperCase()}${currentWord.slice(1).toLowerCase()}`;
       if (!this.words.includes(capitalizedWord)) {
-        console.log("Word not found");
+        new Notification("Word not found", 2500);
         return;
       }
 
       for (let i = 0; i < currentWord.length; i++) {
         const index = i + this.maxLetters * (this.currentTries - 1)
         if (currentWord[i] === this.word[i]) {
+          this.handleLetter(reference[index], 'correct', newKeyboard);
           reference[index].state = 'correct';
           reference[index].delay = i * 100;
           this.guesses[index].state = 'correct';
-        } else if (currentWord.includes(this.word[i])) {
-          reference[index].state = 'incorrect';
-          reference[index].delay = i * 100;
-          this.guesses[index].state = 'incorrect';
+        } else if (this.word.includes(currentWord[i])) {
+          if (reference[index].state !== 'correct') {
+            this.handleLetter(reference[index], 'incorrect', newKeyboard);
+            reference[index].state = 'incorrect';
+            reference[index].delay = i * 100;
+            this.guesses[index].state = 'incorrect';
+          }
         } else {
+          this.handleLetter(reference[index], null, newKeyboard);
           reference[index].state = 'wrong';
           reference[index].delay = i * 100;
           this.guesses[index].state = 'wrong';
@@ -105,20 +111,33 @@ export class Wordle {
 
       if (currentWord === this.word) {
         setTimeout(() => {
-          alert("You win!");
+          new Notification("You guessed the word correctly", 5000);
           this.gameEnded = true;
         }, 500);
       } else {
         this.currentTries++;
         if (this.currentTries - 1 === this.maxTries) {
           setTimeout(() => {
-            alert("You lose!");
+            new Notification("You did not guess the word", 5000);
             this.gameEnded = true;
           }, 500);
         }
       }
     }
   }
+
+  public handleLetter(letter, state, newKeyboard): void {
+    // Find the letter in the keyboard and change its state
+    for (let i = 0; i < newKeyboard.length; i++) {
+      for (let j = 0; j < newKeyboard[i].length; j++) {
+        if (newKeyboard[i][j].letter.toUpperCase() === letter.letter) {
+          if (newKeyboard[i][j].state === 'correct') return;
+          newKeyboard[i][j].state = state;
+        }
+      }
+    }
+  }
+
 
   public restartGame(words: string[], newTries: number, newLetters: number): void {
     console.log("restartGame");

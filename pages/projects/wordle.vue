@@ -11,9 +11,38 @@ interface WordleData {
 
 const wordleGame = ref(null);
 const keyboard = ref([
-  [],
-  [],
-  []
+  [
+    { letter: 'q', state: null },
+    { letter: 'w', state: null },
+    { letter: 'e', state: null },
+    { letter: 'r', state: null },
+    { letter: 't', state: null },
+    { letter: 'y', state: null },
+    { letter: 'u', state: null },
+    { letter: 'i', state: null },
+    { letter: 'o', state: null },
+    { letter: 'p', state: null },
+  ],
+  [
+    { letter: 'a', state: null },
+    { letter: 's', state: null },
+    { letter: 'd', state: null },
+    { letter: 'f', state: null },
+    { letter: 'g', state: null },
+    { letter: 'h', state: null },
+    { letter: 'j', state: null },
+    { letter: 'k', state: null },
+    { letter: 'l', state: null },
+  ],
+  [
+    { letter: 'z', state: null },
+    { letter: 'x', state: null },
+    { letter: 'c', state: null },
+    { letter: 'v', state: null },
+    { letter: 'b', state: null },
+    { letter: 'n', state: null },
+    { letter: 'm', state: null },
+  ],
 ])
 const maxData = ref<WordleData>({
   tries: 6,
@@ -25,10 +54,11 @@ const maxData = ref<WordleData>({
 
 const loading = ref<boolean>(true);
 const error = ref<string>('');
+const getRow = (index: number) => keyboard.value[index];
 
 const keyListener = (e: KeyboardEvent) => {
   if (e.key === 'Enter') {
-    wordleGame.value.checkWord(maxData.value.guesses);
+    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value);
   }
 
   if (e.key === 'Backspace') {
@@ -38,6 +68,16 @@ const keyListener = (e: KeyboardEvent) => {
   // Match only letters and spanish accents (á, é, í, ó, ú) or ñ
   if (e.key.length === 1 && e.key.match(/[a-zA-ZáéíóúñÁÉÍÓÚÑ]/)) {
     wordleGame.value.addLetter(e.key, maxData.value.guesses);
+  }
+};
+
+const keyHandler = (letter: string) => {
+  if (letter === 'enter') {
+    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value);
+  } else if (letter === 'backspace') {
+    wordleGame.value.removeLetter(maxData.value.guesses);
+  } else {
+    wordleGame.value.addLetter(letter, maxData.value.guesses);
   }
 };
 
@@ -64,7 +104,10 @@ onMounted(async () => {
 
 <template>
 	<div v-if="!loading" class="w-full h-full font-mont relative flex flex-col items-center justify-center relative">
-    <div class="relative">
+    <div id="noti-container" class="absolute mt-16 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown">
+
+    </div>
+    <div class="relative md:mb-16">
       <div class="flex items-center justify-between">
         <h1 class="mb-4 text-4xl xl:text-4xl text-zinc-900 dark:text-zinc-200 font-bold border-b">Wordle</h1>
         <button type="button" aria-label="Wordle settings">
@@ -74,12 +117,12 @@ onMounted(async () => {
         </button>
       </div>
       <div class="grid gap-2" :style="{
-      'grid-template-columns': `repeat(${maxData.letters}, 1fr)`,
-      'grid-template-rows': `repeat(${maxData.tries}, 1fr)`,
-		}">
+        'grid-template-columns': `repeat(${maxData.letters}, 1fr)`,
+        'grid-template-rows': `repeat(${maxData.tries}, 1fr)`,
+		  }">
         <div
             v-for="data in maxData.guesses"
-            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-24 xl:h-24 lg:w-20 lg:h-20 md:w-16 md:h-16 w-14 h-14"
+            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-20 xl:h-20 lg:w-16 lg:h-16 w-14 h-14"
             :class="data.letter !== '' && 'border-zinc-500 dark:border-zinc-700 border-2'"
             :style="{
               backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
@@ -90,20 +133,50 @@ onMounted(async () => {
           <span>{{ data.letter.toUpperCase() }}</span>
         </div>
       </div>
-      <div class="flex flex-col">
-        <div>
-          <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
+      <div class="fixed flex flex-col items-center justify-center mt-4 h-18 bottom-0 left-1/2 -translate-x-1/2 mb-8">
+        <div class="flex items-center justify-center mb-2 gap-x-1.5">
+          <button
+            v-for="data in getRow(0)"
+            @click="keyHandler(data.letter)"
+            type="button"
+            class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+            :style="{
+              backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
+            }"
+          >
             {{ data.letter }}
           </button>
         </div>
-        <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
-          {{ data.letter }}
-        </button>
-        <button v-for="data in keyboard" type="button" class="dark:bg-zinc-600 w-6 h-8 rounded text-zinc-900 dark:text-zinc-200 font-bold border-b">
-          {{ data.letter }}
-        </button>
+        <div class="flex items-center justify-center mb-2 gap-x-1.5">
+          <button
+            v-for="data in getRow(1)"
+            @click="keyHandler(data.letter)"
+            type="button"
+            class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+            :style="{
+              backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
+            }"
+          >
+            {{ data.letter }}
+          </button>
+        </div>
+        <div class="flex items-center justify-center gap-x-1.5">
+          <button @click="keyHandler('backspace')" class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Del</button>
+          <button
+              v-for="data in getRow(2)"
+              @click="keyHandler(data.letter)"
+              type="button"
+              class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+              :style="{
+              backgroundColor: data.state === 'correct' && '#a483ef' || data.state === 'incorrect' && '#c7b82b',
+            }"
+          >
+            {{ data.letter }}
+          </button>
+          <button @click="keyHandler('enter')" class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Enter</button>
+        </div>
       </div>
-      <p class="font-light dark:text-zinc-400 mt-4 text-sm md:text-md lg:text-lg text-center">All credits to the New York Times.</p>
+<!--      <p class="font-light dark:text-zinc-400 mt-4 text-sm md:text-md lg:text-lg text-center">All credits to the New York Times.</p>-->
     </div>
 	</div>
   <Loading v-else :loadText="error"/>
@@ -113,6 +186,11 @@ onMounted(async () => {
 .pop {
   animation: pop 0.1s ease-in-out infinite;
 	-moz-animation: pop 0.1s ease-in-out infinite;
+}
+
+.slideDown {
+  animation: slideDown 0.5s ease-in-out;
+  -moz-animation: slideDown 0.5s ease-in-out;
 }
 
 @keyframes pop {
@@ -136,6 +214,17 @@ onMounted(async () => {
   }
   100% {
     transform: rotateY(360deg);
+  }
+}
+
+@keyframes slideDownOpacity {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
