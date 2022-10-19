@@ -24,6 +24,17 @@ html {
   transform: translateY(-75px);
 }
 
+.scaleUp-enter-active,
+.scaleUp-leave-active {
+  transition: all 0.25s cubic-bezier(1, 0.8, 0.8, 1);
+}
+
+.scaleUp-enter-from,
+.scaleUp-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
 .title-enter-active,
 .title-leave-active {
   transition: all 0.8s ease-in-out;

@@ -16,7 +16,7 @@ const pages = computed(() => {
   return paths.map((path) => {
     return {
       ...path,
-      active: route.path === path.path || path.path.includes('/blog') && route.path.includes('/blog')
+      active: route.path === path.path || path.path.includes('/blog') && route.path.includes('/blog') || path.path.includes('/projects') && route.path.includes('/projects'),
     }
   })
 });

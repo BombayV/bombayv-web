@@ -53,6 +53,19 @@ export class Wordle {
     return this.maxLetters * this.maxTries;
   }
 
+  public getDifficulty(difficulty: string): number {
+    switch (difficulty) {
+      case 'easy':
+        return 6;
+      case 'medium':
+        return 5;
+      case 'hard':
+        return 4;
+      default:
+        return 3;
+    }
+  }
+
   public addLetter(letter: string, reference): void {
     if (this.gameEnded) return;
     if (this.currentLetter < this.maxLetters * this.currentTries) {
@@ -139,15 +152,31 @@ export class Wordle {
   }
 
 
-  public restartGame(words: string[], newTries: number, newLetters: number): void {
-    console.log("restartGame");
-    this.words = words;
-    this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
-    this.maxTries = newTries;
+  public restartGame(newDifficulty: string, lang: string, newLetters: number, reference): void {
+    reference.tries = this.maxTries;
+    reference.letters = newLetters;
+    reference.total = this.getSquaresLength();
+    reference.guesses.forEach((box) => {
+      box.letter = '';
+      box.state = '';
+      box.delay = 0;
+    })
+    this.maxTries = this.getDifficulty(newDifficulty);
     this.maxLetters = newLetters;
     this.currentTries = 1;
     this.currentLetter = 0;
     this.guesses = new Array<Letter>();
+
+    fetch(`../data/${lang}${newLetters}.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        this.word = data[Math.floor(Math.random() * data.length)].toUpperCase();
+        this.words = data;
+      })
+      .catch((error) => {
+        console.error(error);
+        new Notification("Could not fetch new word :(", 5000);
+      });
     this.gameEnded = false;
   }
 }
