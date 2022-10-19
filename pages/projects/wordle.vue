@@ -179,7 +179,7 @@ onMounted(async () => {
             v-for="data in getRow(0)"
             @click="keyHandler(data.letter)"
             type="button"
-            class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+            class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
             :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
           >
             {{ data.letter }}
@@ -190,7 +190,7 @@ onMounted(async () => {
             v-for="data in getRow(1)"
             @click="keyHandler(data.letter)"
             type="button"
-            class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+            class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
             :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
 
           >
@@ -198,17 +198,17 @@ onMounted(async () => {
           </button>
         </div>
         <div class="flex items-center justify-center gap-x-1.5">
-          <button @click="keyHandler('backspace')" class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Del</button>
+          <button @click="keyHandler('backspace')" class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Del</button>
           <button
               v-for="data in getRow(2)"
               @click="keyHandler(data.letter)"
               type="button"
-              class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
+              class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
               :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
           >
             {{ data.letter }}
           </button>
-          <button @click="keyHandler('enter')" class="dark:bg-zinc-700 rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Enter</button>
+          <button @click="keyHandler('enter')" class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 lg:py-3 lg:px-3.5 transition-colors duration-500">Enter</button>
         </div>
       </div>
 <!--      <p class="font-light dark:text-zinc-400 mt-4 text-sm md:text-md lg:text-lg text-center">All credits to the New York Times.</p>-->
