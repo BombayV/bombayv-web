@@ -16,6 +16,36 @@ const activeData = useState<Picture>('activeData', () => {
 });
 
 const activePics = computed(() => pics.value.slice(0, max.value));
+const picHandler = (e) => {
+  const photos = activePics.value;
+  // Use the left and right arrow keys to navigate between photos
+  const index = photos.findIndex((pic) => pic.url === activeData.value.url);
+  if (e.key === 'ArrowLeft') {
+    if (index === 0) {
+      activeData.value = photos[photos.length - 1];
+    } else {
+      activeData.value = photos[index - 1];
+    }
+  } else if (e.key === 'ArrowRight') {
+    if (index === photos.length - 1) {
+      activeData.value = photos[0];
+    } else {
+      activeData.value = photos[index + 1];
+    }
+  } else if (e.key === 'Escape' || e.key === 'Backspace') {
+    activeData.value = {
+      title: '',
+      url: ''
+    };
+  }
+};
+
+const handleClose = () => {
+  activeData.value = {
+    title: '',
+    url: ''
+  };
+}
 
 onMounted(async () => {
   // Fetch the data from the API and get the images
@@ -40,6 +70,7 @@ onMounted(async () => {
 	setTimeout(() => {
 		if (pics.value.length > 0) {
 			loading.value = false;
+      window.addEventListener('keyup', picHandler);
 		} else {
 			error.value = 'Could not load images';
 		}
@@ -56,7 +87,7 @@ definePageMeta({
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
-		<CoverImg @close="activeData.url = ''" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
+		<CoverImg @close="handleClose" @left="picHandler({key: 'ArrowLeft'})" @right="picHandler({key: 'ArrowRight'})" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
     <h1 class="text-5xl md:text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-72" :class="activeData.url !== '' && 'blur'">Gallery</h1>
     <div v-if="pics.length !== 0" class="px-16 pt-6 pb-2 columns-xs 2xl:columns-sm gap-6" :class="activeData.url !== '' && 'blur'">
       <img v-for="image in activePics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:opacity-90 duration-150 transition-opacity rounded-md img-shadow border dark:border-zinc-800 mt-6 duration-150" :src="image.url" loading="lazy" alt="Loading image...">

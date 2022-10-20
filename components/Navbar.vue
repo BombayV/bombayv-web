@@ -33,7 +33,7 @@ const sidebar = useState<boolean>('sidebar', () => false)
 </script>
 
 <template>
-  <div class="z-30 absolute w-full flex items-center justify-between py-4 transition duration-150">
+  <div class="absolute w-full flex items-center justify-between py-4 transition duration-150">
     <NuxtLink to="/" class="text-3xl italic font-alex ml-4" :class="route.name === 'index' ? 'text-zinc-200 dark:text-white' : 'text-zinc-900 dark:text-zinc-200'">Bombay</NuxtLink>
     <div class="hidden md:flex font-semibold gap-4 text-lg dark:text-zinc-50 font-mont">
       <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-600 dark:text-indigo-500'">{{ page.name }}</NuxtLink>
