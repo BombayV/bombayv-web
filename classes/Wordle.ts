@@ -88,7 +88,7 @@ export class Wordle {
   }
 
   // Methods
-  public checkWord(reference, newKeyboard): void {
+  public checkWord(reference, newKeyboard, cb: Function): void {
     if (this.gameEnded) return;
     // Check if the row is full
     if (this.currentLetter === this.maxLetters * this.currentTries) {
@@ -126,6 +126,7 @@ export class Wordle {
         setTimeout(() => {
           new Notification("You guessed the word correctly", 5000);
           this.gameEnded = true;
+          cb(true);
         }, 500);
       } else {
         this.currentTries++;
@@ -133,6 +134,7 @@ export class Wordle {
           setTimeout(() => {
             new Notification("You did not guess the word", 5000);
             this.gameEnded = true;
+            cb(true);
           }, 500);
         }
       }

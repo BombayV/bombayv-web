@@ -58,6 +58,7 @@ const maxData = ref<WordleData>({
   guesses: []
 });
 
+const settingsTitle = ref<boolean>(false);
 const activeSettings = ref<boolean[]>([false, false]);
 const loading = ref<boolean>(true);
 const error = ref<string>('');
@@ -71,7 +72,12 @@ const getDifficulty = computed(() => {
 
 const keyListener = (e: KeyboardEvent) => {
   if (e.key === 'Enter') {
-    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value);
+    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value, (resp) => {
+      settingsTitle.value = resp;
+      setTimeout(() => {
+        setSettings(resp);
+      }, 500);
+    });
   }
 
   if (e.key === 'Backspace') {
@@ -86,7 +92,12 @@ const keyListener = (e: KeyboardEvent) => {
 
 const keyHandler = (letter: string) => {
   if (letter === 'enter') {
-    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value);
+    wordleGame.value.checkWord(maxData.value.guesses, keyboard.value, (resp) => {
+      settingsTitle.value = resp;
+      setTimeout(() => {
+        setSettings(resp);
+      }, 1000);
+    });
   } else if (letter === 'backspace') {
     wordleGame.value.removeLetter(maxData.value.guesses);
   } else {
@@ -102,6 +113,7 @@ const newGame = (data: Settings) => {
       key.state = null;
     });
   });
+  settingsTitle.value = false;
   setSettings(false);
 };
 
@@ -145,7 +157,7 @@ onMounted(async () => {
     <div id="noti-container" class="absolute mt-12 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown text-sm md:text-md lg:text-lg"></div>
     <div v-if="activeSettings[0]" class="fixed top-0 left-0 w-screen bg-black bg-opacity-40 z-50 h-screen grid place-items-center">
       <Transition name="scaleUp">
-        <WordleSettings v-if="activeSettings[1]" @close="setSettings(false) " @newGame="newGame" :currentDifficulty="getDifficulty" :currentLanguage="maxData.lang" :currentWordLength="maxData.letters"/>
+        <WordleSettings v-if="activeSettings[1]" @close="setSettings(false) " @newGame="newGame" :restartGame="settingsTitle" :currentDifficulty="getDifficulty" :currentLanguage="maxData.lang" :currentWordLength="maxData.letters"/>
       </Transition>
     </div>
     <div class="relative mb-20">

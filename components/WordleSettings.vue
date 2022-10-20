@@ -46,7 +46,8 @@ const setWordLength = (wordLength: number) => {
 <template>
   <div class="dark:bg-zinc-800 bg-zinc-200 rounded-xl flex flex-col p-4">
     <div class="flex items-center justify-between">
-      <h3 class="text-3xl font-semibold dark:text-zinc-200">Settings</h3>
+      <h3 v-if="!restartGame" class="text-3xl font-semibold dark:text-zinc-200">Settings</h3>
+      <h3 v-else class="text-3xl font-semibold dark:text-zinc-200">New Game</h3>
       <button @click="$emit('close')">
         <svg
           xmlns="http://www.w3.org/2000/svg"
