@@ -169,7 +169,7 @@ export class Wordle {
     this.currentLetter = 0;
     this.guesses = new Array<Letter>();
 
-    fetch(`../data/${lang}${newLetters}.json`)
+    fetch(`https://raw.githubusercontent.com/BombayV/data/master/words/${lang}${newLetters}.json`)
       .then((response) => response.json())
       .then((data) => {
         this.word = data[Math.floor(Math.random() * data.length)].toUpperCase();
