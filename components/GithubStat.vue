@@ -51,7 +51,7 @@ const setupScroll = (target: Element) => {
           stagger: {
             each: 0.8,
             onUpdate: function () {
-              target.textContent = Math.floor(target.textContent).toLocaleString()
+              target.textContent = Math.floor(Number(target.textContent)).toLocaleString()
             }
           }
         })
@@ -73,7 +73,7 @@ onMounted(() => {
 		<div class="relative h-1/2 w-18 py-0.5 px-4 grid place-items-center border-r-2 border-zinc-400 dark:border-zinc-600">
 			<slot></slot>
 		</div>
-		<div class="w-5/6 flex items-center justify-between">
+		<div class="w-full flex items-center justify-between">
 			<p class="font-bold text-zinc-900 dark:text-zinc-300 text-lg lg:text-xl pl-4 pr-2">{{ title }}</p>
 			<p :ref="addToRef" class="text-xl lg:text-2xl text-zinc-700 dark:text-zinc-50 font-bold pr-4">{{ number }}</p>
 		</div>
