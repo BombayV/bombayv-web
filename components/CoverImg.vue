@@ -20,7 +20,7 @@ defineProps({
         </svg>
       </button>
       <div class="relative w-full h-full flex flex-col items-center justify-center">
-        <img class="max-h-full w-[90%] rounded-xl shadow-lg z-50" :src="imgUrl" alt="Big Image">
+        <img class="max-h-full max-w-full rounded-md shadow-lg z-50" :src="imgUrl" alt="Big Image">
         <p v-if="title" class="text-xl font-mont font-semibold text-white mt-2 w-[90%]">{{ title }}</p>
       </div>
       <button @click="$emit('right')" type="button" aria-label="Slide right">
