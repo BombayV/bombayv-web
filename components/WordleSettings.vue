@@ -8,7 +8,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  currentWordLength: {
+  currentTries: {
     type: Number,
     required: true
   },
@@ -21,13 +21,13 @@ const props = defineProps({
 interface Settings {
   difficulty: string
   language: string
-  wordLength: number
+  tries: number
 }
 
 const newSettings = ref<Settings>({
   difficulty: props.currentDifficulty,
   language: props.currentLanguage,
-  wordLength: props.currentWordLength
+  tries: props.currentTries
 })
 
 const setDifficulty = (difficulty: string) => {
@@ -38,8 +38,8 @@ const setLanguage = (language: string) => {
   newSettings.value.language = language
 }
 
-const setWordLength = (wordLength: number) => {
-  newSettings.value.wordLength = wordLength
+const setTries = (newTries: number) => {
+  newSettings.value.tries = newTries
 }
 </script>
 
@@ -102,30 +102,30 @@ const setWordLength = (wordLength: number) => {
         <p class="font-medium dark:text-zinc-400 text-lg mb-2">Tries</p>
         <div class="flex items-center justify-start gap-x-2">
           <button
-              @click="setWordLength(5)"
+              @click="setTries(7)"
               class="dark:bg-zinc-700 rounded bg-[#c4c4c8] focus:ring-1 grow focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-200"
-              :class="newSettings.wordLength === 5 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
+              :class="newSettings.tries === 7 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
           >
             Easy
           </button>
           <button
-              @click="setWordLength(6)"
+              @click="setTries(6)"
               class="dark:bg-zinc-700 rounded bg-[#c4c4c8] focus:ring-1 grow focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-200"
-              :class="newSettings.wordLength === 6 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
+              :class="newSettings.tries === 6 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
           >
             Medium
           </button>
           <button
-              @click="setWordLength(7)"
+              @click="setTries(5)"
               class="dark:bg-zinc-700 rounded bg-[#c4c4c8] focus:ring-1 grow focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-200"
-              :class="newSettings.wordLength === 7 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
+              :class="newSettings.tries === 5 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
           >
             Hard
           </button>
           <button
-              @click="setWordLength(8)"
+              @click="setTries(4)"
               class="dark:bg-zinc-700 rounded bg-[#c4c4c8] focus:ring-1 grow focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-200"
-              :class="newSettings.wordLength === 8 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
+              :class="newSettings.tries === 4 ? 'dark:bg-indigo-600 !bg-indigo-500 text-zinc-200' : ''"
           >
             Extreme
           </button>

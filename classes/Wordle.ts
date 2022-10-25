@@ -17,12 +17,14 @@ export class Wordle {
   private guesses = new Array<Letter>();
   private words: string[] = [];
   private gameEnded: boolean;
+  private notification: Notification;
 
   constructor(words: string[]) {
     if (!words) throw new Error("Word is required");
     this.word = words[Math.floor(Math.random() * words.length)].toUpperCase();
     this.words = words;
     this.gameEnded = false;
+    this.notification = new Notification();
   }
 
   // Getters
@@ -56,13 +58,13 @@ export class Wordle {
   public getDifficulty(difficulty: string): number {
     switch (difficulty) {
       case 'easy':
-        return 6;
+        return 4;
       case 'medium':
         return 5;
       case 'hard':
-        return 4;
+        return 6;
       default:
-        return 3;
+        return 7;
     }
   }
 
@@ -96,7 +98,7 @@ export class Wordle {
       const currentWord = this.guesses.slice(this.maxLetters * (this.currentTries - 1), this.maxLetters * this.currentTries).map((letter) => letter.letter).join('');
       const capitalizedWord = `${currentWord.charAt(0).toUpperCase()}${currentWord.slice(1).toLowerCase()}`;
       if (!this.words.includes(capitalizedWord)) {
-        new Notification("Word not found", 2500);
+        this.notification.create("Word not found", 1500);
         return;
       }
 
@@ -124,7 +126,7 @@ export class Wordle {
 
       if (currentWord === this.word) {
         setTimeout(() => {
-          new Notification("You guessed the word correctly", 5000);
+          this.notification.create("You guessed the word correctly", 5000);
           this.gameEnded = true;
           cb(true);
         }, 500);
@@ -132,7 +134,7 @@ export class Wordle {
         this.currentTries++;
         if (this.currentTries - 1 === this.maxTries) {
           setTimeout(() => {
-            new Notification("You did not guess the word", 5000);
+            this.notification.create("You did not guess the word", 5000);
             this.gameEnded = true;
             cb(true);
           }, 500);
@@ -153,23 +155,14 @@ export class Wordle {
     }
   }
 
-
-  public restartGame(newDifficulty: string, lang: string, newLetters: number, reference): void {
-    reference.tries = this.maxTries;
-    reference.letters = newLetters;
-    reference.total = this.getSquaresLength();
-    reference.guesses.forEach((box) => {
-      box.letter = '';
-      box.state = '';
-      box.delay = 0;
-    })
-    this.maxTries = this.getDifficulty(newDifficulty);
-    this.maxLetters = newLetters;
+  public restartGame(newDifficulty: string, lang: string, newTries: number, reference): void {
+    this.maxTries = newTries;
+    this.maxLetters = this.getDifficulty(newDifficulty);
     this.currentTries = 1;
     this.currentLetter = 0;
     this.guesses = new Array<Letter>();
 
-    fetch(`https://raw.githubusercontent.com/BombayV/data/master/words/${lang}${newLetters}.json`)
+    fetch(`https://raw.githubusercontent.com/BombayV/data/master/words/${lang}${this.getMaxLetters()}.json`)
       .then((response) => response.json())
       .then((data) => {
         this.word = data[Math.floor(Math.random() * data.length)].toUpperCase();
@@ -177,8 +170,14 @@ export class Wordle {
       })
       .catch((error) => {
         console.error(error);
-        new Notification("Could not fetch new word :(", 5000);
+        this.notification.create("Could not fetch new word :(", 5000);
       });
     this.gameEnded = false;
+    reference.tries = newTries;
+    reference.letters = this.getMaxLetters();
+    reference.total = this.getSquaresLength();
+    reference.guesses = this.getGuesses();
+
+    this.notification.create("Game restarted", 2500);
   }
 }

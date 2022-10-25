@@ -4,7 +4,6 @@ import { Wordle } from '@/classes/Wordle'
 interface WordleData {
   tries: number
   letters: number
-  total: number
 	lang: string
   guesses: string[]
 }
@@ -53,7 +52,6 @@ const keyboard = ref([
 const maxData = ref<WordleData>({
   tries: 6,
   letters: 5,
-  total: 20,
 	lang: 'en',
   guesses: []
 });
@@ -64,10 +62,10 @@ const loading = ref<boolean>(true);
 const error = ref<string>('');
 const getRow = (index: number) => keyboard.value[index];
 const getDifficulty = computed(() => {
-  if (maxData.value.tries === 6) return 'easy';
-  if (maxData.value.tries === 5) return 'medium';
-  if (maxData.value.tries === 4) return 'hard';
-  if (maxData.value.tries === 3) return 'extreme';
+  if (maxData.value.letters === 4) return 'easy';
+  if (maxData.value.letters === 5) return 'medium';
+  if (maxData.value.letters === 6) return 'hard';
+  if (maxData.value.letters === 7) return 'extreme';
 })
 
 const keyListener = (e: KeyboardEvent) => {
@@ -106,7 +104,7 @@ const keyHandler = (letter: string) => {
 };
 
 const newGame = (data: Settings) => {
-  wordleGame.value.restartGame(data.difficulty, data.language, data.wordLength, maxData.value);
+  wordleGame.value.restartGame(data.difficulty, data.language, data.tries, maxData.value);
   // Reset keyboard
   keyboard.value.forEach((row) => {
     row.forEach((key) => {
@@ -140,7 +138,6 @@ onMounted(async () => {
 		lang: 'en',
     tries: wordleGame.value.getMaxTries(),
     letters: wordleGame.value.getMaxLetters(),
-    total: wordleGame.value.getSquaresLength(),
     guesses: wordleGame.value.getGuesses()
   };
 
@@ -157,7 +154,7 @@ onMounted(async () => {
     <div id="noti-container" class="absolute mt-12 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown text-sm md:text-md lg:text-lg"></div>
     <div v-if="activeSettings[0]" class="fixed top-0 left-0 w-screen bg-black bg-opacity-40 z-50 h-screen grid place-items-center">
       <Transition name="scaleUp">
-        <WordleSettings v-if="activeSettings[1]" @close="setSettings(false) " @newGame="newGame" :restartGame="settingsTitle" :currentDifficulty="getDifficulty" :currentLanguage="maxData.lang" :currentWordLength="maxData.letters"/>
+        <WordleSettings v-if="activeSettings[1]" @close="setSettings(false) " @newGame="newGame" :restartGame="settingsTitle" :currentDifficulty="getDifficulty" :currentLanguage="maxData.lang" :currentTries="maxData.tries"/>
       </Transition>
     </div>
     <div class="relative mb-20">
@@ -169,6 +166,7 @@ onMounted(async () => {
           </svg>
         </button>
       </div>
+      {{maxData.tries + ' ' + maxData.letters}}
       <div class="grid gap-2" :style="{
         'grid-template-columns': `repeat(${maxData.letters}, 1fr)`,
         'grid-template-rows': `repeat(${maxData.tries}, 1fr)`,
