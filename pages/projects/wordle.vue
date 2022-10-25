@@ -132,7 +132,7 @@ const setSettings = (active: boolean) => {
 }
 
 onMounted(async () => {
-	const rawWords = await fetch('https://raw.githubusercontent.com/BombayV/data/master/words/en5.json')
+	const rawWords = await fetch('https://raw.githubusercontent.com/BombayV/blog-data/master/words/en5.json')
 	const words = await rawWords.json()
 
 	wordleGame.value = new Wordle(words);
