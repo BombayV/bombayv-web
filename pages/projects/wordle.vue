@@ -166,14 +166,13 @@ onMounted(async () => {
           </svg>
         </button>
       </div>
-      {{maxData.tries + ' ' + maxData.letters}}
       <div class="grid gap-2" :style="{
         'grid-template-columns': `repeat(${maxData.letters}, 1fr)`,
         'grid-template-rows': `repeat(${maxData.tries}, 1fr)`,
 		  }">
         <div
             v-for="data in maxData.guesses"
-            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-20 xl:h-20 lg:w-16 lg:h-16 w-14 h-14"
+            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-16 xl:h-16 lg:w-14 lg:h-14 w-12 h-12"
             :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
             :style="{
               animation: data.state !== '' && 'flip 0.5s ease-in-out' || data.letter !== '' && 'pop 0.3s ease-in-out',

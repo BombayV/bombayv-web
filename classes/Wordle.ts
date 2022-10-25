@@ -162,7 +162,7 @@ export class Wordle {
     this.currentLetter = 0;
     this.guesses = new Array<Letter>();
 
-    fetch(`https://raw.githubusercontent.com/BombayV/data/master/words/${lang}${this.getMaxLetters()}.json`)
+    fetch(`https://raw.githubusercontent.com/BombayV/blog-data/master/words/${lang}${this.getMaxLetters()}.json`)
       .then((response) => response.json())
       .then((data) => {
         this.word = data[Math.floor(Math.random() * data.length)].toUpperCase();
@@ -178,6 +178,6 @@ export class Wordle {
     reference.total = this.getSquaresLength();
     reference.guesses = this.getGuesses();
 
-    this.notification.create("Game restarted", 2500);
+    this.notification.create("Game restarted. New word created", 2500);
   }
 }
