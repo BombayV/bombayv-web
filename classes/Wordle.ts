@@ -118,7 +118,7 @@ export class Wordle {
             this.guesses[index].state = 'incorrect';
           }
         } else {
-          this.handleLetter(reference[index], null, newKeyboard);
+          this.handleLetter(reference[index], 'wrong', newKeyboard);
           reference[index].state = 'wrong';
           reference[index].delay = i * 100;
           this.guesses[index].state = 'wrong';

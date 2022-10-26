@@ -191,7 +191,7 @@ onMounted(async () => {
             @click="keyHandler(data.letter)"
             type="button"
             class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
-            :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
+            :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]' || data.state === 'wrong' && 'dark:bg-[#27272a] bg-[#a4a4a8]'"
           >
             {{ data.letter }}
           </button>
@@ -202,7 +202,7 @@ onMounted(async () => {
             @click="keyHandler(data.letter)"
             type="button"
             class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
-            :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
+            :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]' || data.state === 'wrong' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
             :style="data.letter === 'ñ' && maxData.lang === 'es' && 'display: block' || data.letter === 'ñ' && maxData.lang !== 'es' && 'display: none'"
           >
             {{ data.letter }}
@@ -215,7 +215,7 @@ onMounted(async () => {
               @click="keyHandler(data.letter)"
               type="button"
               class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
-              :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
+              :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]' || data.state === 'wrong' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
           >
             {{ data.letter }}
           </button>
