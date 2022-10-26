@@ -87,7 +87,7 @@ definePageMeta({
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
 		</Head>
-		<CoverImg @close="handleClose" @left="picHandler({key: 'ArrowLeft'})" @right="picHandler({key: 'ArrowRight'})" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
+		<CoverImg @close="handleClose" :useArrows="true" @left="picHandler({key: 'ArrowLeft'})" @right="picHandler({key: 'ArrowRight'})" v-if="activeData.url !== ''" :title="activeData.title" :imgUrl="activeData.url"/>
     <h1 class="text-5xl md:text-6xl pt-24 pb-4 font-mont font-bold border-b-2 border-zinc-500 text-zinc-900 dark:text-zinc-200 text-center mx-auto w-72" :class="activeData.url !== '' && 'blur'">Gallery</h1>
     <div v-if="pics.length !== 0" class="px-16 pt-6 pb-2 columns-xs 2xl:columns-sm gap-6" :class="activeData.url !== '' && 'blur'">
       <img v-for="image in activePics" @click="activeData = { title: image.title, url: image.url }" class="cursor-pointer hover:opacity-90 duration-150 transition-opacity rounded-md img-shadow border border-8 border-white dark:border-zinc-800 mt-6 duration-150" :src="image.url" loading="lazy" alt="Loading image...">
