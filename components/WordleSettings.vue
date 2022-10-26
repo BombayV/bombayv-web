@@ -55,7 +55,6 @@ const setTries = (newTries: number) => {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          @click="restartGame"
         >
           <path
             stroke-linecap="round"

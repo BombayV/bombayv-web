@@ -168,6 +168,7 @@ export class Wordle {
       .then((data) => {
         this.word = data[Math.floor(Math.random() * data.length)].toUpperCase();
         this.words = data;
+        console.log("Word: ", this.word);
       })
       .catch((error) => {
         console.error(error);
@@ -179,6 +180,5 @@ export class Wordle {
     reference.guesses = this.getGuesses();
     reference.lang = lang;
     this.notification.create("Game restarted. New word created", 2500);
-    console.log("Word: ", this.word);
   }
 }

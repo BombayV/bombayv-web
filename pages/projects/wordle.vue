@@ -105,6 +105,7 @@ const keyHandler = (letter: string) => {
 };
 
 const newGame = (data: Settings) => {
+  if (!data) return;
   wordleGame.value.restartGame(data.difficulty, data.language, data.tries, maxData.value);
   // Reset keyboard
   keyboard.value.forEach((row) => {
