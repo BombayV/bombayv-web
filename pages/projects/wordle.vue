@@ -11,7 +11,7 @@ interface WordleData {
 interface Settings {
   difficulty: string
   language: string
-  wordLength: number
+  tries: number
 }
 
 const wordleGame = ref(null);
@@ -38,6 +38,7 @@ const keyboard = ref([
     { letter: 'j', state: null },
     { letter: 'k', state: null },
     { letter: 'l', state: null },
+    { letter: 'ñ', state: null },
   ],
   [
     { letter: 'z', state: null },
@@ -151,7 +152,7 @@ onMounted(async () => {
 
 <template>
 	<div v-if="!loading" class="w-full h-full font-mont relative flex flex-col items-center justify-center relative">
-    <div id="noti-container" class="absolute mt-12 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown text-sm md:text-md lg:text-lg"></div>
+    <div id="noti-container" class="absolute flex flex-col items-center justify-center shrink mt-12 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown text-sm md:text-md lg:text-lg"></div>
     <div v-if="activeSettings[0]" class="fixed top-0 left-0 w-screen bg-black bg-opacity-40 z-50 h-screen grid place-items-center">
       <Transition name="scaleUp">
         <WordleSettings v-if="activeSettings[1]" @close="setSettings(false) " @newGame="newGame" :restartGame="settingsTitle" :currentDifficulty="getDifficulty" :currentLanguage="maxData.lang" :currentTries="maxData.tries"/>
@@ -172,7 +173,7 @@ onMounted(async () => {
 		  }">
         <div
             v-for="data in maxData.guesses"
-            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-2xl md:text-3xl lg:text-4xl xl:text-5xl place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-16 xl:h-16 lg:w-14 lg:h-14 w-12 h-12"
+            class="grid font-black text-zinc-900 dark:text-zinc-300 duration-500 transition-colors text-3xl lg:text-4xl xl:text-[2.5rem] place-items-center bg-zinc-400 dark:bg-zinc-800 rounded-sm xl:w-16 xl:h-16 lg:w-14 lg:h-14 w-12 h-12"
             :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
             :style="{
               animation: data.state !== '' && 'flip 0.5s ease-in-out' || data.letter !== '' && 'pop 0.3s ease-in-out',
@@ -201,7 +202,7 @@ onMounted(async () => {
             type="button"
             class="dark:bg-zinc-700 bg-[#c4c4c8] rounded-sm focus:ring-1 focus:ring-indigo-500 text-zinc-900 dark:text-zinc-200 font-bold shadow py-2 px-2.5 md:py-2.5 md:px-3 xl:py-3 xl:px-3.5 transition-colors duration-500"
             :class="data.state === 'correct' && 'dark:bg-[#a483ef] bg-[#a483ef]' || data.state === 'incorrect' && 'dark:bg-[#c7b82b] bg-[#c7b82b]'"
-
+            :style="data.letter === 'ñ' && maxData.lang === 'es' && 'display: block' || data.letter === 'ñ' && maxData.lang !== 'es' && 'display: none'"
           >
             {{ data.letter }}
           </button>

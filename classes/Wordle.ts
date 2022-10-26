@@ -25,6 +25,7 @@ export class Wordle {
     this.words = words;
     this.gameEnded = false;
     this.notification = new Notification();
+    console.log("Word: ", this.word);
   }
 
   // Getters
@@ -175,9 +176,9 @@ export class Wordle {
     this.gameEnded = false;
     reference.tries = newTries;
     reference.letters = this.getMaxLetters();
-    reference.total = this.getSquaresLength();
     reference.guesses = this.getGuesses();
-
+    reference.lang = lang;
     this.notification.create("Game restarted. New word created", 2500);
+    console.log("Word: ", this.word);
   }
 }
