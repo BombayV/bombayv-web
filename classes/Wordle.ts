@@ -178,7 +178,9 @@ export class Wordle {
     reference.tries = newTries;
     reference.letters = this.getMaxLetters();
     reference.guesses = this.getGuesses();
+    console.log(lang, reference.lang);
     reference.lang = lang;
+    console.log(lang, reference.lang);
     this.notification.create("Game restarted. New word created", 2500);
   }
 }
