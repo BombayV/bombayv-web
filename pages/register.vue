@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import {useSupabaseClient} from "#imports";
+
 definePageMeta({
   title: 'Create your account',
 })
+
+const supabase = useSupabaseClient()
 
 const data = ref({
   username: '',
@@ -9,6 +13,25 @@ const data = ref({
   password: '',
   passwordConfirmation: '',
 })
+
+const signUp = async () => {
+  const { data, error } = await supabase.auth.signUp(
+    {
+      email: 'aceptaos@gmail.com',
+      password: 'Test123',
+      options: {
+        data: {
+          username: 'John',
+        }
+      }
+    }
+  )
+  console.log(data, error)
+}
+
+const handleRegister = () => {
+  signUp()
+}
 </script>
 
 <template>
@@ -26,7 +49,7 @@ const data = ref({
       <Input v-model="data.email" placeholder="Email"/>
       <Input v-model="data.password" type="password" placeholder="Password"/>
       <Input v-model="data.passwordConfirmation" type="password" placeholder="Confirm password"/>
-      <button class="w-full bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded font-semibold transition-colors duration-200 text-sm py-1 shadow-md">Sign Up</button>
+      <button @click="handleRegister" type="button" class="w-full bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded font-semibold transition-colors duration-200 text-sm py-1 shadow-md">Sign Up</button>
     </div>
   </div>
 </template>

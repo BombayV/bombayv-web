@@ -16,7 +16,12 @@ const supabase = useSupabaseClient()
 
 const login = async (provider) => {
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider
+    provider,
+    options: {
+      redirectTo: process.env.NUXT_ENV_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NUXT_ENV_PUBLIC_VERCEL_URL}`
+      : `http://localhost:3000`
+    }
   })
 }
 </script>
