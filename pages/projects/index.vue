@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Projects'
+  title: 'Projects',
+  layout: 'navbar'
 })
 
 type Project = {

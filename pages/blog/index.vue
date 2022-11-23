@@ -4,32 +4,31 @@ const loading = ref<boolean>(true);
 const error = ref<string>('');
 
 onMounted(async () => {
-  const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts');
-  const respData = await resp.json();
-  for (const post of respData.data) {
-    const linkTo = post.title.replace(/\s+/g, '_');
-    posts.value.push({
-      title: post.title,
-      description: post.description,
-      link: linkTo,
-      preview: `https://ubcdby3t.directus.app/assets/${post.preview}?&quality=40`,
-      date: post.date_created
-    });
+  try {
+    const resp = await fetch('https://ubcdby3t.directus.app/items/user_posts');
+    const respData = await resp.json();
+    for (const post of respData.data) {
+      if (post.title) {
+        const linkTo = post.title.replace(/\s+/g, '_');
+        posts.value.push({
+          title: post.title,
+          description: post.description,
+          link: linkTo,
+          preview: `https://ubcdby3t.directus.app/assets/${post.preview}?&quality=40`,
+          date: post.date_created
+        });
+      }
+    }
+    loading.value = false;
+  } catch(e) {
+    error.value = 'Could not load posts';
+    loading.value = false;
   }
-	setTimeout(() => {
-		if (posts.value.length > 0) {
-			loading.value = false;
-		} else {
-			setTimeout(() => {
-				error.value = 'Could not load posts';
-				loading.value = false;
-			}, 1000);
-		}
-	}, 100)
 })
 
 definePageMeta({
-  title: 'Posts'
+  title: 'Posts',
+  layout: 'navbar'
 })
 </script>
 

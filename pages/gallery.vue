@@ -78,7 +78,8 @@ onMounted(async () => {
 });
 
 definePageMeta({
-  title: 'Gallery'
+  title: 'Gallery',
+  layout: 'navbar'
 })
 </script>
 

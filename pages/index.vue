@@ -53,7 +53,8 @@ const orderData = (data: object[]) => {
 
 
 definePageMeta({
-  title: 'Home'
+  title: 'Home',
+  layout: 'navbar',
 })
 
 onMounted(async () => {
@@ -77,7 +78,6 @@ onMounted(async () => {
 	<div class="w-full font-mont h-screen">
 		<Head>
 			<Title>{{ $route.meta.title }}</Title>
-
 		</Head>
 		<main class="h-screen w-full px-4 grad-sm lg:grad-lg dark:bg-small-pt lg:dark:bg-big-pt bg-small-wt lg:bg-big-wt flex items-center justify-center flex-col">
       <Transition name="title">

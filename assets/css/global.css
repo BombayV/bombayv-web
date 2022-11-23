@@ -86,3 +86,15 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(113, 113, 122, 0.6);
 }
+
+input {
+  outline: none;
+}
+
+.dark ::-ms-reveal {
+  filter: invert(60%);
+}
+
+.light ::-ms-reveal {
+  filter: invert(0%);
+}
