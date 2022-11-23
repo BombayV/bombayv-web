@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Wordle } from '@/classes/Wordle'
 
+definePageMeta({
+  title: 'Wordle',
+  layout: 'empty'
+})
+
 interface WordleData {
   tries: number
   letters: number
@@ -154,6 +159,7 @@ onMounted(async () => {
 
 <template>
 	<div v-if="!loading" class="w-full h-full font-mont relative flex flex-col items-center justify-center relative">
+    <NuxtLink to="/projects" class="fixed top-0 left-0 ml-4 mt-4 text-md hover:underline duration-150 cursor-pointer font-bold dark:text-zinc-50">Go Back</NuxtLink>
     <div id="noti-container" class="absolute flex flex-col items-center justify-center shrink mt-12 top-0 z-50 [&>div]:bg-zinc-400 [&>div]:slideDown text-sm md:text-md lg:text-lg"></div>
     <div v-if="activeSettings[0]" class="fixed top-0 left-0 w-screen bg-black bg-opacity-40 z-50 h-screen grid place-items-center">
       <Transition name="scaleUp">
