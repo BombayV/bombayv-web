@@ -23,10 +23,10 @@ const data = ref({
       </div>
       <Input v-model="data.username" placeholder="Email/Username"/>
       <Input v-model="data.password" placeholder="Password"/>
-      <p class="mb-2">or</p>
-      <div class="flex flex-wrap items-center gap-1.5 w-full mb-3">
-        <LoginButton logo="assets/images/discord-mark-white.svg" providerType="discord"/>
-      </div>
+<!--      <p class="mb-2">or</p>-->
+<!--      <div class="flex flex-wrap items-center gap-1.5 w-full mb-3">-->
+<!--        <LoginButton logo="assets/images/discord-mark-white.svg" providerType="discord"/>-->
+<!--      </div>-->
       <div class="flex items-center justify-between w-full gap-x-4">
         <button class="bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-colors duration-200 rounded py-1 grow font-semibold text-sm shadow-md">Login</button>
         <button class="text-sm font-medium dark:text-zinc-500 hover:underline dark:hover:text-red-400 duration-200">Forgot your password?</button>
