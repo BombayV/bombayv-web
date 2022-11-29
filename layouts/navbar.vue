@@ -32,6 +32,8 @@ const formattedPath = computed(() =>{
 })
 
 const sidebar = useState<boolean>('sidebar', () => false)
+
+const user = useSupabaseUser();
 </script>
 
 <template>
@@ -41,9 +43,10 @@ const sidebar = useState<boolean>('sidebar', () => false)
       <div class="hidden md:flex font-semibold gap-4 text-lg dark:text-zinc-50 font-mont">
         <NuxtLink v-for="page in pages" :to="page.path" :class="page.active && 'underline text-indigo-600 dark:text-indigo-500'">{{ page.name }}</NuxtLink>
       </div>
-      <div class="hidden md:flex items-center mr-4 font-mont font-semibold">
-        <NuxtLink to="/login" class="text-zinc-800 dark:text-zinc-50 py-2 px-4 transparent">Log In</NuxtLink>
-        <NuxtLink to="/register" class="bg-indigo-600 hover:bg-indigo-500 text-zinc-50 font-bold py-2 shadow-md px-4 rounded-lg duration-150">Sign Up</NuxtLink>
+      <div class="hidden md:flex gap-x-4 items-center mr-4 font-mont font-semibold">
+        <NuxtLink v-if="!user" to="/login" class="text-zinc-800 dark:text-zinc-50 transparent">Log In</NuxtLink>
+        <NuxtLink v-if="!user" to="/register" class="bg-indigo-600 hover:bg-indigo-500 text-zinc-50 font-bold py-2 shadow-md px-4 rounded-lg duration-150">Sign Up</NuxtLink>
+        <NuxtLink v-if="user" to="/dashboard" class="bg-indigo-600 hover:bg-indigo-500 text-zinc-50 font-bold py-2 shadow-md px-4 rounded-lg duration-150">Dashboard</NuxtLink>
       </div>
       <button type="button" @click="sidebar = true" aria-label="Sidebar" class="md:hidden block mr-4 hover:bg-zinc-400 dark:hover:bg-zinc-800 p-1.5 rounded focus:ring-2 focus:ring-indigo-500 hover:bg-shadow duration-200">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-black dark:stroke-zinc-50">
@@ -63,8 +66,9 @@ const sidebar = useState<boolean>('sidebar', () => false)
         </div>
         <div class="flex flex-col font-mont font-semibold w-full bg-zinc-300 pb-4 rounded-b-lg dark:bg-zinc-800 dark:text-zinc-50">
           <NuxtLink @click="sidebar = false" class="mx-3 py-1.5 px-2.5 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150" v-for="page in pages" v-show="!page.active" :to="page.path">{{ page.name }}</NuxtLink>
-          <NuxtLink @click="sidebar = false" to="/login" class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150">Log in</NuxtLink>
-          <NuxtLink @click="sidebar = false" to="/register" class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150">Register</NuxtLink>
+          <NuxtLink v-if="user" @click="sidebar = false" to="/dashboard" class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150">Dashboard</NuxtLink>
+          <NuxtLink v-if="!user" @click="sidebar = false" to="/login" class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150">Log in</NuxtLink>
+          <NuxtLink v-if="!user" @click="sidebar = false" to="/register" class="mx-3 py-1.5 px-2.5 text-indigo-500 rounded hover:bg-[#b4b4b8] dark:hover:bg-zinc-900 duration-150">Register</NuxtLink>
         </div>
       </div>
     </Transition>

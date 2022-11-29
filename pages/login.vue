@@ -9,6 +9,7 @@ const client = useSupabaseClient()
 const userData = ref({
   email: '',
   password: '',
+  error: '',
 })
 
 const login = async () => {
@@ -16,8 +17,12 @@ const login = async () => {
     email: userData.value.email,
     password: userData.value.password,
   })
-  console.log('user', data)
-  console.log('error', error)
+  if (error) {
+    userData.value.error = error.message
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+  }
 }
 
 
@@ -43,7 +48,7 @@ onMounted(() => {
         <p class="font-light text-sm dark:text-zinc-500">Or <NuxtLink to="/register" class="font-medium dark:text-zinc-500 dark:hover:text-indigo-300 transition-colors duration-150">create a new account.</NuxtLink></p>
       </div>
       <Input v-model="userData.email" placeholder="Email"/>
-      <Input v-model="userData.password" placeholder="Password"/>
+      <Input type="password" v-model="userData.password" placeholder="Password" :label="userData.error"/>
       <p class="mb-2">or</p>
       <div class="flex flex-wrap items-center gap-1.5 w-full mb-3">
         <LoginButton logo="assets/images/discord-mark-white.svg" providerType="discord"/>

@@ -3,6 +3,7 @@ definePageMeta({
   title: 'Create your account',
 })
 
+const router = useRouter()
 const client = useSupabaseClient()
 
 const userData = ref({
@@ -10,26 +11,92 @@ const userData = ref({
   email: '',
   password: '',
   passwordConfirmation: '',
+  error: '',
 })
 
 const signUp = async () => {
   const { data, error } = await client.auth.signUp({
     email: userData.value.email,
-    password: userData.value.password
+    password: userData.value.password,
+    options: {
+      data: {
+        username: userData.value.username
+      }
+    }
   })
-  console.log('user', userData)
-  console.log('error', error)
+  if (error) {
+    userData.value.error = error.message
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+  }
+
+  console.log(data, error)
+  if (data && data.user && data.user.identities && data.session === null) {
+    userData.value.error = 'Account already exists for this email'
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+  }
+}
+
+const checkUsername = () => {
+  const rgx = new RegExp(/^[a-zA-Z0-9]+$/)
+  return rgx.test(userData.value.username)
+}
+
+const checkEmail = () => {
+  const rgx = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+  return rgx.test(userData.value.email)
+}
+
+const checkPassword = () => {
+  // Minimum eight characters, at least one uppercase letter, one lowercase letter.
+  const rgx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
+  return rgx.test(userData.value.password)
 }
 
 const handleRegister = () => {
+  if (!checkUsername) {
+    userData.value.error = 'Username must be between 3 and 16 characters'
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+    return
+  }
+
+  if (!checkEmail()) {
+    userData.value.error = 'Please enter a valid email address.'
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+    return
+  }
+
+  if (!checkPassword()) {
+    userData.value.error = 'Password must be at least 8 characters long and contain at least one uppercase and lowercase letter.'
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+    return
+  }
+
+  if (userData.value.password !== userData.value.passwordConfirmation) {
+    userData.value.error = 'Passwords do not match.'
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 3000)
+    return
+  }
+
   signUp()
 }
 
-const user = useSupabaseUser()
+const user = useSupabaseUser();
 onMounted(() => {
   watchEffect(() => {
     if (user.value) {
-      navigateTo('/dashboard')
+      router.push('/dashboard')
     }
   })
 })
@@ -47,10 +114,10 @@ onMounted(() => {
         <p class="font-medium text-xl">Create an account</p>
         <p class="font-light text-sm dark:text-zinc-500">Or <NuxtLink class="font-medium dark:text-zinc-500 dark:hover:text-indigo-300 hover:text-indigo-500 text-zinc-500 transition-colors duration-150" to="/login">login into your account.</NuxtLink></p>
       </div>
-      <Input v-model="userData.username" placeholder="Username"/>
-      <Input v-model="userData.email" placeholder="Email"/>
+      <Input type="text" v-model="userData.username" placeholder="Username"/>
+      <Input type="email" v-model="userData.email" placeholder="Email"/>
       <Input v-model="userData.password" type="password" placeholder="Password"/>
-      <Input v-model="userData.passwordConfirmation" type="password" placeholder="Confirm password"/>
+      <Input v-model="userData.passwordConfirmation" type="password" placeholder="Confirm password" :label="userData.error"/>
       <button @click="handleRegister" type="button" class="w-full bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded font-semibold transition-colors duration-200 text-sm py-1 shadow-md">Sign Up</button>
     </div>
   </div>
