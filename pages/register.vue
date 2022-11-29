@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {useSupabaseClient} from "#imports";
-
 definePageMeta({
   title: 'Create your account',
 })
 
-const supabase = useSupabaseClient()
+const client = useSupabaseClient()
 
-const data = ref({
+const userData = ref({
   username: '',
   email: '',
   password: '',
@@ -15,23 +13,27 @@ const data = ref({
 })
 
 const signUp = async () => {
-  const { data, error } = await supabase.auth.signUp(
-    {
-      email: 'aceptaos@gmail.com',
-      password: 'Test123',
-      options: {
-        data: {
-          username: 'John',
-        }
-      }
-    }
-  )
-  console.log(data, error)
+  const { data, error } = await client.auth.signUp({
+    email: userData.value.email,
+    password: userData.value.password
+  })
+  console.log('user', userData)
+  console.log('error', error)
 }
 
 const handleRegister = () => {
   signUp()
 }
+
+const user = useSupabaseUser()
+onMounted(() => {
+  watchEffect(() => {
+    if (user.value) {
+      navigateTo('/dashboard')
+    }
+  })
+})
+
 </script>
 
 <template>
@@ -45,10 +47,10 @@ const handleRegister = () => {
         <p class="font-medium text-xl">Create an account</p>
         <p class="font-light text-sm dark:text-zinc-500">Or <NuxtLink class="font-medium dark:text-zinc-500 dark:hover:text-indigo-300 hover:text-indigo-500 text-zinc-500 transition-colors duration-150" to="/login">login into your account.</NuxtLink></p>
       </div>
-      <Input v-model="data.username" placeholder="Username"/>
-      <Input v-model="data.email" placeholder="Email"/>
-      <Input v-model="data.password" type="password" placeholder="Password"/>
-      <Input v-model="data.passwordConfirmation" type="password" placeholder="Confirm password"/>
+      <Input v-model="userData.username" placeholder="Username"/>
+      <Input v-model="userData.email" placeholder="Email"/>
+      <Input v-model="userData.password" type="password" placeholder="Password"/>
+      <Input v-model="userData.passwordConfirmation" type="password" placeholder="Confirm password"/>
       <button @click="handleRegister" type="button" class="w-full bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded font-semibold transition-colors duration-200 text-sm py-1 shadow-md">Sign Up</button>
     </div>
   </div>

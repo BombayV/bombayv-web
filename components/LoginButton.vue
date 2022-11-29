@@ -23,10 +23,12 @@ const login = async (provider) => {
   })
   console.log(data, error)
 }
+
+// hover:bg-zinc-400 dark:hover:bg-zinc-700
 </script>
 
 <template>
-  <button @click="login(providerType)" type="button" data-mbd-ripple="true" class="h-8 active:bg-zinc-500 dark:active:bg-zinc-800 grid place-items-center grow bg-zinc-500 hover:bg-zinc-400 dark:hover:bg-zinc-700 shadow-md border-r-2 border-b-2 border-zinc-400 dark:border-0 dark:bg-zinc-800 rounded px-4 transition-colors duration-150">
+  <button disabled @click="login(providerType)" type="button" data-mbd-ripple="true" class="h-8 active:bg-zinc-500 dark:active:bg-zinc-800 grid place-items-center grow bg-zinc-500 opacity-70 shadow-md border-r-2 border-b-2 border-zinc-400 dark:border-0 dark:bg-zinc-800 rounded px-4 transition-colors duration-150">
     <img class="h-4" :src="logo" alt="Small icon"/>
   </button>
 </template>

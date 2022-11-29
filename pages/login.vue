@@ -1,12 +1,33 @@
 <script setup lang="ts">
 definePageMeta({
 	title: 'Sign in to your account',
-  layout: 'empty'
+  layout: 'empty',
+  middleware: ['user']
 })
 
-const data = ref({
-  username: '',
+const client = useSupabaseClient()
+const userData = ref({
+  email: '',
   password: '',
+})
+
+const login = async () => {
+  const { data, error } = await client.auth.signInWithPassword({
+    email: userData.value.email,
+    password: userData.value.password,
+  })
+  console.log('user', data)
+  console.log('error', error)
+}
+
+
+const user = useSupabaseUser()
+onMounted(() => {
+  watchEffect(() => {
+    if (user.value) {
+      navigateTo('/dashboard')
+    }
+  })
 })
 </script>
 
@@ -21,14 +42,14 @@ const data = ref({
         <p class="font-medium text-xl">Sign in to your account</p>
         <p class="font-light text-sm dark:text-zinc-500">Or <NuxtLink to="/register" class="font-medium dark:text-zinc-500 dark:hover:text-indigo-300 transition-colors duration-150">create a new account.</NuxtLink></p>
       </div>
-      <Input v-model="data.username" placeholder="Email/Username"/>
-      <Input v-model="data.password" placeholder="Password"/>
-<!--      <p class="mb-2">or</p>-->
-<!--      <div class="flex flex-wrap items-center gap-1.5 w-full mb-3">-->
-<!--        <LoginButton logo="assets/images/discord-mark-white.svg" providerType="discord"/>-->
-<!--      </div>-->
+      <Input v-model="userData.email" placeholder="Email"/>
+      <Input v-model="userData.password" placeholder="Password"/>
+      <p class="mb-2">or</p>
+      <div class="flex flex-wrap items-center gap-1.5 w-full mb-3">
+        <LoginButton logo="assets/images/discord-mark-white.svg" providerType="discord"/>
+      </div>
       <div class="flex items-center justify-between w-full gap-x-4">
-        <button class="bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-colors duration-200 rounded py-1 grow font-semibold text-sm shadow-md">Login</button>
+        <button @click="login" class="bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-colors duration-200 rounded py-1 grow font-semibold text-sm shadow-md">Login</button>
         <button class="text-sm font-medium dark:text-zinc-500 hover:underline dark:hover:text-red-400 duration-200">Forgot your password?</button>
       </div>
     </div>
