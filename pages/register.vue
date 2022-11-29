@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
   title: 'Create your account',
+  layout: 'empty',
+  middleware: ['user']
 })
 
 const router = useRouter()
@@ -31,13 +33,15 @@ const signUp = async () => {
     }, 3000)
   }
 
-  console.log(data, error)
   if (data && data.user && data.user.identities && data.session === null) {
-    userData.value.error = 'Account already exists for this email'
-    setTimeout(() => {
-      userData.value.error = ''
-    }, 3000)
+    router.push('/verify')
   }
+}
+
+const checkConfirmEmail = () => {
+  // Check if the email has proper format
+  const rgx = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+  return rgx.test(userData.value.email)
 }
 
 const checkUsername = () => {
@@ -45,19 +49,13 @@ const checkUsername = () => {
   return rgx.test(userData.value.username)
 }
 
-const checkEmail = () => {
-  const rgx = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
-  return rgx.test(userData.value.email)
-}
-
 const checkPassword = () => {
-  // Minimum eight characters, at least one uppercase letter, one lowercase letter.
   const rgx = new RegExp(/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
   return rgx.test(userData.value.password)
 }
 
 const handleRegister = () => {
-  if (!checkUsername) {
+  if (!checkUsername()) {
     userData.value.error = 'Username must be between 3 and 16 characters'
     setTimeout(() => {
       userData.value.error = ''
@@ -65,7 +63,7 @@ const handleRegister = () => {
     return
   }
 
-  if (!checkEmail()) {
+  if (!checkConfirmEmail()) {
     userData.value.error = 'Please enter a valid email address.'
     setTimeout(() => {
       userData.value.error = ''
@@ -92,15 +90,14 @@ const handleRegister = () => {
   signUp()
 }
 
-const user = useSupabaseUser();
+const user = useSupabaseUser()
 onMounted(() => {
   watchEffect(() => {
     if (user.value) {
-      router.push('/dashboard')
+      navigateTo('/dashboard')
     }
   })
 })
-
 </script>
 
 <template>
