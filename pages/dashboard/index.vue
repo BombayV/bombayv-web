@@ -35,8 +35,8 @@ onMounted(() => {
           <img class="w-full h-full object-cover rounded-full border-2 border-indigo-500" src="https://th.bing.com/th/id/OIP.9DuC-A0u1mEYxiGMP5tREQHaEK?pid=ImgDet&rs=1" alt="Main profile logo">
         </div>
         <div class="dark:text-zinc-50 font-mont">
-          <p class="text-lg font-bold">Bombay</p>
-          <p class="text-xs font-light">OMGmsebastian@gmail.com</p>
+          <p class="text-lg font-bold">{{ user.user_metadata.username }}</p>
+          <p class="text-xs font-light">{{ user.email }}</p>
         </div>
       </div>
       <button @click="logout" class="dark:bg-red-500 dark:hover:bg-red-400 h-10 w-10 grid place-items-center rounded-xl transition-colors duration-150">
