@@ -5,6 +5,7 @@ definePageMeta({
   middleware: ['user']
 })
 
+const router = useRouter()
 const client = useSupabaseClient()
 const userData = ref({
   email: '',

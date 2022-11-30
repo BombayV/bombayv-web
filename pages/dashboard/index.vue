@@ -11,8 +11,6 @@ const logout = async () => {
   const { error } = await client.auth.signOut();
   if (error) {
     console.log('error', error);
-  } else {
-    router.push('/login');
   }
 }
 
@@ -20,7 +18,7 @@ const user = useSupabaseUser();
 onMounted(() => {
   watchEffect(() => {
     if (!user.value) {
-      router.push('/login');
+      navigateTo('/login');
     }
   })
 })
