@@ -8,7 +8,7 @@ interface Letter {
   delay: number
 }
 
-export class Wordle {
+export default class Wordle {
   private word: string;
   private maxTries: number = 6;
   private maxLetters: number = 5;

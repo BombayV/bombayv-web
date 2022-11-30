@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Wordle } from '@/classes/Wordle'
+import Wordle from '@/classes/Wordle'
 
 definePageMeta({
   title: 'Wordle',

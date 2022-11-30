@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {useSupabaseClient} from "#imports";
-
 defineProps({
   providerType: {
     type: String,

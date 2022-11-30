@@ -27,8 +27,8 @@ defineProps({
       <h3 class="text-xl font-bold dark:text-neutral-100">{{ title }}</h3>
       <p class="text-sm dark:text-neutral-300 text-neutral-800 font-medium">{{ description }}</p>
 			<button v-if="link !== ''" class="relative bg-indigo-500 rounded grid place-items-center w-full mt-3 py-4 text-white border-r-2 border-b-2 border-indigo-600 hover:bg-indigo-400 duration-150">
-				<NuxtLink v-if="link.includes('https')" class="absolute w-full" :to="link" target="_blank" rel="noopener">Learn more</NuxtLink>
-        <NuxtLink v-else class="absolute w-full" :to="link">Check out</NuxtLink>
+				<NuxtLink v-if="link.includes('https')" class="absolute w-full h-full grid place-items-center" :to="link" target="_blank" rel="noopener">Learn more</NuxtLink>
+        <NuxtLink v-else class="absolute w-full h-full grid place-items-center" :to="link">Check out</NuxtLink>
 			</button>
     </div>
   </div>

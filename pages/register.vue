@@ -14,6 +14,7 @@ const userData = ref({
   password: '',
   passwordConfirmation: '',
   error: '',
+  success: false
 })
 
 const signUp = async () => {
@@ -34,7 +35,16 @@ const signUp = async () => {
   }
 
   if (data && data.user && data.user.identities && data.session === null) {
-    router.push('/verify')
+    userData.value.success = true
+    userData.value.error = 'Check your email for a confirmation link.'
+    // Clean up the form
+    userData.value.username = ''
+    userData.value.email = ''
+    userData.value.password = ''
+    userData.value.passwordConfirmation = ''
+    setTimeout(() => {
+      userData.value.error = ''
+    }, 10000)
   }
 }
 
@@ -101,7 +111,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-screen h-screen relative grid place-items-center">
+  <div id="noti-wrapper" class="w-screen h-screen relative grid place-items-center">
     <Head>
       <Title>{{ $route.meta.title }}</Title>
     </Head>
@@ -114,7 +124,7 @@ onMounted(() => {
       <Input type="text" v-model="userData.username" placeholder="Username"/>
       <Input type="email" v-model="userData.email" placeholder="Email"/>
       <Input v-model="userData.password" type="password" placeholder="Password"/>
-      <Input v-model="userData.passwordConfirmation" type="password" placeholder="Confirm password" :label="userData.error"/>
+      <Input v-model="userData.passwordConfirmation" type="password" placeholder="Confirm password" :good="userData.success" :label="userData.error"/>
       <button @click="handleRegister" type="button" class="w-full bg-indigo-500 hover:bg-indigo-400 text-zinc-50 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded font-semibold transition-colors duration-200 text-sm py-1 shadow-md">Sign Up</button>
     </div>
   </div>

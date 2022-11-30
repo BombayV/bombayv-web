@@ -5,8 +5,8 @@ import gsap from "gsap";
 export class Notification {
   public container: HTMLElement;
   constructor() {
-    setTimeout(() => {
-      this.container = document.getElementById('noti-container') as HTMLElement;
+    setTimeout((container) => {
+      this.container = document.getElementById(container || 'noti-container') as HTMLElement;
     }, 500);
   }
 
