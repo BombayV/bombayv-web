@@ -4,6 +4,7 @@ definePageMeta({
   layout: 'navbar',
   middleware: ['user']
 })
+const photos = ref([])
 const client = useSupabaseClient();
 const router = useRouter();
 
@@ -15,6 +16,9 @@ const logout = async () => {
 }
 
 const user = useSupabaseUser();
+const { data: posts } = await useFetch('/api/posts', {
+  key: `posts in ${user.value.id}`,
+})
 onMounted(() => {
   watchEffect(() => {
     if (!user.value) {
@@ -59,7 +63,8 @@ onMounted(() => {
           </div>
         </div>
         <div class="flex flex-col flex-nowrap items-center gap-y-2 max-h-[36rem] overflow-y-auto pr-2">
-          <PhotoItem v-for="img in 1" :key="img"/>
+          {{posts}}
+          <PhotoItem v-for="img in posts" :key="img" :title="img.title"/>
         </div>
       </div>
     </div>
