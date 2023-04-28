@@ -5,7 +5,13 @@ const activeSidebar = ref<boolean>(false)
 let lastScroll: number = 0
 const handleScrollEvent = () => {
   const currentScroll = window.pageYOffset;
-  (currentScroll > lastScroll) ? (document.getElementById('navbar')?.classList.add('hidden')) : (document.getElementById('navbar')?.classList.remove('hidden'));
+  if (currentScroll > 0) {
+    if (currentScroll > lastScroll) {
+      navbarRef.value?.classList.add('translate-y-[-100%]')
+    } else {
+      navbarRef.value?.classList.remove('translate-y-[-100%]')
+    }
+  }
   lastScroll = currentScroll;
 }
 
@@ -14,33 +20,35 @@ onUnmounted(() => window.removeEventListener('scroll', handleScrollEvent))
 </script>
 
 <template>
-  <header class="navbar fixed bg-base-200">
-    <div class="flex-1 px-2 mx-2">
+  <div>
+    <header ref="navbarRef" class="navbar fixed transition-transform transform-gpu duration-500 z-10">
+      <div class="flex-1 px-2 mx-2">
       <span class="text-lg xl:text-xl font-bold">
         <NuxtLink to="/">BombayTech</NuxtLink>
       </span>
-    </div>
-    <div class="flex-none hidden px-2 mx-2 lg:flex">
-      <div class="flex items-stretch">
-        <NuxtLink to="/private" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Private</NuxtLink>
-        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Public</NuxtLink>
-        <NuxtLink to="/contact" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Contact</NuxtLink>
-        <NuxtLink v-if="!user" class="btn btn-ghost btn-sm rounded-btn xl:text-md" to="/auth/login">Log in</NuxtLink>
-        <NuxtLink v-if="!user" class="btn btn-ghost btn-sm rounded-btn xl:text-md" to="/auth/register">Register</NuxtLink>
-        <NuxtLink v-if="user" class="btn btn-ghost btn-sm rounded-btn xl:text-md hover:bg-neutral" to="/dashboard">Dashboard</NuxtLink>
-        <NuxtLink v-if="user" class="btn btn-ghost btn-sm rounded-btn xl:text-md hover:bg-error/80 hover:text-white">Log out</NuxtLink>
       </div>
-    </div>
-    <div @click="() => activeSidebar = !activeSidebar" class="btn lg:hidden btn-square btn-ghost">
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"></path>
-      </svg>
-    </div>
-  </header>
-  <Transition name="fade-in">
-    <Sidebar v-if="activeSidebar" @close="() => activeSidebar = false" :user="user"/>
-  </Transition>
-  <slot/>
+      <div class="flex-none hidden px-2 mx-2 lg:flex">
+        <div class="flex items-stretch">
+          <NuxtLink to="/private" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Private</NuxtLink>
+          <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Public</NuxtLink>
+          <NuxtLink to="/contact" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Contact</NuxtLink>
+          <NuxtLink v-if="!user" class="btn btn-ghost btn-sm rounded-btn xl:text-md" to="/auth/login">Log in</NuxtLink>
+          <NuxtLink v-if="!user" class="btn btn-ghost btn-sm rounded-btn xl:text-md" to="/auth/register">Register</NuxtLink>
+          <NuxtLink v-if="user" class="btn btn-ghost btn-sm rounded-btn xl:text-md hover:bg-neutral" to="/dashboard">Dashboard</NuxtLink>
+          <NuxtLink v-if="user" class="btn btn-ghost btn-sm rounded-btn xl:text-md hover:bg-error/80 hover:text-white">Log out</NuxtLink>
+        </div>
+      </div>
+      <div @click="() => activeSidebar = !activeSidebar" class="btn lg:hidden btn-square btn-ghost">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"></path>
+        </svg>
+      </div>
+    </header>
+    <Transition name="fade-in">
+      <Sidebar v-if="activeSidebar" @close="() => activeSidebar = false" :user="user"/>
+    </Transition>
+    <slot/>
+  </div>
 </template>
 
 <style scoped>

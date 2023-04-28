@@ -6,6 +6,10 @@ definePageMeta({
 
 <template>
   <div>
+      <div>
+          <NuxtLayout name="navbar">
 
+          </NuxtLayout>
+      </div>
   </div>
 </template>

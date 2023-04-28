@@ -40,10 +40,10 @@ const routes = [
       </button>
       <div class="flex flex-col items-start gap-y-2 text-lg">
         <NuxtLink @click="$emit('close', false)" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" v-for="route in routes" :to="route.path" :key="`route_${route.path}`">{{ route.name }}</NuxtLink>
-        <NuxtLink @click="$emit('close', false)" v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/login">Log in</NuxtLink>
-        <NuxtLink @click="$emit('close', false)" v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/register">Register</NuxtLink>
-        <NuxtLink @click="$emit('close', false)" v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-neutral" to="/dashboard">Dashboard</NuxtLink>
-        <NuxtLink @click="$emit('close', false)" v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-error/80 hover:text-white">Log out</NuxtLink>
+        <NuxtLink v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/login">Log in</NuxtLink>
+        <NuxtLink v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/register">Register</NuxtLink>
+        <NuxtLink v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-neutral" to="/dashboard">Dashboard</NuxtLink>
+        <button @click="$emit('close', false)" v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-error/80 hover:text-white">Log out</button>
       </div>
     </div>
     <div class="text-center flex flex-col">
