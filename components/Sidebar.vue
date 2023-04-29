@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const { auth } = useSupabaseAuthClient()
 defineProps<{
   user: any
 }>()
@@ -24,7 +25,7 @@ const routes = [
 </script>
 
 <template>
-  <aside class="fixed drawer flex flex-col justify-between bg-base-200 px-2 py-4">
+  <aside class="fixed drawer flex flex-col justify-between bg-base-200 px-2 py-4 bg-base-200 z-50">
     <div class="flex-1">
       <h3 class="h-fit w-fit font-bold text-lg mb-6 mx-4">BombayTech</h3>
       <button class="fixed top-0 right-0 mr-2 mt-2 btn btn-square btn-ghost" @click="$emit('close', false)">
@@ -43,7 +44,7 @@ const routes = [
         <NuxtLink v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/login">Log in</NuxtLink>
         <NuxtLink v-if="!user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold" to="/auth/register">Register</NuxtLink>
         <NuxtLink v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-neutral" to="/dashboard">Dashboard</NuxtLink>
-        <button @click="$emit('close', false)" v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-error/80 hover:text-white">Log out</button>
+        <button @click="auth.signOut()" v-if="user" class="text-neutral-content btn btn-ghost w-full justify-start font-semibold hover:bg-error/80 hover:text-white">Log out</button>
       </div>
     </div>
     <div class="text-center flex flex-col">

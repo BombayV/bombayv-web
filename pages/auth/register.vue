@@ -12,5 +12,6 @@ watchEffect(() => {
 <template>
   <div>
     <button class="btn" @click="auth.signInWithOAuth({ provider: 'github' })">Github</button>
+    <button class="btn" @click="auth.signInWithOAuth({ provider: 'discord' })">Discord</button>
   </div>
 </template>
