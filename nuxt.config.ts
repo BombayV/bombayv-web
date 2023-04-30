@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {TitleTemplate} from "@unhead/vue";
+import { TitleTemplate } from '@unhead/vue';
 
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase'],
@@ -18,7 +18,8 @@ export default defineNuxtConfig({
       meta: [
         {
           name: 'description',
-          content: 'My personal website created to share my own work and others through a free online platform.',
+          content:
+            'My personal website created to share my own work and others through a free online platform.',
         },
       ],
       link: [
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
-        { rel: 'manifest', href: '/favicon/site.webmanifest' }
+        { rel: 'manifest', href: '/favicon/site.webmanifest' },
       ],
     },
   },
@@ -48,5 +49,5 @@ export default defineNuxtConfig({
   supabase: {
     url: process.env.NEXT_PUBLIC_SUPABASE_URL,
     key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  }
-})
+  },
+});
