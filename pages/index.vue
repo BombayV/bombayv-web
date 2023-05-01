@@ -5,10 +5,10 @@
     <NuxtLayout name="navbar">
       <div
         class="relative flex min-h-screen w-full flex-col items-center justify-center gap-y-2 px-4">
-        <div class="absolute z-10 h-full w-full backdrop-blur-sm lg:backdrop-blur-md"></div>
+        <div class="fixed z-[1] h-full w-full backdrop-blur-sm lg:backdrop-blur-md"></div>
         <img
           src="/IMG_3218.jpg"
-          class="pointer-events-none fixed z-0 h-full w-full select-none object-cover"
+          class="pointer-events-none fixed z-0 h-full w-full select-none object-cover blur-sm"
           alt="Background image underwater" />
         <h1 class="z-10 text-center text-5xl font-black text-primary-content">
           Hello, I'm Mauricio
@@ -17,7 +17,7 @@
           UX designer, photographer, and future computer scientist.
         </p>
       </div>
-      <div class="relative flex min-h-screen w-full flex-col items-center px-4 py-8 bg-base-200">
+      <div class="relative flex min-h-screen w-full flex-col items-center px-4 py-8 bg-base-200 z-10">
         <div class="flex flex-col items-center text-center">
           <p class="text-lg font-medium">What is this?</p>
           <h2 class="text-2xl font-bold text-primary-content">A public place to share your work</h2>
