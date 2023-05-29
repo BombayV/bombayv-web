@@ -2,7 +2,7 @@
 import { TitleTemplate } from '@unhead/vue';
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase', '@nuxt/image-edge'],
   app: {
     pageTransition: {
       name: 'page',
@@ -50,4 +50,8 @@ export default defineNuxtConfig({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL,
     key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
+  image: {
+    provider: 'ipx',
+    domains: ['imbombay.tech', 'bombayv.vercel.app', 'localhost'],
+  }
 });

@@ -11,6 +11,7 @@ interface EmailLoginData {
   };
 }
 
+const testImg = ref('https://th.bing.com/th/id/R.31cbc03376220c9f46128745d8a80d0d?rik=qPupDtEXKPzXAg&pid=ImgRaw&r=0')
 const user = useSupabaseUser();
 const { auth } = useSupabaseAuthClient();
 
@@ -69,9 +70,9 @@ useHead({
 </script>
 
 <template>
-  <div class="relative flex h-screen w-full items-center justify-center px-2">
+  <div class="relative flex h-screen w-full items-center justify-center">
     <div
-      class="mx-2 flex h-full w-full flex-col items-center justify-between py-4 lg:w-2/5 lg:border-r">
+      class="flex h-full w-full px-4 flex-col items-center justify-between py-4 xl:w-2/5 xl:border-r">
       <header class="self-start">
         <NuxtLink class="text-lg font-bold xl:text-xl" to="/">BombayTech</NuxtLink>
       </header>
@@ -197,7 +198,16 @@ useHead({
         </p>
       </footer>
     </div>
-    <div class="hidden w-3/5 bg-red-500 lg:flex">a</div>
+    <div class="hidden w-3/5 h-max xl:flex">
+      <NuxtImg
+          :src="testImg"
+          alt="Display image"
+          format="webp"
+          fit="cover"
+          quality="60"
+          class="object-cover object-center w-full h-full"
+      />
+    </div>
   </div>
 </template>
 
