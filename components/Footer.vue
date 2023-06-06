@@ -2,7 +2,7 @@
   <footer
       class="relative overflow-x-hidden font-outfit">
     <div class="relative flex flex-col items-center py-14 xl:py-20">
-      <h1 class="text-3xl font-extrabold md:text-4xl xl:text-5xl">
+      <h1 class="text-3xl font-extrabold md:text-4xl xl:text-5xl text-primary-content/90">
         Ready to get started?
       </h1>
       <p class="mt-2 text-lg font-light md:text-xl xl:text-2xl xl:mt-4">

@@ -206,13 +206,13 @@ useHead({
           By creating an account, you agree to our
           <NuxtLink
             class="font-medium underline transition-colors duration-200 hover:text-primary-content/70"
-            to="/terms"
+            to="/support/terms"
             >Terms of Service</NuxtLink
           >
           and
           <NuxtLink
             class="font-medium underline transition-colors duration-200 hover:text-primary-content/70"
-            to="/privacy"
+            to="/support/privacy"
             >Privacy Policy</NuxtLink
           >.
         </p>
