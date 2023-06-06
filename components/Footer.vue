@@ -1,6 +1,6 @@
 <template>
   <footer
-      class="relative overflow-x-hidden bg-opacity-30 font-outfit">
+      class="relative overflow-x-hidden font-outfit">
     <div class="relative flex flex-col items-center py-14 xl:py-20">
       <h1 class="text-3xl font-extrabold md:text-4xl xl:text-5xl">
         Ready to get started?

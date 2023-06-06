@@ -10,7 +10,7 @@
           src="/IMG_3218.jpg"
           class="pointer-events-none fixed z-0 h-full w-full select-none object-cover blur-sm"
           alt="Background image underwater" />
-        <h1 class="z-10 text-center text-5xl md:text-6xl font-black text-primary-content">
+        <h1 class="z-10 text-center text-5xl lg:text-6xl font-black text-primary-content">
           Hello, I'm Mauricio
         </h1>
         <p class="z-10 text-center text-xl font-base text-primary-content/60">
@@ -35,6 +35,7 @@
           </p>
         </div>
       </div>
+      <Footer class="bg-base-200 z-50"/>
     </NuxtLayout>
   </div>
 </template>
