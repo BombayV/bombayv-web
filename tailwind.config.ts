@@ -5,7 +5,14 @@ import daisyui from 'daisyui';
 export default <Partial<Config>>{
   darkMode: 'class',
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ['NunitoSans', 'sans-serif'],
+    },
+    extend: {
+      fontFamily: {
+        cali: ['Caligraphy']
+      }
+    }
   },
   plugins: [tailwindTypography, daisyui],
   daisyui: {

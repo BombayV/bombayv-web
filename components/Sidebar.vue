@@ -18,14 +18,14 @@ const routes = [
     path: '/public',
   },
   {
-    name: 'Contact',
-    path: '/contact',
+    name: 'Support',
+    path: '/support',
   },
 ];
 </script>
 
 <template>
-  <aside class="fixed z-50 flex flex-col justify-between px-2 py-4 drawer bg-base-200">
+  <aside class="fixed z-50 flex flex-col justify-between px-2 py-4 drawer bg-base-200 overflow-y-auto">
     <div class="flex-1">
       <h3 class="mx-4 mb-6 h-fit w-fit text-lg font-bold">BombayTech</h3>
       <button
@@ -37,7 +37,7 @@ const routes = [
           viewBox="0 0 24 24"
           stroke-width="2.5"
           stroke="currentColor"
-          class="h-7 w-7 opacity-80 stroke-bush-900">
+          class="h-7 w-7 opacity-80">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>

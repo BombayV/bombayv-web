@@ -2,17 +2,6 @@
 const user = useSupabaseUser();
 const navbarRef = ref<HTMLElement | null>(null);
 const activeSidebar = ref<boolean>(false);
-let lastScroll: number = 0;
-const handleScrollEvent = () => {
-  const currentScroll = window.pageYOffset;
-  currentScroll > lastScroll
-    ? document.getElementById('navbar')?.classList.add('hidden')
-    : document.getElementById('navbar')?.classList.remove('hidden');
-  lastScroll = currentScroll;
-};
-
-onMounted(() => window.addEventListener('scroll', handleScrollEvent));
-onUnmounted(() => window.removeEventListener('scroll', handleScrollEvent));
 </script>
 
 <template>

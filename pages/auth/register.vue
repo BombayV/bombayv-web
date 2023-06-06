@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import AuthHeader from "~/components/AuthHeader.vue";
+
 type LoginMethodsType = 'email' | 'github' | 'google' | 'discord';
 interface EmailLoginData {
   username: {
@@ -79,12 +81,10 @@ useHead({
 </script>
 
 <template>
-  <div class="relative flex h-screen w-full items-center justify-center px-2">
+  <div class="relative flex w-full min-h-max justify-center">
     <div
-      class="mx-2 flex h-full w-full flex-col items-center justify-between py-4 lg:w-2/5 lg:border-r">
-      <header class="self-start">
-        <NuxtLink class="text-lg font-bold xl:text-xl" to="/">BombayTech</NuxtLink>
-      </header>
+        class="relative flex w-full px-6 flex-col items-center justify-between xl:w-2/5 xl:border-r min-h-[100vh] py-4">
+      <AuthHeader />
       <div class="relative flex w-fit flex-col items-center justify-center">
         <div class="mb-6 flex w-full flex-col gap-y-2">
           <h1 class="text-2xl font-semibold text-primary-content md:text-3xl">Get Started</h1>
@@ -218,6 +218,6 @@ useHead({
         </p>
       </footer>
     </div>
-    <div class="hidden w-3/5 bg-red-500 lg:flex">a</div>
+    <AuthIntroImg />
   </div>
 </template>

@@ -4,13 +4,13 @@
   <div>
     <NuxtLayout name="navbar">
       <div
-        class="relative flex min-h-screen w-full flex-col items-center justify-center gap-y-2 px-4">
+        class="relative flex min-h-screen flex-col items-center justify-center gap-y-2 px-4">
         <div class="fixed z-[1] h-full w-full backdrop-blur-sm lg:backdrop-blur-md"></div>
         <img
           src="/IMG_3218.jpg"
           class="pointer-events-none fixed z-0 h-full w-full select-none object-cover blur-sm"
           alt="Background image underwater" />
-        <h1 class="z-10 text-center text-5xl font-black text-primary-content">
+        <h1 class="z-10 text-center text-5xl md:text-6xl font-black text-primary-content">
           Hello, I'm Mauricio
         </h1>
         <p class="z-10 text-center text-xl font-base text-primary-content/60">
@@ -18,20 +18,20 @@
         </p>
       </div>
       <div class="relative flex min-h-screen w-full flex-col items-center px-4 py-8 bg-base-200 z-10">
-        <div class="flex flex-col items-center text-center">
-          <p class="text-lg font-medium">What is this?</p>
-          <h2 class="text-2xl font-bold text-primary-content">A public place to share your work</h2>
-          <p class="mt-2 text-base">
+        <div class="flex flex-col items-center text-center max-w-7xl w-full">
+          <p class="text-lg font-medium text-slate-300">What is this?</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-primary-content/80">A public place to share your work</h2>
+          <p class="mt-2 text-lg">
             Share your artwork, create your own blog, or checkout useful projects created by the
             community.
           </p>
         </div>
-        <div class="flex flex-col items-center text-center">
-          <p class="text-lg font-medium">Why was this created?</p>
-          <h2 class="text-2xl font-bold text-primary-content">Personal site</h2>
-          <p class="mt-2 text-base">
+        <div class="flex flex-col items-center text-center max-w-7xl w-full">
+          <p class="text-lg font-medium text-slate-300">Why was this created?</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-primary-content/80">Personal site</h2>
+          <p class="mt-2 text-lg">
             At first, this was meant to be a site for my own projects. However, I decided to turn my
-            personal site into a public one for people to share their creativity.
+            personal site into a public one for people to share their creativity through art, blogs, and more.
           </p>
         </div>
       </div>
