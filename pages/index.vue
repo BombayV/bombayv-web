@@ -13,7 +13,7 @@
           alt="Background image underwater"
           format="webp"
           quality="70"
-          :placeholder="50"
+          :placeholder="30"
         />
         <h1 class="z-10 text-center text-5xl lg:text-6xl font-black text-primary-content">
           Hello, I'm Mauricio
