@@ -16,16 +16,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="hidden w-3/5 min-h-[100vh] xl:flex relative">
+  <div class="hidden w-3/5 min-h-[100vh] xl:flex relative bg-base-200">
     <NuxtImg
         :src="displayedImg.src || allImages[0].src"
         alt="Display image"
         format="webp"
         fit="cover"
-        quality="60"
+        :placeholder="50"
+        quality="70"
         class="object-cover object-center min-h-full min-w-full"
         draggable="false"
     />
-    <p class="absolute bottom-0 right-0 m-2 font-cali text-2xl">{{displayedImg.author || allImages[0].author}}</p>
+    <p class="absolute bottom-0 right-0 mx-4 mb-2 font-cali text-lg italic font-medium">{{displayedImg.author || allImages[0].author}}</p>
   </div>
 </template>
