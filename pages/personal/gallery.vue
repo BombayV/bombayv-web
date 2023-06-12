@@ -22,7 +22,7 @@ const setImageSlider = (image: string) => {
         <NuxtLink to="/personal" class="text-xl font-medium border-b border-b-transparent hover:border-b-primary-content transition duration-200">Back to Personal</NuxtLink>
       </div>
       <div class="w-full relative min-h-screen max-w-7xl mx-auto colums-1 md:columns-2 xl:columns-3 space-y-4 px-4">
-        <NuxtImg v-for="image in allImages" :key="image" @click="setImageSlider(image)" :src="image" :alt="image" fit="cover" quality="80" loading="lazy" :placeholder="50" class="cursor-pointer object-cover max-h-full max-w-full object-center rounded-sm drop-shadow-lg shadow-md"/>
+        <NuxtImg v-for="image in allImages" :key="image" @click="setImageSlider(image)" :src="image" :alt="image" fit="cover" quality="80" loading="lazy" format="webp" :placeholder="50" class="cursor-pointer object-cover max-h-full max-w-full object-center rounded-sm drop-shadow-lg shadow-md"/>
       </div>
       <Transition name="fade-in">
         <UseImageSlider :currentImage="currentImage" @close="setImageSlider" v-if="currentImage" />

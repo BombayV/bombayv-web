@@ -12,7 +12,7 @@ defineProps<{
       </svg>
     </button>
     <div class="grow w-full h-full relative flex items-center justify-center px-8">
-      <NuxtImg :src="currentImage" :alt="currentImage" fit="contain" quality="80" loading="lazy" :placeholder="50" class="object-contain max-h-full max-w-full object-center"/>
+      <NuxtImg :src="currentImage" :alt="currentImage" fit="cover" quality="80" loading="lazy" format="webp" :placeholder="50" class="object-contain max-h-full max-w-full object-center"/>
     </div>
   </div>
 </template>
