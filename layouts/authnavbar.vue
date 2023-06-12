@@ -23,17 +23,11 @@ const setSidebar = (value: boolean) => {
     </div>
     <div class="mx-2 hidden flex-none px-2 md:flex">
       <div class="flex items-stretch">
-        <NuxtLink
-            v-if="!user"
-            class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-            to="/auth/login"
-        >Log in</NuxtLink
+        <NuxtLink to="/" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
+        >Home</NuxtLink
         >
-        <NuxtLink
-            v-if="!user"
-            class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-            to="/auth/register"
-        >Register</NuxtLink
+        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
+        >Public</NuxtLink
         >
         <NuxtLink
             v-if="user"
@@ -41,12 +35,6 @@ const setSidebar = (value: boolean) => {
             to="/support/docs"
         >Documentation</NuxtLink
         >
-        <button
-            @click="auth.signOut"
-            v-if="user"
-            class="btn btn-ghost btn-sm rounded-btn hover:bg-error/80 hover:text-white xl:text-md">
-          Log out
-        </button>
       </div>
     </div>
     <button type="button" @click="setSidebar(true)" class="btn btn-square btn-ghost md:hidden">

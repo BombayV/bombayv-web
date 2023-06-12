@@ -50,7 +50,10 @@ const handleSignIn = async (type: LoginMethodsType) => {
     });
     if (error) {
       console.error(error);
+      return
     }
+
+    await navigateTo('/dashboard');
   }
 };
 
