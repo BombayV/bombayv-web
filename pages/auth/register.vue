@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import AuthHeader from "~/components/AuthHeader.vue";
+import AuthHeader from '~/components/AuthHeader.vue';
 
 type LoginMethodsType = 'email' | 'github' | 'google' | 'discord';
 interface EmailLoginData {
@@ -83,7 +83,7 @@ useHead({
 <template>
   <div class="relative flex w-full min-h-max justify-center">
     <div
-        class="relative flex w-full px-6 flex-col items-center justify-between xl:w-2/5 xl:border-r min-h-[100vh] py-4">
+      class="relative flex w-full px-6 flex-col items-center justify-between xl:w-2/5 xl:border-r min-h-[100vh] py-4">
       <AuthHeader />
       <div class="relative flex w-fit flex-col items-center justify-center">
         <div class="mb-6 flex w-full flex-col gap-y-2">

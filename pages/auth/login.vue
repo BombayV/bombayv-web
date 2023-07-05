@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import AuthHeader from "~/components/AuthHeader.vue";
+import AuthHeader from '~/components/AuthHeader.vue';
 
 type LoginMethodsType = 'email' | 'github' | 'google' | 'discord';
 interface EmailLoginData {
@@ -13,7 +13,9 @@ interface EmailLoginData {
   };
 }
 
-const testImg = ref('https://th.bing.com/th/id/R.31cbc03376220c9f46128745d8a80d0d?rik=qPupDtEXKPzXAg&pid=ImgRaw&r=0')
+const testImg = ref(
+  'https://th.bing.com/th/id/R.31cbc03376220c9f46128745d8a80d0d?rik=qPupDtEXKPzXAg&pid=ImgRaw&r=0'
+);
 const user = useSupabaseUser();
 const { auth } = useSupabaseAuthClient();
 
@@ -34,7 +36,7 @@ const validateEmail = (email: string) => {
 };
 
 const handleBlur = (type: keyof EmailLoginData) => {
-  const typeData = formData.value[type]
+  const typeData = formData.value[type];
   if (type === 'email') {
     typeData.error = !validateEmail(typeData.value);
   } else {
@@ -50,7 +52,7 @@ const handleSignIn = async (type: LoginMethodsType) => {
     });
     if (error) {
       console.error(error);
-      return
+      return;
     }
 
     await navigateTo('/dashboard');

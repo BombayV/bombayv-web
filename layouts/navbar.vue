@@ -26,16 +26,11 @@ const setSidebar = (value: boolean) => {
         <NuxtLink to="/personal" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
           >Personal</NuxtLink
         >
-        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-          >Public</NuxtLink
-        >
+        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Public</NuxtLink>
         <NuxtLink to="/support" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
           >Support</NuxtLink
         >
-        <NuxtLink
-          v-if="!user"
-          class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-          to="/auth/login"
+        <NuxtLink v-if="!user" class="btn btn-ghost btn-sm rounded-btn xl:text-md" to="/auth/login"
           >Log in</NuxtLink
         >
         <NuxtLink
@@ -75,7 +70,7 @@ const setSidebar = (value: boolean) => {
   <Transition name="fade-in">
     <Sidebar v-if="activeSidebar" @close="setSidebar(false)" :user="user" />
   </Transition>
-  <slot class="max-w-2xl"/>
+  <slot class="max-w-2xl" />
 </template>
 
 <style scoped>

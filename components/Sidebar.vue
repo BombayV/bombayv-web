@@ -25,7 +25,8 @@ const routes = [
 </script>
 
 <template>
-  <aside class="fixed z-50 flex flex-col justify-between px-2 py-4 drawer bg-base-200 overflow-y-auto">
+  <aside
+    class="fixed z-50 flex flex-col justify-between px-2 py-4 drawer bg-base-200 overflow-y-auto">
     <div class="flex-1">
       <h3 class="mx-4 mb-6 h-fit w-fit text-lg font-bold">BombayTech</h3>
       <button

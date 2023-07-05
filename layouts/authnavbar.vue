@@ -16,45 +16,41 @@ const setSidebar = (value: boolean) => {
 
 <template>
   <header
-      ref="navbarRef"
-      class="absolute z-20 transform-gpu transition-transform duration-500 navbar max-w-7xl mx-auto left-1/2 -translate-x-1/2">
+    ref="navbarRef"
+    class="absolute z-20 transform-gpu transition-transform duration-500 navbar max-w-7xl mx-auto left-1/2 -translate-x-1/2">
     <div class="mx-2 flex-1 px-2">
       <NuxtLink class="text-lg font-extrabold xl:text-xl text-blue-100" to="/">BombayTech</NuxtLink>
     </div>
     <div class="mx-2 hidden flex-none px-2 md:flex">
       <div class="flex items-stretch">
-        <NuxtLink to="/" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-        >Home</NuxtLink
-        >
-        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md"
-        >Public</NuxtLink
-        >
+        <NuxtLink to="/" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Home</NuxtLink>
+        <NuxtLink to="/public" class="btn btn-ghost btn-sm rounded-btn xl:text-md">Public</NuxtLink>
         <NuxtLink
-            v-if="user"
-            class="btn btn-ghost btn-sm rounded-btn hover:bg-neutral xl:text-md"
-            to="/support/docs"
-        >Documentation</NuxtLink
+          v-if="user"
+          class="btn btn-ghost btn-sm rounded-btn hover:bg-neutral xl:text-md"
+          to="/support/docs"
+          >Documentation</NuxtLink
         >
       </div>
     </div>
     <button type="button" @click="setSidebar(true)" class="btn btn-square btn-ghost md:hidden">
       <svg
-          class="h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true">
+        class="h-6 w-6"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
         <path
-            clip-rule="evenodd"
-            fill-rule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"></path>
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"></path>
       </svg>
     </button>
   </header>
   <Transition name="fade-in">
     <Sidebar v-if="activeSidebar" @close="setSidebar(false)" :user="user" />
   </Transition>
-  <slot class="max-w-2xl"/>
+  <slot class="max-w-2xl" />
 </template>
 
 <style scoped>

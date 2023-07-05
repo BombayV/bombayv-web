@@ -10,9 +10,9 @@ export default <Partial<Config>>{
     },
     extend: {
       fontFamily: {
-        cali: ['Caligraphy']
-      }
-    }
+        cali: ['Caligraphy'],
+      },
+    },
   },
   plugins: [tailwindTypography, daisyui],
   daisyui: {

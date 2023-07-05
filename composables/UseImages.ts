@@ -3,4 +3,4 @@ export const UseImages = async (glob: object) => {
   return files.map((filename) => {
     return filename.replace('/public/', '/');
   });
-}
+};
