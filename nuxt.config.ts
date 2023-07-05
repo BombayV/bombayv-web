@@ -2,7 +2,7 @@
 import { TitleTemplate } from '@unhead/vue';
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase', '@nuxt/image-edge'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase', '@nuxt/image-edge', '@nuxt/content'],
   app: {
     pageTransition: {
       name: 'page',
