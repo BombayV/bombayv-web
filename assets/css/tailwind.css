@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .time-dot {
-    left: -0.5rem;
-  }
-  .time-dot-md {
-    left: calc(50% - 8px);
-  }
+@font-face {
+  font-family: 'NunitoSans';
+  src: url('../fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Caligraphy';
+  src: url('../fonts/PlayfairDisplay-VariableFont_wght.ttf') format("truetype");
 }

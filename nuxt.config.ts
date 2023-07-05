@@ -1,42 +1,53 @@
-import { defineNuxtConfig } from 'nuxt'
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import { TitleTemplate } from '@unhead/vue';
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  mode: 'universal',
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase'],
-  head: {
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'My personal website including portfolio, projects, blog and photography.' },
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'manifest', href: '/site.webmanifest' },
-    ]
-  },
-  colorMode: {
-    classSuffix: ''
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', '@nuxtjs/supabase', '@nuxt/image-edge', '@nuxt/content'],
+  app: {
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      title: 'Bombay | Design & Development',
+      titleTemplate: (titleChunk: TitleTemplate | undefined) => {
+        return titleChunk ? `${titleChunk} | Bombay` : 'Bombay | Design & Development';
+      },
+      meta: [
+        {
+          name: 'description',
+          content:
+            'My personal website created to share my own work and others through a free online platform.',
+        },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon/logo.png' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/favicon/site.webmanifest' },
+      ],
+    },
   },
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config.ts',
-    exposeConfig: false,
-    injectPosition: 0,
-    viewer: true,
   },
-  typeScript: {
+  colorMode: {
+    preference: 'system',
+    dataValue: 'theme',
+    fallback: 'light',
+    classSuffix: '',
+  },
+  typescript: {
     typeCheck: true,
     strict: true,
   },
-  css: [
-    '@/assets/css/global.css',
-    '@/assets/css/tailwind.css',
-  ],
-  build: {
-    transpile: ['gsap'],
-  }
-})
+  supabase: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  },
+});
