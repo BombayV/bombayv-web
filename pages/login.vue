@@ -3,19 +3,19 @@ const { useOAuth } = useUser()
 </script>
 
 <template>
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md w-full">
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md w-full px-4">
     <h1 class="font-semibold text-3xl">Welcome Back</h1>
     <p class="font-light text-base mt-2">Sign back in to your account</p>
     <div class="grid grid-cols-3 gap-x-4 mt-4">
-      <IconButton @click="useOAuth('github')">
+      <Button @click="useOAuth('github')">
         <GithubIcon />
-      </IconButton>
-      <IconButton @click="useOAuth('discord')">
+      </Button>
+      <Button @click="useOAuth('discord')">
         <DiscordIcon />
-      </IconButton>
-      <IconButton @click="useOAuth('google')">
+      </Button>
+      <Button @click="useOAuth('google')">
         <GoogleIcon />
-      </IconButton>
+      </Button>
     </div>
     <div class="relative w-full mt-4">
       <div class="absolute inset-0 flex items-center">
