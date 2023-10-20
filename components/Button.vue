@@ -7,12 +7,8 @@ defineProps<{
 
 <template>
   <button
-    @click="$emit('click')"
     :type="type || 'button'"
-    :class="[
-      'btn',
-      className
-    ]">
+    :class="`${className || ''} btn`">
     <slot />
   </button>
 </template>

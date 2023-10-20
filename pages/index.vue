@@ -8,7 +8,7 @@ definePageMeta({
 
 <template>
   <NuxtLayout>
-    <div>
+    <div class="bg-primary-500">
       <h1 class="text-red-500 dark:text-white">Nuxt Routing set up successfully!</h1>
       <p>Current route: {{ route.path }}</p>
       <a href="https://nuxt.com/docs/getting-started/routing" target="_blank">Learn more about Nuxt Routing</a>
