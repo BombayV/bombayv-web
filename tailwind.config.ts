@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./components/**/*.{js,vue,ts}",
-    "./layouts/**/*.vue",
-    "./pages/**/*.vue",
-    "./plugins/**/*.{js,ts}",
-    "./nuxt.config.{js,ts}",
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './nuxt.config.{js,ts}',
   ],
   theme: {
     extend: {
       colors: {
-        'text': {
+        text: {
           50: 'var(--text-50)',
           100: 'var(--text-100)',
           200: 'var(--text-200)',
@@ -21,9 +21,9 @@ export default {
           700: 'var(--text-700)',
           800: 'var(--text-800)',
           900: 'var(--text-900)',
-          950: 'var(--text-950)'
+          950: 'var(--text-950)',
         },
-        'background': {
+        background: {
           50: 'var(--background-50)',
           100: 'var(--background-100)',
           200: 'var(--background-200)',
@@ -36,7 +36,7 @@ export default {
           900: 'var(--background-900)',
           950: 'var(--background-950)',
         },
-        'primary': {
+        primary: {
           50: 'var(--primary-50)',
           100: 'var(--primary-100)',
           200: 'var(--primary-200)',
@@ -49,7 +49,7 @@ export default {
           900: 'var(--primary-900)',
           950: 'var(--primary-950)',
         },
-        'secondary': {
+        secondary: {
           50: 'var(--secondary-50)',
           100: 'var(--secondary-100)',
           200: 'var(--secondary-200)',
@@ -62,7 +62,7 @@ export default {
           900: 'var(--secondary-900)',
           950: 'var(--secondary-950)',
         },
-        'accent': {
+        accent: {
           50: 'var(--accent-50)',
           100: 'var(--accent-100)',
           200: 'var(--accent-200)',
@@ -76,9 +76,7 @@ export default {
           950: 'var(--accent-950)',
         },
       },
-
     },
   },
   plugins: [],
-}
-
+};

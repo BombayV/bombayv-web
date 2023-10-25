@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { useOAuth } = useUser()
+const { useOAuth } = useUser();
 </script>
 
 <template>
@@ -26,9 +26,12 @@ const { useOAuth } = useUser()
       </div>
     </div>
     <p class="text-sm mt-4">
-      If you don't have an already existing account, you will not be able to sign in.
-      Please don't try it since it's not meant for public use. Please go back to the
-      <NuxtLink to="/" class="text-primary-content dark:text-primary-contentDark underline transition-colors duration-200 hover:text-primary dark:hover:text-primaryDark">
+      If you don't have an already existing account, you will not be able to sign in. Please don't
+      try it since it's not meant for public use. Please go back to the
+      <NuxtLink
+        to="/"
+        class="text-primary-content dark:text-primary-contentDark underline transition-colors duration-200 hover:text-primary dark:hover:text-primaryDark"
+      >
         homepage.
       </NuxtLink>
     </p>

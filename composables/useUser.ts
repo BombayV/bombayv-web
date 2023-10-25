@@ -6,8 +6,8 @@ export const useUser = () => {
   const useOAuth = async (provider: Provider) => {
     try {
       const { data, error } = await auth.signInWithOAuth({
-        provider
-      })
+        provider,
+      });
       if (error) {
         console.error(error);
         return error;
@@ -17,11 +17,9 @@ export const useUser = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  const useEmail = async (email: string, password: string) => {
-
-  }
+  const useEmail = async (email: string, password: string) => {};
 
   const useLogout = async () => {
     try {
@@ -31,15 +29,15 @@ export const useUser = () => {
         return error;
       }
 
-      navigateTo('/')
+      navigateTo('/');
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return {
     useOAuth,
     useEmail,
-    useLogout
-  }
-}
+    useLogout,
+  };
+};

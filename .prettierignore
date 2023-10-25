@@ -1,0 +1,8 @@
+.vercel
+.nuxt
+public
+.env
+.env.local
+.package-lock.json
+yarn.lock
+.output

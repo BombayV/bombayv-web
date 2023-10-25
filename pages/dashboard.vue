@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-
 definePageMeta({
   title: 'Dashboard',
   ogTitle: 'Dashboard',
   middleware: ['user'],
   layout: 'navbar',
-})
+});
 </script>
 
 <template>

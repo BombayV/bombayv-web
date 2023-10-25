@@ -163,7 +163,7 @@
   }
 
   .btn-icon {
-    @apply bg-primary-400 grow flex items-center justify-center rounded-lg py-4 transition-colors duration-200;
+    @apply bg-primary-400 grow flex items-center justify-center rounded-lg py-4 transition-all duration-200;
   }
 
   .btn-primary {
