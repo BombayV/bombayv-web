@@ -10,11 +10,16 @@ useSeoMeta({
 })
 
 const user = useSupabaseUser()
-
-const gallery = useGallery(user)
 const dashboard = new useDashboard(user)
+
+const gallery = useGallery()
 const { isOpen, setModal } = useUploadModal()
 const { useLogout } = useUser()
+const images = ref()
+
+onMounted(async () => {
+  images.value = await gallery.getGallery()
+})
 </script>
 
 <template>
@@ -46,7 +51,7 @@ const { useLogout } = useUser()
         </Button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 w-full px-3 py-5 bg-background-100 rounded-xl mt-4">
-        <UploadedImage v-for="img in 10" :key="img" :id="img.toString()" :name="`Image ${img}`" :description="`Desc ${img}`"  :image="dashboard.avatarUrl"/>
+        <UploadedImage v-for="img in images" :key="img" :id="img.toString()" :name="`Image ${img}`" :description="`Desc ${img}`"  :image="dashboard.avatarUrl"/>
       </div>
     </section>
     <UploadModal :isOpen="isOpen" @close="setModal" />
