@@ -134,36 +134,36 @@
   }
 
   h1 {
-    @apply text-xl font-black;
+    @apply text-2xl lg:text-3xl font-black drop-shadow-lg;
   }
 
   h2 {
-    @apply text-base font-semibold;
+    @apply text-base font-semibold drop-shadow-lg;
   }
 
   p {
-    @apply text-base font-light text-text-900;
+    @apply text-sm md:text-base 2xl:text-lg font-light text-text-900 drop-shadow-md;
   }
 
   a {
-    @apply text-primary-800 hover:text-primary-700 border-b border-b-transparent;
+    @apply text-primary-800 hover:text-primary-700 border-b border-b-transparent drop-shadow-sm;
   }
 }
 
 @layer components {
   .text-gradient {
-    background: linear-gradient(90deg, var(--primary-500), var(--secondary-500));
+    background: linear-gradient(90deg, #FABC1C, #fa921c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: text-gradient 5s ease infinite;
   }
 
   .btn {
-    @apply px-4 font-medium flex items-center justify-center rounded-lg py-2 transition-all duration-200 drop-shadow-md;
+    @apply text-xs sm:text-sm lg:text-base px-4 font-medium flex items-center justify-center rounded-lg py-2 transition-all duration-200 drop-shadow-md;
   }
 
   .btn-icon {
-    @apply bg-primary-400 grow flex items-center justify-center rounded-lg py-4 transition-all duration-200;
+    @apply p-1.5 sm:p-2 aspect-square flex items-center justify-center rounded-lg transition-all duration-200;
   }
 
   .btn-primary {

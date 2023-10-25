@@ -1,7 +1,13 @@
+<script lang="ts" setup>
+defineProps<{
+  intro?: boolean
+}>()
+</script>
+
 <template>
-  <section class="flex flex-col items-center py-16">
-    <h1 class="font-semibold text-2xl sm:text-4xl">Want to explore more?</h1>
-    <p class="font-light text-sm mt-2 sm:text-lg">Learn more about me, myself and I.</p>
+  <section v-if="!intro" class="flex flex-col items-center py-16 text-center px-4">
+    <h1 class="font-semibold text-2xl sm:text-3xl lg:text-4xl">Want to explore more?</h1>
+    <p class="font-light mt-2">Learn more about me, myself and I.</p>
     <div class="flex sm:flex-row gap-4 mt-4">
       <NuxtLink class="btn btn-primary" to="/gallery"> View Photos </NuxtLink>
       <NuxtLink class="btn btn-outline" to="/projects"> Read Projects </NuxtLink>
@@ -11,8 +17,8 @@
     <div class="mx-auto max-w-7xl px-6 md:px-8 py-12">
       <div class="flex flex-col md:flex-row md:justify-between">
         <div class="flex flex-col">
-          <h1>BombayTech</h1>
-          <p class="mt-0.5">If you can imagine it, you can create it.</p>
+          <h1 class="text-xl">BombayTech</h1>
+          <p class="mt-0.5 text-sm md:text-base">If you can imagine it, you can create it.</p>
           <div class="flex items-center gap-x-3 mt-2 fill-primary-800">
             <NuxtLink to="/" target="_blank">
               <InstagramIcon
@@ -48,7 +54,7 @@
       </div>
     </div>
     <div class="relative max-w-7xl mx-auto">
-      <p class="border-t border-t-background-950 mx-8 py-6">&copy; 2023 BombayTech</p>
+      <p class="border-t border-t-background-950 mx-6 md:mx-8 py-6">&copy; 2023 BombayTech</p>
     </div>
   </footer>
 </template>

@@ -3,17 +3,17 @@ const { useOAuth } = useUser();
 </script>
 
 <template>
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md w-full px-4">
-    <h1 class="font-semibold text-3xl">Welcome Back</h1>
-    <p class="font-light text-base mt-2">Sign back in to your account</p>
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-md w-full px-6">
+    <h1 class="font-semibold">Welcome Back</h1>
+    <p class="font-light mt-2">Sign back in to your account</p>
     <div class="grid grid-cols-3 gap-x-4 mt-4">
-      <Button @click="useOAuth('github')">
+      <Button className="btn-primary fill-background-50" @click="useOAuth('github')">
         <GithubIcon />
       </Button>
-      <Button @click="useOAuth('discord')">
+      <Button className="btn-primary fill-background-50" @click="useOAuth('discord')">
         <DiscordIcon />
       </Button>
-      <Button @click="useOAuth('google')">
+      <Button className="btn-primary fill-background-50" @click="useOAuth('google')">
         <GoogleIcon />
       </Button>
     </div>
