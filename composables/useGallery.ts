@@ -1,44 +1,65 @@
 interface ImageData {
-  src: string
-  name: string
-  description?: string
-  file: File
+  src: string;
+  name: string;
+  description?: string;
+  image: File;
 }
 
 export const useGallery = <T extends object>() => {
-  const supabase = useSupabaseClient()
+  const supabase = useSupabaseClient();
 
-  const getGallery = async () => {
-    const { data, error } = await supabase
-      .storage
-      .from('gallery')
-      .list()
-    if (error) throw error
-    return data
-  }
+  const getGallery = async (): Promise<any> => {
+    const { data, error } = await supabase.from('images').select() as any;
+
+    if (data) {
+      const url = (fileName: string) =>
+        `https://mlbpkkmmhrbqxadyssrp.supabase.co/storage/v1/object/public/gallery/${fileName}`;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]?.src) {
+          data[i].src = url(data[i].src);
+        }
+      }
+    }
+
+    if (error) throw error;
+    return data;
+  };
 
   const uploadGallery = async (dataImg: ImageData) => {
-    console.log(dataImg)
-    // Upload file to storage bucket
-    const { error } = await supabase
-      .storage
+    const { error: storageError } = await supabase.storage
       .from('gallery')
-      .upload(dataImg.name, dataImg.image)
-    if (error) throw error
-    // Insert new row into images table
-    const test = await supabase
-    .from('images')
-    .insert([
-      { src: dataImg.src, name: dataImg.name, description: dataImg.description }
-    ])
+      .upload(dataImg.image.name, dataImg.image);
+    if (storageError) throw storageError;
 
-    return test
+    // @ts-ignore
+    const { data, error: insertError } = await supabase.from('images').insert([
+      {
+        src: dataImg.image.name,
+        name: dataImg.name,
+        description: dataImg.description,
+      },
+    ]);
+    if (insertError) throw insertError;
+
+    return data;
+  };
+
+  const deleteGallery = async (id: number, src: string) => {
+    const { data, error } = await supabase.from('images').delete().eq('id', id);
+    if (error) throw error;
+
+    const { data: dataStorage, error: errorStorage } = await supabase.storage
+      .from('gallery')
+      .remove([src]);
+    if (errorStorage) throw errorStorage;
+
+    return data;
   }
 
   return {
     getGallery,
-    uploadGallery
-  }
-}
+    uploadGallery,
+  };
+};
 
 //https://mlbpkkmmhrbqxadyssrp.supabase.co/storage/v1/object/public/gallery/B%20(1).png

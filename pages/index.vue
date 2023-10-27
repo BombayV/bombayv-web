@@ -6,9 +6,9 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: "Home",
-  ogTitle: "Home",
-})
+  title: 'Home',
+  ogTitle: 'Home',
+});
 </script>
 
 <template>

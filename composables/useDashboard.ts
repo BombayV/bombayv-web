@@ -1,4 +1,4 @@
-import {capitalize} from "vue";
+import { capitalize } from 'vue';
 
 export class useDashboard {
   private readonly user: Record<string, any>;

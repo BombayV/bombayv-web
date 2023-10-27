@@ -145,14 +145,22 @@
     @apply text-sm md:text-base 2xl:text-lg font-light text-text-900 drop-shadow-md;
   }
 
+  label {
+    @apply text-sm md:text-base 2xl:text-lg font-light text-text-900 drop-shadow-md;
+  }
+
   a {
     @apply text-primary-800 hover:text-primary-700 border-b border-b-transparent drop-shadow-sm;
+  }
+
+  input[type="file"] {
+    @apply hidden;
   }
 }
 
 @layer components {
   .text-gradient {
-    background: linear-gradient(90deg, #FABC1C, #fa921c);
+    background: linear-gradient(90deg, #fabc1c, #fa921c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: text-gradient 5s ease infinite;
