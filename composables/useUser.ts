@@ -2,6 +2,7 @@ type Provider = 'google' | 'github' | 'discord';
 
 export const useUser = () => {
   const { auth } = useSupabaseClient();
+  const user = useSupabaseUser()
 
   const useOAuth = async (provider: Provider) => {
     try {
@@ -39,5 +40,6 @@ export const useUser = () => {
     useOAuth,
     useEmail,
     useLogout,
+    user,
   };
 };

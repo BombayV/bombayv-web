@@ -1,5 +1,13 @@
 <script lang="ts" setup>
-const { useOAuth } = useUser();
+const { useOAuth, user } = useUser();
+const router = useRouter();
+
+
+watchEffect(() => {
+  if (user.value) {
+    router.push('/dashboard');
+  }
+});
 </script>
 
 <template>
@@ -7,14 +15,14 @@ const { useOAuth } = useUser();
     <h1 class="font-semibold">Welcome Back</h1>
     <p class="font-light mt-2">Sign back in to your account</p>
     <div class="grid grid-cols-3 gap-x-4 mt-4">
-      <Button className="btn-primary fill-background-50" @click="useOAuth('github')">
-        <GithubIcon />
+      <Button className="btn-primary" @click="useOAuth('github')">
+        <Icon icon="github" className="h-6 w-6 !fill-background-50" />
       </Button>
       <Button className="btn-primary fill-background-50" @click="useOAuth('discord')">
-        <DiscordIcon />
+        <Icon icon="discord" className="h-6 w-6" />
       </Button>
       <Button className="btn-primary fill-background-50" @click="useOAuth('google')">
-        <GoogleIcon />
+        <Icon icon="google" className="h-6 w-6" />
       </Button>
     </div>
     <div class="relative w-full mt-4">

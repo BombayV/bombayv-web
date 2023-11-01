@@ -75,6 +75,10 @@ export default {
           900: 'var(--accent-900)',
           950: 'var(--accent-950)',
         },
+        error: {
+          100: 'var(--error-100)',
+          200: 'var(--error-200)',
+        },
       },
     },
   },

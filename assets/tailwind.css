@@ -63,6 +63,9 @@
     --accent-800: #4e2d18;
     --accent-900: #27160c;
     --accent-950: #140b06;
+
+    --error-100: #c45745;
+    --error-200: #ac4130;
   }
 
   .dark {
@@ -125,6 +128,9 @@
     --accent-800: #4e2d18;
     --accent-900: #27160c;
     --accent-950: #140b06;
+
+    --error-100: #c45745;
+    --error-200: #ac4130;
   }
 
   html {
@@ -153,7 +159,7 @@
     @apply text-primary-800 hover:text-primary-700 border-b border-b-transparent drop-shadow-sm;
   }
 
-  input[type="file"] {
+  input[type='file'] {
     @apply hidden;
   }
 }
@@ -167,7 +173,7 @@
   }
 
   .btn {
-    @apply text-xs sm:text-sm lg:text-base px-4 font-medium flex items-center justify-center rounded-lg py-2 transition-all duration-200 drop-shadow-md;
+    @apply text-sm lg:text-base px-4 font-medium flex items-center justify-center rounded-lg py-2 transition-all duration-200 drop-shadow-md;
   }
 
   .btn-icon {
@@ -180,6 +186,17 @@
 
   .btn-outline {
     @apply border-2 border-primary-400 hover:bg-primary-400 hover:text-background-50 hover:ring-2 hover:ring-primary-400 hover:ring-offset-2 hover:ring-offset-background-50 hover:ring-opacity-20 active:bg-primary-500 active:text-background-50 active:ring-2 active:ring-primary-500 active:ring-offset-2 active:ring-offset-background-50 active:ring-opacity-20;
+  }
+
+  .btn-outline-error {
+    @apply border-2 border-error-100 hover:bg-error-200 hover:text-background-50 hover:ring-2 hover:ring-error-200 hover:ring-offset-2 hover:ring-offset-background-50 hover:ring-opacity-20 active:bg-error-200 active:text-background-50 active:ring-2 active:ring-error-200 active:ring-offset-2 active:ring-offset-background-50 active:ring-opacity-20;
+  }
+
+  .time-dot {
+    left: -0.5rem;
+  }
+  .time-dot-md {
+    left: calc(50% - 6px);
   }
 }
 

@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { GalleryImage } from '~/components/types/common';
+import {generateUrl} from "~/utils/generateUrl";
+
 definePageMeta({
   middleware: ['user'],
   layout: 'dashnavbar',
@@ -12,13 +15,98 @@ useSeoMeta({
 const user = useSupabaseUser();
 const dashboard = new useDashboard(user);
 
-const gallery = useGallery();
+const { getGallery, deleteGallery, fetchStatus } = useGallery();
 const { isOpen, setModal } = useUploadModal();
 const { useLogout } = useUser();
-const images = ref();
+
+const images = ref<GalleryImage[] | null>(null);
+const activePreview = ref<GalleryImage | null>(null);
+const deleteModalData = ref<{
+  isOpen: boolean;
+  id: number | null;
+  src: string | null;
+}>({
+  isOpen: false,
+  id: null,
+  src: null,
+});
+const latestId = ref<number>(-1)
+
+const setActivePreview = (id: number | null) => {
+  if (!images.value) return;
+  if (id === -1) return (activePreview.value = null);
+
+  const image = images.value.find((img) => img.id === id);
+  if (image && image !== activePreview.value) {
+    activePreview.value = image;
+  }
+};
+
+const deleteModalResolve = (passed: boolean = false) => {
+  fetchStatus.value.status = 'loading';
+  deleteModalData.value.isOpen = false;
+  if (!passed) return (deleteModalData.value = { isOpen: false, id: null, src: null });
+
+  if (deleteModalData.value.id && deleteModalData.value.src) {
+    deleteGallery(deleteModalData.value.id, deleteModalData.value.src);
+    if (images.value) {
+      images.value = images.value.filter((img) => img.id !== deleteModalData.value.id);
+      if (Object.values(images.value).length === 0) {
+        fetchStatus.value.status = 'none';
+      } else {
+        fetchStatus.value.status = 'success';
+      }
+    }
+
+    deleteModalData.value = { isOpen: false, id: null, src: null };
+  }
+};
+
+const deleteModal = async (id: number, src: string) => {
+  deleteModalData.value = {
+    isOpen: true,
+    id,
+    src,
+  };
+};
+
+const editModal = (id: number) => {
+  if (!images.value) return;
+  const image = images.value.find((img) => img.id === id);
+  if (image) {
+    console.log(image);
+  }
+};
+
+const handleFileSync = async (newFiles: FileList) => {
+  fetchStatus.value.status = 'loading';
+  for (const file of newFiles) {
+    if (images.value) {
+      latestId.value += 1
+      images.value.push({
+        id: latestId.value,
+        src: file,
+        name: file.name,
+        description: 'No description',
+        created_at: new Date().toISOString(),
+      });
+    }
+  }
+  fetchStatus.value.status = 'success';
+};
 
 onMounted(async () => {
-  images.value = await gallery.getGallery();
+  const fetchedImages = await getGallery();
+  if (fetchedImages) {
+    images.value = fetchedImages as GalleryImage[];
+    const fetchedAsArray = Object.values(fetchedImages)
+    if (fetchedAsArray.length > 0) {
+      latestId.value = fetchedAsArray[fetchedAsArray.length - 1].id
+      fetchStatus.value.status = 'success';
+    } else {
+      fetchStatus.value.status = 'none';
+    }
+  }
 });
 </script>
 
@@ -27,7 +115,7 @@ onMounted(async () => {
     <div class="grow flex flex-col">
       <section class="flex flex-col mx-auto w-full relative max-w-7xl px-6">
         <div
-            class="w-full py-3 px-3.5 bg-background-100 rounded-full mt-8 flex items-center justify-between"
+          class="w-full py-3 px-5 bg-background-100 rounded-full mt-8 flex items-center justify-between"
         >
           <div class="flex gap-x-4 items-center">
             <Avatar :image="dashboard.avatarUrl" description="Avatar profile" />
@@ -37,63 +125,74 @@ onMounted(async () => {
             </div>
           </div>
           <Button
-              className="aspect-square rounded-full p-3 bg-red-400 hover:bg-red-300"
-              @click="useLogout"
+            className="rounded-full bg-error-100 hover:bg-error-200 transition duration-200 gap-x-2 pl-4 pr-3 text-background-50"
+            @click="useLogout"
           >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="fill-background-800 w-5 h-5 sm:w-6 sm:h-6"
-            >
-              <path
-                  fill-rule="evenodd"
-                  d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z"
-                  clip-rule="evenodd"
-              />
-            </svg>
+            Logout
+            <Icon icon="logout" />
           </Button>
         </div>
       </section>
       <section class="flex flex-col mx-auto w-full relative max-w-7xl px-6 mb-8 grow">
         <div
-            class="w-full py-3 px-5 bg-background-100 rounded-xl mt-8 flex items-center justify-between"
+          class="w-full py-3 px-5 bg-background-100 rounded-xl mt-8 flex items-center justify-between"
         >
           <h1>Gallery</h1>
           <Button @click="setModal(true)" className="btn-outline rounded-full gap-x-2 pl-3 group">
             Upload
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4 sm:w-5 sm:h-5 fill-background-800 group-hover:fill-background-50 transition duration-200"
-            >
-              <path
-                  fill-rule="evenodd"
-                  d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5zM3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"
-                  clip-rule="evenodd"
-              />
-            </svg>
+            <Icon icon="upload" />
           </Button>
         </div>
-        <!--      <div-->
-        <!--        v-if="images && images.length > 0"-->
-        <!--        class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 w-full px-3 py-5 bg-background-100 rounded-xl mt-4"-->
-        <!--      >-->
-        <!--        <UploadedImage-->
-        <!--          v-for="img in images"-->
-        <!--          :key="img"-->
-        <!--          :id="img.id"-->
-        <!--          :name="`${img.name}`"-->
-        <!--          :description="`${img.description}`"-->
-        <!--          :image="img.src"-->
-        <!--        />-->
-        <!--      </div>-->
-        <div class="w-full h-full px-3 py-5 bg-background-100 rounded-xl mt-4 grow grid place-items-center">
-          <p class="text-center font-medium text-2xl">No images found</p>
+        <div
+          v-if="images && images.length > 0 && fetchStatus.status === 'success'"
+          class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 w-full px-3 py-5 bg-background-100 rounded-xl mt-4"
+        >
+          <UploadedImage
+            v-for="img in images"
+            :key="img"
+            :image="img"
+            @view="setActivePreview"
+            @edit="editModal"
+            @delete="deleteModal"
+          />
+        </div>
+        <div
+          v-if="fetchStatus.status !== 'success'"
+          class="w-full h-full px-3 py-5 bg-background-100 rounded-xl mt-4 grow grid place-items-center"
+        >
+          <p
+            v-if="images && fetchStatus.status === 'none'"
+            class="text-center font-medium text-2xl"
+          >
+            No images found
+          </p>
+          <p v-else-if="fetchStatus.status === 'loading'" class="text-center font-medium text-2xl">
+            Fetching images
+          </p>
+          <p v-else-if="fetchStatus.status === 'error'" class="text-center font-medium text-2xl">
+            Could not fetch images
+          </p>
         </div>
       </section>
-      <UploadModal :isOpen="isOpen" @close="setModal" />
+      <UploadModal :isOpen="isOpen" @close="setModal" @sync="handleFileSync" />
+      <UploadedImagePreview :image="activePreview" @close="setActivePreview" />
+      <ConfirmationModal
+        :isOpen="deleteModalData.isOpen"
+        @cancel="deleteModalResolve"
+        @confirm="deleteModalResolve"
+      />
     </div>
   </NuxtLayout>
 </template>
+
+<style>
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+  opacity: 0;
+}
+</style>

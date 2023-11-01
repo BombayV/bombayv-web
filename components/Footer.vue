@@ -2,10 +2,12 @@
 defineProps<{
   intro?: boolean;
 }>();
+
+const route = useRouter().currentRoute;
 </script>
 
 <template>
-  <section v-if="!intro" class="flex flex-col items-center py-16 text-center px-4">
+  <section v-if="!intro && route.path !== '/gallery'" class="flex flex-col items-center py-16 text-center px-4">
     <h1 class="font-semibold text-2xl sm:text-3xl lg:text-4xl">Want to explore more?</h1>
     <p class="font-light mt-2">Learn more about me, myself and I.</p>
     <div class="flex sm:flex-row gap-4 mt-4">
@@ -20,19 +22,22 @@ defineProps<{
           <h1 class="text-xl">BombayTech</h1>
           <p class="mt-0.5 text-sm md:text-base">If you can imagine it, you can create it.</p>
           <div class="flex items-center gap-x-3 mt-2 fill-primary-800">
-            <NuxtLink to="/" target="_blank">
-              <InstagramIcon
-                class="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
+            <NuxtLink to="https://www.instagram.com/mau_bomb/" target="_blank">
+              <Icon
+                icon="instagram"
+                className="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
               />
             </NuxtLink>
-            <NuxtLink to="/" target="_blank">
-              <GithubIcon
-                class="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
+            <NuxtLink to="https://github.com/BombayV" target="_blank">
+              <Icon
+                icon="github"
+                className="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
               />
             </NuxtLink>
-            <NuxtLink to="/" target="_blank">
-              <LinkedInIcon
-                class="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
+            <NuxtLink to="/https://www.linkedin.com/in/mauricio-riveraperez/" target="_blank">
+              <Icon
+                icon="linkedin"
+                className="fill-primary-800 hover:fill-primary-700 transition-colors duration-200"
               />
             </NuxtLink>
           </div>

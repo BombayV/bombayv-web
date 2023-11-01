@@ -12,18 +12,9 @@ defineProps<{
     >
       <Button
         @click="$emit('toggle')"
-        class="btn-outline btn-icon md:hidden right-0 mt-4 mr-4 absolute"
+        class="btn-outline btn-icon md:hidden right-0 mt-4 mr-4 absolute group"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.3"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <Icon icon="close" />
       </Button>
       <div class="flex flex-col"></div>
     </aside>
