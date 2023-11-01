@@ -2,7 +2,6 @@
 const { useOAuth, user } = useUser();
 const router = useRouter();
 
-
 watchEffect(() => {
   if (user.value) {
     router.push('/dashboard');

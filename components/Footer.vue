@@ -7,7 +7,10 @@ const route = useRouter().currentRoute;
 </script>
 
 <template>
-  <section v-if="!intro && route.path !== '/gallery'" class="flex flex-col items-center py-16 text-center px-4">
+  <section
+    v-if="!intro && route.path !== '/gallery'"
+    class="flex flex-col items-center py-16 text-center px-4"
+  >
     <h1 class="font-semibold text-2xl sm:text-3xl lg:text-4xl">Want to explore more?</h1>
     <p class="font-light mt-2">Learn more about me, myself and I.</p>
     <div class="flex sm:flex-row gap-4 mt-4">

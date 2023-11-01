@@ -21,20 +21,20 @@ const { isOpenSidebar, toggleSidebar } = useSidebar();
           <p class="font-black text-xl">BombayTech</p>
         </NuxtLink>
         <nav class="hidden md:flex">
-        <span v-for="route in routes" :key="route.name">
-          <ClientOnly v-if="route.name === 'Login'">
-            <TextLink
+          <span v-for="route in routes" :key="route.name">
+            <ClientOnly v-if="route.name === 'Login'">
+              <TextLink
                 className="mx-2"
                 :to="route.path"
                 v-if="route.auth !== undefined ? (user ? route.auth : true) : true"
-            >
+              >
+                {{ route.name }}
+              </TextLink>
+            </ClientOnly>
+            <TextLink v-else className="mx-2" :to="route.path">
               {{ route.name }}
             </TextLink>
-          </ClientOnly>
-          <TextLink v-else className="mx-2" :to="route.path">
-            {{ route.name }}
-          </TextLink>
-        </span>
+          </span>
           <ClientOnly>
             <TextLink class="mx-2" to="/dashboard" v-if="user && route.path !== '/dashboard'">
               Dashboard

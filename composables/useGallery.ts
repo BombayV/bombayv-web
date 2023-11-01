@@ -29,26 +29,23 @@ export const useGallery = <T extends object>() => {
   };
 
   const uploadGallery = async <T extends any>(dataImgs: FileList): Promise<T | any> => {
-
-    const dataAsArray = []
+    const dataAsArray = [];
     for (let i = 0; i < dataImgs.length; i++) {
       dataAsArray.push({
         src: dataImgs[i].name,
         name: dataImgs[i].name,
-        description: "Testing description",
-      })
+        description: 'Testing description',
+      });
     }
 
     // @ts-ignore
-    const { data, error: insertError } = await supabase.from('images').insert(
-      dataAsArray
-    ).select();
+    const { data, error: insertError } = await supabase.from('images').insert(dataAsArray).select();
     if (insertError) throw insertError;
 
     for (let i = 0; i < dataImgs.length; i++) {
       const { error: storageError } = await supabase.storage
-      .from('gallery')
-      .upload(dataImgs[i].name, dataImgs[i]);
+        .from('gallery')
+        .upload(dataImgs[i].name, dataImgs[i]);
       if (storageError) throw storageError;
     }
 
@@ -57,22 +54,25 @@ export const useGallery = <T extends object>() => {
 
   const uploadSingleGallery = async <T extends any>(dataImg: File): Promise<T | any> => {
     const { error: storageError } = await supabase.storage
-    .from('gallery')
-    .upload(dataImg.name, dataImg);
+      .from('gallery')
+      .upload(dataImg.name, dataImg);
     if (storageError) throw storageError;
 
     // @ts-ignore
-    const { data, error: insertError } = await supabase.from('images').insert([
-      {
-        src: dataImg.name,
-        name: dataImg.name,
-        description: "Testing description",
-      },
-    ]).select();
+    const { data, error: insertError } = await supabase
+      .from('images')
+      .insert([
+        {
+          src: dataImg.name,
+          name: dataImg.name,
+          description: 'Testing description',
+        },
+      ])
+      .select();
     if (insertError) throw insertError;
 
     return data;
-  }
+  };
 
   const deleteGallery = async <T extends any>(id: number, src: string | File): Promise<T | any> => {
     let parsedSrc, fileName: string;

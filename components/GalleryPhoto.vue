@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {GalleryImage} from "~/components/types/common";
-import { generateUrl } from "~/utils/generateUrl";
+import { GalleryImage } from '~/components/types/common';
+import { generateUrl } from '~/utils/generateUrl';
 
 defineProps<{
   image: GalleryImage;
@@ -13,6 +13,5 @@ defineProps<{
       :src="typeof image.src === 'string' ? image.src : generateUrl(image.src)"
       :alt="`Photo of ${image.name}`"
     />
-
   </div>
 </template>

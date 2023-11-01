@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GalleryImage } from '~/components/types/common';
-import {generateUrl} from "~/utils/generateUrl";
+import { generateUrl } from '~/utils/generateUrl';
 
 definePageMeta({
   middleware: ['user'],
@@ -30,7 +30,7 @@ const deleteModalData = ref<{
   id: null,
   src: null,
 });
-const latestId = ref<number>(-1)
+const latestId = ref<number>(-1);
 
 const setActivePreview = (id: number | null) => {
   if (!images.value) return;
@@ -82,7 +82,7 @@ const handleFileSync = async (newFiles: FileList) => {
   fetchStatus.value.status = 'loading';
   for (const file of newFiles) {
     if (images.value) {
-      latestId.value += 1
+      latestId.value += 1;
       images.value.push({
         id: latestId.value,
         src: file,
@@ -99,9 +99,9 @@ onMounted(async () => {
   const fetchedImages = await getGallery();
   if (fetchedImages) {
     images.value = fetchedImages as GalleryImage[];
-    const fetchedAsArray = Object.values(fetchedImages)
+    const fetchedAsArray = Object.values(fetchedImages);
     if (fetchedAsArray.length > 0) {
-      latestId.value = fetchedAsArray[fetchedAsArray.length - 1].id
+      latestId.value = fetchedAsArray[fetchedAsArray.length - 1].id;
       fetchStatus.value.status = 'success';
     } else {
       fetchStatus.value.status = 'none';

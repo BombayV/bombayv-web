@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GalleryImage } from '~/components/types/common';
-import {generateUrl} from "~/utils/generateUrl";
+import { generateUrl } from '~/utils/generateUrl';
 
 const props = defineProps<{
   image: GalleryImage | null;

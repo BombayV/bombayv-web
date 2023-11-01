@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { generateUrl } from "~/utils/generateUrl";
+import { generateUrl } from '~/utils/generateUrl';
 
 defineProps<{
   file: File;
