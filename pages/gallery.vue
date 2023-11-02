@@ -5,6 +5,12 @@ definePageMeta({
   layout: 'navbar',
 });
 
+useSeoMeta({
+  title: 'Gallery',
+  description:
+    'Explore my life and discover my artistic choice through photos of my memories. Ds A photo gallery of all the photos I have taken from 2019 to the present.',
+});
+
 const { getGallery, fetchStatus } = useGallery();
 const images = ref<GalleryImage[]>([]);
 

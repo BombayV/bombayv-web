@@ -27,6 +27,10 @@ export interface Route {
   auth?: boolean;
 }
 
+export interface SidebarRoute extends Route {
+  paths?: Route[];
+}
+
 export interface TimelineData {
   path: string;
   title: string;

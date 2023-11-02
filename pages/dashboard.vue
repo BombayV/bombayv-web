@@ -43,11 +43,11 @@ const setActivePreview = (id: number | null) => {
 };
 
 const deleteModalResolve = (passed: boolean = false) => {
-  fetchStatus.value.status = 'loading';
   deleteModalData.value.isOpen = false;
   if (!passed) return (deleteModalData.value = { isOpen: false, id: null, src: null });
 
   if (deleteModalData.value.id && deleteModalData.value.src) {
+    fetchStatus.value.status = 'loading';
     deleteGallery(deleteModalData.value.id, deleteModalData.value.src);
     if (images.value) {
       images.value = images.value.filter((img) => img.id !== deleteModalData.value.id);
