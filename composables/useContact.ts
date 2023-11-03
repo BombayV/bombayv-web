@@ -1,3 +1,7 @@
+import { getGlobalThis } from "@vue/shared";
+
+const REF_IDS = ['email', 'subject', 'message'];
+
 export class useContact {
   private readonly TIME_LIMIT: number = 1000 * 60 * 60 * 24;
   private last_message: Date | null = null;
@@ -6,6 +10,26 @@ export class useContact {
   public email = ref<string>('');
   public subject = ref<string>('');
   public message = ref<string>('');
+  private docEls: Record<string, HTMLInputElement | null> = {
+    email: null,
+    subject: null,
+    message: null,
+  }
+  private timeouts: Record<string, ReturnType<typeof setTimeout> | null> = {
+    email: null,
+    subject: null,
+    message: null,
+  };
+  private activeErrors: Record<string, boolean> = {
+    email: false,
+    subject: false,
+    message: false,
+  }
+  private activeSuccesses: Record<string, boolean> = {
+    email: false,
+    subject: false,
+    message: false,
+  }
 
   constructor() {
     onMounted(() => {
@@ -14,8 +38,12 @@ export class useContact {
         this.last_message = new Date(storedMessage);
       }
 
-      this.can_send = !this.hasPassedTimeLimit();
+      this.can_send = this.hasPassedTimeLimit();
       this.supabase = useSupabaseClient();
+
+      this.watchEmail();
+      this.watchSubject();
+      this.watchMessage();
     });
   }
 
@@ -58,20 +86,80 @@ export class useContact {
     return emailRegex.test(this.email.value);
   }
 
+  private watchEmail() {
+    watch(this.email, () => {
+      this.setInputError('email', !this.isEmailValid());
+    });
+  }
+
+  private watchSubject() {
+    watch(this.subject, () => {
+      this.setInputError('subject', !this.isLengthValid(this.subject, 8))
+    });
+  }
+
+  private watchMessage() {
+    watch(this.message, () => {
+      this.setInputError('message', !this.isLengthValid(this.message, 20))
+    });
+  }
+
+  private setInputError(id: string, error: boolean) {
+    if (getGlobalThis().document) {
+      let doc = this.docEls[id];
+      if (!doc) {
+        doc = this.docEls[id] = getGlobalThis().document.getElementById(id) as HTMLInputElement;
+      }
+
+      const timeout = this.timeouts[id];
+
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+
+      if (error) {
+        if (this.activeSuccesses[id]) {
+          doc.classList.remove('input-outline-success');
+          this.activeSuccesses[id] = false;
+          doc.classList.add('input-outline-error');
+          this.activeErrors[id] = true;
+        } else {
+          this.timeouts[id] = setTimeout(() => {
+            doc!.classList.add('input-outline-error');
+            this.activeErrors[id] = true;
+          }, 1000);
+        }
+      } else {
+        const error = this.activeErrors[id];
+        const success = this.activeSuccesses[id];
+
+        if (error) {
+          doc.classList.remove('input-outline-error');
+          this.activeErrors[id] = false;
+        }
+
+        if (!success) {
+          doc.classList.add('input-outline-success');
+          this.activeSuccesses[id] = true;
+        }
+      }
+    }
+  }
+
   public async sendForm(): Promise<any> {
     if (!this.isFormValid) {
-      return alert('Please fill out all fields')
+      return alert('Please fill out all fields');
     }
 
     if (!this.canSend) {
       return alert('You can only send one message per day');
     }
 
-    if (!this.isLengthValid(this.subject, 10)) {
+    if (!this.isLengthValid(this.subject, 8)) {
       return alert('Subject must be at least 10 characters long');
     }
 
-    if (!this.isLengthValid(this.message, 25)) {
+    if (!this.isLengthValid(this.message, 20)) {
       return alert('Message must be at least 25 characters long');
     }
 

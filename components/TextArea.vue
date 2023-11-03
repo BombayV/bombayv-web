@@ -4,7 +4,6 @@ const props = defineProps<{
   label: string;
   placeholder: string;
   modelValue: string | undefined;
-  type: 'text' | 'email';
 }>();
 const emit = defineEmits(['update:modelValue']);
 
@@ -23,6 +22,7 @@ const value = computed({
     emit('update:modelValue', value);
   },
 });
+
 </script>
 
 <template>
@@ -30,14 +30,14 @@ const value = computed({
     <label :for="id" class="text-sm lg:text-base font-medium text-gray-700 mb-1 ml-2">{{
       label
     }}</label>
-    <input
+    <textarea
+      oninput="this.style.height = ''; this.style.height = this.scrollHeight +'px';"
       :id="id"
       v-model="value"
       :placeholder="placeholder"
-      class="input input-outline w-full"
       :name="id"
-      :type="type"
+      class="w-full input input-outline resize-none h-[2.4rem] min-h-[2.4rem] md:h-[2.6rem] md:min-h-[2.6rem] max-h-[14rem]"
       required
-    />
+    ></textarea>
   </div>
 </template>

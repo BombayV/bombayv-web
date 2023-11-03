@@ -13,14 +13,12 @@ defineProps<{
     ></span>
     <span class="font-light text-sm mb-2 ml-2">{{ timeline.date.toDateString() }}</span>
     <div
-      class="bg-accent-200 drop-shadow-lg rounded-lg py-3 px-4 w-full border-b-2 border-r-4 border-orange-900 border-opacity-10"
+      class="bg-[#f1d5c5] drop-shadow-lg rounded-lg py-3 px-4 w-full border-b-2 border-r-4 border-orange-900 border-opacity-10 relative"
     >
       <h3 class="text-xl font-semibold text-left">{{ timeline.title }}</h3>
       <p class="text-sm font-light text-left mt-1">{{ timeline.description }}</p>
-      <NuxtLink :to="timeline.path" class="w-full">
-        <Button v-if="true" class="btn-primary py-1.5 mt-4 text-sm lg:text-base">
-          Try it out
-        </Button>
+      <NuxtLink :to="timeline.path" class="btn btn-primary py-1.5 mt-4 text-sm lg:text-base w-fit">
+        Try it out
       </NuxtLink>
     </div>
   </div>
