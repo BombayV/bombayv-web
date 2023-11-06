@@ -65,6 +65,7 @@ const colorShades = computed(() => generateShades(<string>props.color));
       <button
         v-for="color in colorShades"
         :key="color"
+        @click.self="copyText(color)"
         :style="{
           backgroundColor: color,
         }"

@@ -12,6 +12,7 @@ const routes = <SidebarRoute[]>[
   },
   { name: 'Apps', path: '/apps', paths: [{ name: 'Colorpicker', path: '/apps/colorpicker' }] },
   { name: 'Gallery', path: '/gallery' },
+  { name: 'Portfolio', path: '/portfolio'},
   { name: 'Contact', path: '/contact' },
   { name: 'Login', path: '/login', auth: false },
 ];

@@ -4,6 +4,7 @@ import { Route } from '~/components/types/common';
 const routes = <Route[]>[
   { name: 'Apps', path: '/apps' },
   { name: 'Gallery', path: '/gallery' },
+  { name: 'Portfolio', path: '/portfolio' },
   { name: 'Contact', path: '/contact' },
   { name: 'Login', path: '/login', auth: false },
 ];

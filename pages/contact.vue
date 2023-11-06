@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { VNode } from 'vue';
-
 definePageMeta({
   layout: 'navbar',
 });
