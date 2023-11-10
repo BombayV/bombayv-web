@@ -37,3 +37,11 @@ export interface TimelineData {
   description: string;
   date: Date;
 }
+
+export interface TechItemData {
+  name: string;
+  icon: string;
+  link: string;
+  svg?: string
+  burn?: boolean;
+}
