@@ -205,6 +205,12 @@ const TECH_STACK = <Array<TechItemData>>[
     `
   }
 ]
+const PROJECTS = [
+  {
+    name: 'Entity Evolution',
+    description: 'An open source organization created to support the development of free resources for the FiveM community.',
+  }
+]
 </script>
 
 <template>
@@ -223,6 +229,19 @@ const TECH_STACK = <Array<TechItemData>>[
           :key="tech.name"
           :tech="tech"
         />
+      </div>
+    </section>
+    <section class="flex flex-col items-center mx-auto w-full text-center relative max-w-7xl px-6 pt-8 md:py-16 md:pb-8 h-full grow">
+      <div class="relative w-full mt-4">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-orange-950/20"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <h1 class="px-4 text-3xl lg:text-4xl 2xl:text-5xl bg-background-50 drop-shadow-none">Projects</h1>
+        </div>
+      </div>
+      <div>
+
       </div>
     </section>
   </NuxtLayout>

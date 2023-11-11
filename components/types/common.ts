@@ -45,3 +45,10 @@ export interface TechItemData {
   svg?: string
   burn?: boolean;
 }
+
+export interface ProjectData {
+  name: string;
+  description: string;
+  image: string;
+  link: string;
+}
