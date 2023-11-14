@@ -10,6 +10,8 @@ definePageMeta({
 useSeoMeta({
   title: 'Dashboard',
   description: 'Dashboard',
+  ogTitle: 'Dashboard',
+  ogDescription: 'Dashboard',
 });
 
 const user = useSupabaseUser();

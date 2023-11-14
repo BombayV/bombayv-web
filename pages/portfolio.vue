@@ -9,6 +9,9 @@ useSeoMeta({
   title: 'Portfolio',
   description:
     'Mauricio Rivera (Bombay) is a self-taught full-stack web developer with experience in JavaScript, TypeScript, Vue, Nuxt, React, Next, Node, and more. Currently working as a freelance web developer and studying Computer Science at NJIT.',
+  ogTitle: 'Portfolio',
+  ogDescription:
+    'Mauricio Rivera (Bombay) is a self-taught full-stack web developer with experience in JavaScript, TypeScript, Vue, Nuxt, React, Next, Node, and more. Currently working as a freelance web developer and studying Computer Science at NJIT.',
 });
 
 const TECH_STACK = <Array<TechItemData>>[

@@ -2,6 +2,13 @@
 const { useOAuth, user } = useUser();
 const router = useRouter();
 
+useSeoMeta({
+  title: 'Login',
+  ogTitle: 'Login',
+  description: 'Login to your account to access your dashboard. If you don\'t have an account, you can\'t create an account at the moment.',
+  ogDescription: 'Login to your account to access your dashboard. If you don\'t have an account, you can\'t create an account at the moment.',
+});
+
 watchEffect(() => {
   if (user.value) {
     router.push('/dashboard');

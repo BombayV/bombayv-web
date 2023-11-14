@@ -7,6 +7,9 @@ useSeoMeta({
   title: 'Contact',
   description:
     'Contact Mauricio Rivera (Bombay) via email or social media. Send a message with your inquiry such as a job offer, question, or just to say hi.',
+  ogTitle: 'Contact',
+  ogDescription:
+    'Contact Mauricio Rivera (Bombay) via email or social media. Send a message with your inquiry such as a job offer, question, or just to say hi.',
 });
 
 const contact = new useContact();
