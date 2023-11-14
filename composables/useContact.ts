@@ -1,4 +1,4 @@
-import { getGlobalThis } from "@vue/shared";
+import { getGlobalThis } from '@vue/shared';
 
 const REF_IDS = ['email', 'subject', 'message'];
 
@@ -14,7 +14,7 @@ export class useContact {
     email: null,
     subject: null,
     message: null,
-  }
+  };
   private timeouts: Record<string, ReturnType<typeof setTimeout> | null> = {
     email: null,
     subject: null,
@@ -24,12 +24,12 @@ export class useContact {
     email: false,
     subject: false,
     message: false,
-  }
+  };
   private activeSuccesses: Record<string, boolean> = {
     email: false,
     subject: false,
     message: false,
-  }
+  };
 
   constructor() {
     onMounted(() => {
@@ -94,13 +94,13 @@ export class useContact {
 
   private watchSubject() {
     watch(this.subject, () => {
-      this.setInputError('subject', !this.isLengthValid(this.subject, 8))
+      this.setInputError('subject', !this.isLengthValid(this.subject, 8));
     });
   }
 
   private watchMessage() {
     watch(this.message, () => {
-      this.setInputError('message', !this.isLengthValid(this.message, 20))
+      this.setInputError('message', !this.isLengthValid(this.message, 20));
     });
   }
 

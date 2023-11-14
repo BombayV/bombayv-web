@@ -1,6 +1,5 @@
 .vercel
 .nuxt
-public
 .env
 .env.local
 .package-lock.json

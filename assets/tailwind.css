@@ -148,7 +148,7 @@
   }
 
   p {
-    @apply text-sm md:text-base 2xl:text-lg font-light text-text-900 drop-shadow-md;
+    @apply text-base md:text-lg lg:text-lg font-light text-text-900 drop-shadow-md;
   }
 
   label {

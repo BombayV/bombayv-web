@@ -42,7 +42,7 @@ export interface TechItemData {
   name: string;
   icon: string;
   link: string;
-  svg?: string
+  svg?: string;
   burn?: boolean;
 }
 
@@ -51,4 +51,5 @@ export interface ProjectData {
   description: string;
   image: string;
   link: string;
+  date: Date;
 }

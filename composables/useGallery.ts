@@ -28,6 +28,28 @@ export const useGallery = <T extends object>() => {
     return data;
   };
 
+  const getLatestThree = async <T extends any>(): Promise<T | null> => {
+    fetchStatus.value.status = 'loading';
+    const { data, error } = (await supabase.from('images').select().order('id', { ascending: false }).limit(3)) as any;
+
+    if (data) {
+      const url = (fileName: string) =>
+        `https://mlbpkkmmhrbqxadyssrp.supabase.co/storage/v1/object/public/gallery/${fileName}`;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i]?.src) {
+          data[i].src = url(data[i].src);
+        }
+      }
+    }
+
+    if (error) {
+      fetchStatus.value.status = 'error';
+      fetchStatus.value.error = error;
+      throw error;
+    }
+    return data;
+  }
+
   const uploadGallery = async <T extends any>(dataImgs: FileList): Promise<T | any> => {
     const dataAsArray = [];
     for (let i = 0; i < dataImgs.length; i++) {
@@ -95,6 +117,7 @@ export const useGallery = <T extends object>() => {
 
   return {
     getGallery,
+    getLatestThree,
     uploadGallery,
     uploadSingleGallery,
     deleteGallery,
