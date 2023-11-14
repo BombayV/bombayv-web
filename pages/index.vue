@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GalleryImage, ProjectData } from "~/components/types/common";
+import { GalleryImage, ProjectData } from '~/components/types/common';
 
 definePageMeta({
   layout: 'navbar',
@@ -11,11 +11,12 @@ useSeoMeta({
 });
 
 const images = ref<GalleryImage[] | null>(null);
-const { getLatestThree, fetchStatus } = useGallery()
+const { getLatestThree, fetchStatus } = useGallery();
 const DISPLAY_PROJECTS = <Array<ProjectData>>[
   {
     name: 'MYoung Initiative',
-    description: 'Created for a non-profit organization to help them raise awareness for their cause. Creating using Next 13.0 and Tailwind CSS.',
+    description:
+      'Created for a non-profit organization to help them raise awareness for their cause. Creating using Next 13.0 and Tailwind CSS.',
     image: 'myoung.png',
     link: 'https://www.myounginitiative.org/',
     date: new Date('2021-08-01'),
@@ -29,12 +30,13 @@ const DISPLAY_PROJECTS = <Array<ProjectData>>[
   },
   {
     name: 'Brice Pierce',
-    description: 'Artist portfolio website created for a friend of mine. It was created using Nuxt 3.0.',
+    description:
+      'Artist portfolio website created for a friend of mine. It was created using Nuxt 3.0.',
     image: 'brice.png',
     link: 'https://bricepierce.com/',
     date: new Date('2021-08-01'),
   },
-]
+];
 
 onMounted(async () => {
   const fetchedImages = await getLatestThree();
@@ -74,9 +76,7 @@ onMounted(async () => {
         ></span>
       </div>
     </section>
-    <section
-      class="relative flex flex-col items-center px-6 py-16 text-center md:px-12"
-    >
+    <section class="relative flex flex-col items-center px-6 py-16 text-center md:px-12">
       <h1 class="text-4xl md:text-5xl">Who am I?</h1>
       <p class="mt-4 leading-7 max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
         Hello! My name is Mauricio Rivera. I am a 18 year old teenager currently studying computer
@@ -93,7 +93,11 @@ onMounted(async () => {
             photography to code.
           </p>
         </div>
-        <NuxtImg src="/default_photos/who_am_i.jpg" alt="Who am I?" class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl" />
+        <NuxtImg
+          src="/default_photos/who_am_i.jpg"
+          alt="Who am I?"
+          class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl"
+        />
       </div>
       <div class="flex flex-col-reverse items-center lg:flex-row-reverse gap-x-16 max-w-7xl mt-12">
         <div class="flex flex-col items-center lg:items-start lg:text-start gap-y-3 mt-6 lg:mt-0">
@@ -101,11 +105,15 @@ onMounted(async () => {
           <p class="font-semibold text-lg md:text-xl">Supporting the community</p>
           <p class="leading-7 max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
             I love open source software. I use it everyday, and I try to contribute to it as much as
-            I can. Even if it's just a small bug fix, I know that it will help someone out there, just like
-            how open source software has helped me.
+            I can. Even if it's just a small bug fix, I know that it will help someone out there,
+            just like how open source software has helped me.
           </p>
         </div>
-        <NuxtImg src="/default_photos/git_hub.jpg" alt="Who am I?" class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl" />
+        <NuxtImg
+          src="/default_photos/git_hub.jpg"
+          alt="Who am I?"
+          class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl"
+        />
       </div>
       <div class="flex flex-col-reverse items-center lg:flex-row gap-x-16 max-w-7xl mt-12">
         <div class="flex flex-col items-center lg:items-start lg:text-start gap-y-3 mt-6 lg:mt-0">
@@ -117,7 +125,11 @@ onMounted(async () => {
             that I can look back on, one that I hope to share with others.
           </p>
         </div>
-        <NuxtImg src="/default_photos/photos.webp" alt="Who am I?" class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl" />
+        <NuxtImg
+          src="/default_photos/photos.webp"
+          alt="Who am I?"
+          class="rounded-lg drop-shadow w-full object-contain max-w-lg md:max-w-xl xl:max-w-xl"
+        />
       </div>
     </section>
     <section
@@ -129,7 +141,10 @@ onMounted(async () => {
         You forget something everything, make sure this isn't one of them. Here the latest photos
         that I have uploaded.
       </p>
-      <div v-if="images?.length && images.length > 0" class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 overflow-hidden relative w-full max-w-7xl">
+      <div
+        v-if="images?.length && images.length > 0"
+        class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 overflow-hidden relative w-full max-w-7xl"
+      >
         <NuxtImg
           v-for="photo in images"
           :key="photo"
@@ -141,9 +156,7 @@ onMounted(async () => {
       <p v-else-if="fetchStatus.status === 'loading'" class="mt-12">Loading...</p>
       <p v-else class="mt-12 font-normal text-2xl md:text-3xl">No photos to display.</p>
     </section>
-    <section
-      class="relative flex flex-col items-center px-6 pt-16 pb-8 text-center md:px-12"
-    >
+    <section class="relative flex flex-col items-center px-6 pt-16 pb-8 text-center md:px-12">
       <h1 class="text-4xl md:text-5xl">Latest Projects</h1>
       <div class="grid grid-cols-1 md:grid-cols-3 mt-12 gap-x-8 gap-y-6 max-w-7xl">
         <ProjectCard

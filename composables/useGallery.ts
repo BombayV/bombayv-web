@@ -30,7 +30,11 @@ export const useGallery = <T extends object>() => {
 
   const getLatestThree = async <T extends any>(): Promise<T | null> => {
     fetchStatus.value.status = 'loading';
-    const { data, error } = (await supabase.from('images').select().order('id', { ascending: false }).limit(3)) as any;
+    const { data, error } = (await supabase
+      .from('images')
+      .select()
+      .order('id', { ascending: false })
+      .limit(3)) as any;
 
     if (data) {
       const url = (fileName: string) =>
@@ -48,7 +52,7 @@ export const useGallery = <T extends object>() => {
       throw error;
     }
     return data;
-  }
+  };
 
   const uploadGallery = async <T extends any>(dataImgs: FileList): Promise<T | any> => {
     const dataAsArray = [];

@@ -224,42 +224,48 @@ const PROJECTS = <Array<ProjectData>>[
   },
   {
     name: 'Bombay Tech v1',
-    description: 'The first iteration of my personal website meant as a personal blog. It was created using Nuxt 2.0 and Tailwind CSS.',
+    description:
+      'The first iteration of my personal website meant as a personal blog. It was created using Nuxt 2.0 and Tailwind CSS.',
     image: 'old_bombay.png',
     link: 'https://blog-qclru96sz-bombayv.vercel.app/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'Bombay Tech v2',
-    description: 'The second iteration of my personal website which expanded into a public gallery for people to share their photography.',
+    description:
+      'The second iteration of my personal website which expanded into a public gallery for people to share their photography.',
     image: 'new_bombay.png',
     link: 'https://blog-83r75fbwp-bombayv.vercel.app/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'Brice Pierce',
-    description: 'Artist portfolio website created for a friend of mine. It was created using Nuxt 3.0.',
+    description:
+      'Artist portfolio website created for a friend of mine. It was created using Nuxt 3.0.',
     image: 'brice.png',
     link: 'https://bricepierce.com/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'Lyons McGovern',
-    description: 'Professional website created for a law firm in New York. It was created in collaboration with a team.',
+    description:
+      'Professional website created for a law firm in New York. It was created in collaboration with a team.',
     image: 'lyons.png',
     link: 'https://www.lyons-mcgovern.com/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'MYoung Initiative',
-    description: 'Created for a non-profit organization to help them raise awareness for their cause. Creating using Next 13.0 and Tailwind CSS.',
+    description:
+      'Created for a non-profit organization to help them raise awareness for their cause. Creating using Next 13.0 and Tailwind CSS.',
     image: 'myoung.png',
     link: 'https://www.myounginitiative.org/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'NukaCraft',
-    description: 'Open source minecraft mod created in reference to the Fallout series. It was created using Kotlin and Minecraft Fabric.',
+    description:
+      'Open source minecraft mod created in reference to the Fallout series. It was created using Kotlin and Minecraft Fabric.',
     image: 'nukacraft.png',
     link: 'https://nukacraft.pages.dev/',
     date: new Date('2021-08-01'),
@@ -273,7 +279,8 @@ const PROJECTS = <Array<ProjectData>>[
   },
   {
     name: 'Atlas Framework',
-    description: 'Open source FiveM framework created to help developers create their own FiveM servers.',
+    description:
+      'Open source FiveM framework created to help developers create their own FiveM servers.',
     image: 'atlas.png',
     link: 'https://atlasfw-github-io.pages.dev/',
     date: new Date('2021-08-01'),
@@ -287,21 +294,24 @@ const PROJECTS = <Array<ProjectData>>[
   },
   {
     name: 'QBCore Documentation',
-    description: 'Ex-Official documentation for the QBCore framework created for FiveM. Created using docsify.',
+    description:
+      'Ex-Official documentation for the QBCore framework created for FiveM. Created using docsify.',
     image: 'qbcore.png',
     link: 'https://bombayv.github.io/qbcore.github.io/#/',
     date: new Date('2021-08-01'),
   },
   {
     name: 'Anims Panel',
-    description: 'Open source FiveM resource created to improve the animations while playing on a FiveM server.',
+    description:
+      'Open source FiveM resource created to improve the animations while playing on a FiveM server.',
     image: 'anims.png',
     link: 'https://github.com/BombayV/anims',
     date: new Date('2021-08-01'),
   },
   {
     name: 'ev-hud',
-    description: 'First open source adjustable hud created for FiveM. Created using jQuery and HTML/CSS.',
+    description:
+      'First open source adjustable hud created for FiveM. Created using jQuery and HTML/CSS.',
     image: 'hud.png',
     link: 'https://github.com/EntityEvolution/ev-hud',
     date: new Date('2021-08-01'),
@@ -337,9 +347,13 @@ const PROJECTS = <Array<ProjectData>>[
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 relative mt-16">
-        <ProjectCard v-for="project in PROJECTS.sort((a, b) => {
-          return b.date - a.date
-        })" :key="project.name" :project="project" />
+        <ProjectCard
+          v-for="project in PROJECTS.sort((a, b) => {
+            return b.date - a.date;
+          })"
+          :key="project.name"
+          :project="project"
+        />
       </div>
     </section>
   </NuxtLayout>
