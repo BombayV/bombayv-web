@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'DM Sans';
+	font-style: normal;
+	src: url('$lib/assets/fonts/RedHatDisplay-VariableFont_wght.ttf') format('truetype');
+	font-display: swap;
+}
+
+@layer base {
+	:root {
+		--val-text: 14.41% 0.029 88.06;
+		--val-text-foreground: 12.33% 0.029 88.06;
+		--val-background: 95.64% 0.016 289.93;
+		--val-background-foreground: 93.64% 0.016 289.93;
+		--val-primary: 69.54% 0.154 65.92;
+		--val-primary-foreground: 67.39% 0.154 65.92;
+		--val-secondary: 74.29% 0.026 233.12;
+		--val-secondary-foreground: 72.68% 0.026 233.12;
+		--val-accent: 70.68% 0.159 4.01;
+		--val-accent-foreground: 68.06% 0.159 4.01;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--val-text: 98.43% 0.014 78.26;
+			--val-text-foreground: 100.43% 0.014 78.26;
+			--val-background: 11.85% 0.03 286.18;
+			--val-background-foreground: 13.85% 0.03 286.18;
+			--val-primary: 80.7% 0.163 69.66;
+			--val-primary-foreground: 82.92% 0.163 69.66;
+			--val-secondary: 44.88% 0.03 233.69;
+			--val-secondary-foreground: 46.41% 0.03 233.69;
+			--val-accent: 41.95% 0.157 12.8;
+			--val-accent-foreground: 43.68% 0.157 12.8;
+		}
+	}
+}
+
+@theme {
+	--color-text: oklch(var(--val-text));
+	--color-text-foreground: oklch(var(--val-text-foreground));
+	--color-background: oklch(var(--val-background));
+	--color-background-foreground: oklch(var(--val-background-foreground));
+	--color-primary: oklch(var(--val-primary));
+	--color-primary-foreground: oklch(var(--val-primary-foreground));
+	--color-secondary: oklch(var(--val-secondary));
+	--color-secondary-foreground: oklch(var(--val-secondary-foreground));
+	--color-accent: oklch(var(--val-accent));
+	--color-accent-foreground: oklch(var(--val-accent-foreground));
+
+	--font-sans: 'DM Sans', sans-serif;
+
+	--breakpoint-xs: 375px;
+}
+
+@layer base {
+	html {
+		@apply scroll-smooth;
+	}
+
+	body {
+		@apply bg-linear-to-br from-background to-neutral-300 text-text dark:to-neutral-900;
+	}
+
+	button:not(:disabled),
+	[role='button']:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
+@layer components {
+	.animate-eyeclose {
+		animation: eyeclose 1.4s linear infinite;
+	}
+
+	.glass {
+		backdrop-filter: blur(12px) saturate(180%);
+		-webkit-backdrop-filter: blur(12px) saturate(180%);
+	}
+
+	.btn {
+		backdrop-filter: blur(12px) saturate(180%);
+		-webkit-backdrop-filter: blur(12px) saturate(180%);
+		@apply rounded-lg border border-neutral-800/20 bg-neutral-300 p-2.5 text-text transition duration-300 hover:border-emerald-800/30 hover:bg-emerald-300/40 dark:border-neutral-400/30 dark:bg-neutral-800/60 dark:hover:border-emerald-200/30 dark:hover:bg-emerald-300/20;
+	}
+
+	.btn-icon {
+		backdrop-filter: blur(12px) saturate(180%);
+		-webkit-backdrop-filter: blur(12px) saturate(180%);
+		@apply rounded-full border border-neutral-800/20 bg-neutral-300 p-2.5 text-text transition duration-300 hover:border-emerald-800/30 hover:bg-emerald-100/40 dark:border-neutral-400/30 dark:bg-neutral-800/60 dark:hover:border-emerald-200/30 dark:hover:bg-emerald-300/20;
+	}
+
+	.btn-icon-active {
+		@apply border-emerald-800/30 bg-emerald-100/40 dark:border-emerald-200/30 dark:bg-emerald-300/20;
+	}
+
+	.emerald-text-gradient {
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		@apply bg-linear-to-r from-emerald-200 to-emerald-400;
+	}
+
+	.inp {
+		backdrop-filter: blur(12px) saturate(180%);
+		-webkit-backdrop-filter: blur(12px) saturate(180%);
+		@apply w-full rounded-lg border border-neutral-800/20 bg-neutral-300 p-2.5 text-text transition duration-300 focus:ring-2 focus:ring-emerald-400/30 focus:ring-offset-2 focus:ring-offset-neutral-800/20 focus:outline-none dark:border-neutral-400/30 dark:bg-neutral-800/60;
+	}
+
+	.inp-label {
+		@apply ml-1.5 text-base font-medium text-neutral-600 dark:text-neutral-300;
+	}
+
+	@keyframes eyeclose {
+		0% {
+			transform: scaleY(1);
+		}
+		35% {
+			transform: scaleY(0.1);
+		}
+		75% {
+			transform: scaleY(1);
+		}
+	}
+}
