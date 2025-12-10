@@ -1,7 +1,7 @@
 import { getImages } from '$lib/server/images';
 import { getSession, logoutUser } from '$lib/server/user';
 import { error, redirect } from '@sveltejs/kit';
-import type { Env } from '../../../worker-configuration';
+import type { RequestEvent } from './$types.js';
 
 const slugify = (str: string) => {
 	return str
@@ -10,20 +10,34 @@ const slugify = (str: string) => {
 		.replace(/[^\w-]+/g, '');
 };
 
-const updateRead = async (id: number, read: boolean, env: Env) => {
-	const { CF_DB } = env;
+const updateRead = async (id: number, read: boolean, platform: RequestEvent['platform']) => {
+	if (!platform || !platform.env || !platform.env.CF_DB || !platform.env.CF_KV) {
+		throw new Error('Cloudflare environment is not configured properly.');
+	}
+
+	const { CF_DB } = platform.env;
 	const result = await CF_DB.prepare('UPDATE user_forms SET read = ? WHERE id = ?')
 		.bind(read, id)
 		.run();
 
 	if (!result.meta.changed_db) return false;
 
-	await env.CF_KV.delete('forms');
+	await platform.env.CF_KV.delete('forms');
 	return true;
 };
 
-const insertImage = async (file: File, env: Env) => {
-	const { CF_DB, CF_R2 } = env;
+const insertImage = async (file: File, platform: RequestEvent['platform']) => {
+	if (
+		!platform ||
+		!platform.env ||
+		!platform.env.CF_DB ||
+		!platform.env.CF_R2 ||
+		!platform.env.CF_KV
+	) {
+		throw new Error('Cloudflare environment is not configured properly.');
+	}
+
+	const { CF_DB, CF_R2 } = platform.env;
 	const { name, type } = file;
 	// Remove file extension
 	const src = `${slugify(name.split('.')[0])}-${Date.now()}`;
@@ -39,12 +53,12 @@ const insertImage = async (file: File, env: Env) => {
 
 	if (!image) return false;
 
-	await env.CF_KV.delete('images');
+	await platform.env.CF_KV.delete('images');
 	return true;
 };
 
 const mark_read = async ({ platform, request, cookies }) => {
-	const session = await getSession(platform.env, cookies);
+	const session = await getSession(platform, cookies);
 	if (!session) {
 		return redirect(301, '/login');
 	}
@@ -57,7 +71,7 @@ const mark_read = async ({ platform, request, cookies }) => {
 		});
 
 	try {
-		const result = await updateRead(parseInt(id), true, platform.env);
+		const result = await updateRead(parseInt(id), true, platform);
 		if (!result)
 			return error(404, {
 				message: 'Form not found'
@@ -70,17 +84,17 @@ const mark_read = async ({ platform, request, cookies }) => {
 };
 
 const logout = async ({ platform, cookies }) => {
-	const session = await getSession(platform.env, cookies);
+	const session = await getSession(platform, cookies);
 	if (!session) {
 		return redirect(301, '/login');
 	}
 
-	await logoutUser(platform.env, cookies);
+	await logoutUser(platform, cookies);
 	redirect(301, '/login');
 };
 
 const upload_images = async ({ platform, request, cookies }) => {
-	const session = await getSession(platform.env, cookies);
+	const session = await getSession(platform, cookies);
 	if (!session) {
 		return redirect(301, '/login');
 	}
@@ -95,7 +109,7 @@ const upload_images = async ({ platform, request, cookies }) => {
 
 	try {
 		for (const file of files) {
-			const result = await insertImage(file, platform.env);
+			const result = await insertImage(file, platform);
 			if (!result)
 				return error(500, {
 					message: 'An error occurred while uploading the image ' + file.name
@@ -108,8 +122,12 @@ const upload_images = async ({ platform, request, cookies }) => {
 	}
 };
 
-const getForms = async (env: Env) => {
-	const { CF_DB, CF_KV } = env;
+const getForms = async (platform: RequestEvent['platform']) => {
+	if (!platform || !platform.env || !platform.env.CF_DB || !platform.env.CF_KV) {
+		throw new Error('Cloudflare environment is not configured properly.');
+	}
+
+	const { CF_DB, CF_KV } = platform.env;
 	const cached = await CF_KV.get('forms');
 	if (cached) return JSON.parse(cached);
 	const result = await CF_DB.prepare(
@@ -130,13 +148,13 @@ export const actions = {
 };
 
 export const load = async ({ platform, cookies }) => {
-	const session = await getSession(platform.env, cookies);
+	const session = await getSession(platform, cookies);
 	if (!session) {
 		return redirect(301, '/login');
 	}
 
-	const forms = await getForms(platform.env);
-	const images = await getImages(platform.env);
+	const forms = await getForms(platform);
+	const images = await getImages(platform);
 
 	return {
 		images,

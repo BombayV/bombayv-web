@@ -12,7 +12,7 @@ const login_user = async ({ platform, request, cookies }) => {
 		});
 	}
 
-	const loggedIn = await loginUser(email, password, platform.env, cookies);
+	const loggedIn = await loginUser(email, password, platform, cookies);
 	if (!loggedIn) {
 		return error(401, 'Invalid email or password');
 	}
@@ -21,7 +21,7 @@ const login_user = async ({ platform, request, cookies }) => {
 };
 
 export const load = async ({ platform, cookies }) => {
-	const session = await getSession(platform.env, cookies);
+	const session = await getSession(platform, cookies);
 	if (session) {
 		return redirect(301, '/dashboard');
 	}
