@@ -12,6 +12,8 @@
 	import atlas from '$lib/assets/images/projects/atlas.png?enhanced';
 	import mPhotography from '$lib/assets/images/projects/mphotography.png?enhanced';
 	import ihsAnxiety from '$lib/assets/images/projects/ihsanxiety.png?enhanced';
+	import neobrutalism from '$lib/assets/images/projects/neobrutalism.png?enhanced';
+	import clientSite from '$lib/assets/images/projects/final.png?enhanced';
 
 	interface Project {
 		title: string;
@@ -34,6 +36,26 @@
 			tags: ['Azure DevOps', 'Supabase', 'Leadership', 'Software Engineering'],
 			image: khanDesign,
 			link: 'https://khandesign.net/links'
+		},
+		{
+			title: 'Neobrutalism History',
+			company: 'NJIT',
+			period: 'Nov 2025 - Dec 2025',
+			description:
+				'A comprehensive website exploring the history and principles of Neobrutalism in web design, built with React and Tailwind CSS.',
+			tags: ['React', 'Tailwind CSS', 'Web Design', 'History'],
+			image: neobrutalism,
+			link: 'https://is117-neobrutalism.vercel.app/'
+		},
+		{
+			title: 'Client Site',
+			company: 'NJIT',
+			period: 'Nov 2025 - Dec 2025',
+			description:
+				'A site designed for a client project, selling the product of such client. Built with React and Tailwind CSS to ensure a modern and responsive design.',
+			tags: ['React', 'Tailwind CSS', 'Web Design'],
+			image: clientSite,
+			link: 'https://is117-final-project.vercel.app'
 		},
 		{
 			title: 'Personal Blog Platform',
